@@ -1,7 +1,7 @@
 # Kinetic development log
 
 ## Goal and working rules
-Build the comprehensive offline-first, evidence-based fitness application in the supplied brief. Keep this file current. Research agents use GPT-6.1 Sol with High reasoning.
+Build the comprehensive offline-first, evidence-based fitness application in the supplied brief. Keep this file current. Standing rule: keep the welcome tour (dist/tour.js) in sync with the app. Whenever a page is added, renamed or removed, the navigation changes, or a headline feature changes, update the tour steps in the same change and mention it in this log. Research agents use GPT-6.1 Sol with High reasoning.
 
 ## 2026-10-08 — Foundation
 - Read the entire supplied specification before implementation.
@@ -113,3 +113,9 @@ User called the 1.1/1.2 look ugly and the wording obnoxious; full creative freed
 - 1.3 DONE (uncommitted on branch release-1.2-gym-floor; hosted copy still 1.1). Browser-checked on a throwaway localhost journal, then reset: all 11 pages render with the new headings and no horizontal overflow or console errors; light and dark themes; mobile tab bar at ~400 px; desktop sidebar at ~1000 px; workout screen with completed set, rest timer and prefilled loads. Fixes found during review: drawer close button leaked onto desktop, form inputs stretched beside help text, Today now leads with the scheduled workout and calories on narrow screens. 29 tests + asset check pass; package 1.3.0.
 - Not checked: muscle-atlas highlight colours in use (recoloured to match the accent), the lock screen, every dialog, real phones.
 - Copy rules going forward: page title only (no slogan line above or below), empty states say what is missing and what to do, caveats live behind "About this".
+
+## 2026-10-09 — Release 1.4 welcome tour — DONE (uncommitted)
+- New dist/tour.js: seven-step tour (Welcome, Today, Training, Plan, Track, Library, Settings and backups) shown in the shared dialog. Opens once per device on first launch (device pref `tourSeen`, recorded when the tour opens) and any time from Settings → About → "Take the welcome tour". The last step offers "Open Settings".
+- Wired in app.js (startup + `start-tour` action), settings.js (button), sw.js (tour.js cached, cache v5), style.css (tour styles), package 1.4.0.
+- 30 tests pass (new: tour steps complete and cover the main areas). Browser-checked: auto-opens on a fresh device, Next/Back through all steps, Open Settings, relaunch from Settings, no console errors. A locked journal does not show the tour.
+- MAINTENANCE RULE (also in "Goal and working rules" above): update the steps in dist/tour.js whenever pages, navigation names or headline features change, and adjust the tour test in tests/polish.test.js if step titles change.

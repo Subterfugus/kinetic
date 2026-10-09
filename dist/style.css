@@ -305,3 +305,4 @@ dialog::backdrop{background:#12111099}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 @media(max-width:1150px){.grid.two.lead-side>.stack:last-child{order:-1}}
+.tour{text-align:left}.tour h3{font-size:1.25rem;letter-spacing:-.02em;margin-bottom:8px}.tour p{color:var(--muted);margin-bottom:12px}.tour .detail-list{margin:0 0 4px}.tour-icon{width:48px;height:48px;border-radius:12px;background:var(--soft);color:var(--blue);display:grid;place-items:center;margin-bottom:16px}.tour-icon .icon{width:24px;height:24px}.tour-dots{display:flex;gap:6px;margin:18px 0 4px}.tour-dots i{width:6px;height:6px;border-radius:50%;background:var(--line)}.tour-dots i.on{background:var(--ink);width:18px;border-radius:3px}

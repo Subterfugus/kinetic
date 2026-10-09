@@ -52,3 +52,5 @@ test('New workout items prefill loads from the most recent working sets only',()
  assert.equal(lastSets(sessions,'plank'),null);assert.equal(itemFor('bench-press',1,8,30,null).sets[0].load,null);
  validateDraft({id:'draft',name:'Prefilled',date:'2026-10-08',restSeconds:120,notes:'',exercises:[item]},{editing:true});
 });
+
+test('Welcome tour steps are complete and cover the main areas',async()=>{const {tourSteps}=await import('../dist/tour.js');assert.ok(tourSteps.length>=5);for(const s of tourSteps){assert.ok(s.title&&s.body&&s.icon&&Array.isArray(s.points))}for(const name of ['Today','Training','Plan','Track','Library'])assert.ok(tourSteps.some(s=>s.title===name),name+' step missing')});
