@@ -16,10 +16,10 @@ export const isCompound=e=>!ACCESSORY.includes(e.pattern);
 const movement=e=>e.pattern==='isolation'?'isolation:'+e.primary[0]:e.pattern;
 // Where exercise choice changes which part of a muscle grows (regional hypertrophy). Used to rank and to flag gaps.
 export const emphasis={
- 'overhead-triceps':'triceps-long-head','cable-overhead-triceps':'triceps-long-head','band-overhead-triceps':'triceps-long-head','skull-crusher':'triceps-long-head',
+ 'overhead-triceps':'triceps-long-head','cable-overhead-triceps':'triceps-long-head','band-overhead-triceps':'triceps-long-head',
  'incline-dumbbell-press':'upper-chest','incline-bench-press':'upper-chest','decline-push-up':'upper-chest',
- 'leg-curl':'hamstrings-lengthened','romanian-deadlift':'hamstrings-lengthened','dumbbell-rdl':'hamstrings-lengthened','single-leg-rdl':'hamstrings-lengthened','band-good-morning':'hamstrings-lengthened',
- 'standing-calf-raise':'gastrocnemius','single-leg-calf-raise':'gastrocnemius','calf-press':'gastrocnemius','seated-calf-raise':'soleus',
+ 'leg-curl':'hamstrings-lengthened','romanian-deadlift':'hamstrings-lengthened','dumbbell-rdl':'hamstrings-lengthened','single-leg-rdl':'hamstrings-lengthened',
+ 'standing-calf-raise':'gastrocnemius','single-leg-calf-raise':'gastrocnemius','calf-press':'gastrocnemius',
  'incline-dumbbell-curl':'biceps-lengthened','leg-extension':'rectus-femoris'
 };
 const jaccard=(a,b)=>{const u=new Set([...a,...b]);return u.size?a.filter(x=>b.includes(x)).length/u.size:0};
@@ -93,34 +93,34 @@ export function adaptItems(source,equipment){
 
 // ---------- Recommended programs ----------
 // Slot text: 'exercise-id SETSxLOW-HIGH'. A trailing ! marks a heavy main lift (lower reps, more rest, further from failure).
-const slot=text=>{const [id,dose]=text.split(' '),main=id.endsWith('!'),exerciseId=main?id.slice(0,-1):id,[sets,range]=dose.split('x'),[lo,hi]=range.split('-').map(Number),e=exerciseById(exerciseId),compound=isCompound(e);return {exerciseId,sets:Number(sets),reps:[lo,hi??lo],rir:main?3:compound?2:1,rest:main?210:compound?150:90,main}};
+const slot=text=>{const [id,dose]=text.split(' '),main=id.endsWith('!'),exerciseId=main?id.slice(0,-1):id,[sets,range]=dose.split('x'),[lo,hi]=range.split('-').map(Number),e=exerciseById(exerciseId),compound=isCompound(e)&&exerciseId!=='face-pull';return {exerciseId,sets:Number(sets),reps:[lo,hi??lo],rir:main?3:compound?2:1,rest:main?210:compound?150:90,main}};
 const day=(name,...slots)=>({name,slots:slots.map(slot)});
 const UPPER_A=day('Upper A','bench-press 3x6-10','barbell-row 3x6-10','overhead-press 2x8-12','lat-pulldown 3x8-12','lateral-raise 3x12-20','overhead-triceps 2x10-15','dumbbell-curl 2x10-15');
 const LOWER_A=day('Lower A','barbell-squat 3x6-10','romanian-deadlift 3x8-12','leg-extension 2x10-15','leg-curl 2x10-15','standing-calf-raise 3x10-15','cable-crunch 3x10-15');
 const UPPER_B=day('Upper B','incline-dumbbell-press 3x8-12','pull-up 3x5-10','cable-row 3x8-12','dumbbell-shoulder-press 2x8-12','cable-fly 2x12-15','face-pull 2x12-20','triceps-pushdown 2x10-15','incline-dumbbell-curl 2x10-15');
-const LOWER_B=day('Lower B','leg-press 3x8-12','hip-thrust 3x8-12','leg-curl 3x10-15','bulgarian-split-squat 2x8-12','seated-calf-raise 3x10-20','hanging-knee-raise 2x8-15');
-const PUSH_A=day('Push A','bench-press 3x6-10','dumbbell-shoulder-press 3x8-12','incline-dumbbell-press 2x8-12','lateral-raise 3x12-20','overhead-triceps 3x10-15','triceps-pushdown 2x10-15');
+const LOWER_B=day('Lower B','leg-press 3x8-12','hip-thrust 3x8-12','bulgarian-split-squat 2x8-12','leg-curl 3x10-15','seated-calf-raise 3x10-20','hanging-knee-raise 2x8-15');
+const PUSH_A=day('Push A','bench-press 3x6-10','dumbbell-shoulder-press 3x8-12','incline-dumbbell-press 3x8-12','lateral-raise 3x12-20','overhead-triceps 3x10-15','triceps-pushdown 2x10-15');
 const PULL_A=day('Pull A','pull-up 3x5-10','cable-row 3x8-12','lat-pulldown 2x10-15','face-pull 3x12-20','dumbbell-curl 3x10-15','hammer-curl 2x10-15');
 const LEGS_A=day('Legs A','barbell-squat 3x6-10','romanian-deadlift 3x8-12','leg-press 2x10-15','leg-curl 3x10-15','standing-calf-raise 3x10-15','cable-crunch 3x10-15');
 export const programs=[
  {id:'fb2',name:'Full body · 2 days',perWeek:2,goal:'general',level:'Any level',summary:'The least training that still builds muscle and strength. Each muscle is trained twice a week with about 4–6 sets.',days:[
-  day('Full body A','barbell-squat 3x6-10','bench-press 3x6-10','cable-row 3x8-12','romanian-deadlift 2x8-12','lateral-raise 2x12-20','overhead-triceps 2x10-15','dumbbell-curl 2x10-15'),
-  day('Full body B','leg-press 3x8-12','overhead-press 3x6-10','lat-pulldown 3x8-12','leg-curl 3x10-15','incline-dumbbell-press 2x8-12','standing-calf-raise 3x10-15','cable-crunch 2x10-15')]},
- {id:'fb3',name:'Full body · 3 days',perWeek:3,goal:'general',level:'Beginner to intermediate',summary:'Three different full-body sessions. Every muscle is trained two or three times a week.',days:[
-  day('Full body A','barbell-squat 3x6-10','bench-press 3x6-10','lat-pulldown 3x8-12','leg-curl 2x10-15','lateral-raise 2x12-20','overhead-triceps 2x10-15','cable-crunch 2x10-15'),
-  day('Full body B','romanian-deadlift 3x8-12','overhead-press 3x6-10','cable-row 3x8-12','leg-extension 2x10-15','incline-dumbbell-press 2x8-12','dumbbell-curl 2x10-15','standing-calf-raise 3x10-15'),
+  day('Full body A','barbell-squat 3x6-10','bench-press 3x6-10','cable-row 3x8-12','romanian-deadlift 2x8-12','lateral-raise 2x12-20','overhead-triceps 2x10-15','dumbbell-curl 2x10-15','standing-calf-raise 2x10-15'),
+  day('Full body B','leg-press 3x8-12','overhead-press 3x6-10','lat-pulldown 3x8-12','incline-dumbbell-press 2x8-12','leg-curl 3x10-15','face-pull 2x12-20','standing-calf-raise 3x10-15','cable-crunch 2x10-15')]},
+ {id:'fb3',name:'Full body · 3 days',perWeek:3,goal:'general',level:'Beginner to intermediate',summary:'Three different full-body sessions. The big muscle groups are trained two or three times a week.',days:[
+  day('Full body A','barbell-squat 3x6-10','bench-press 3x6-10','lat-pulldown 3x8-12','leg-curl 2x10-15','lateral-raise 2x12-20','overhead-triceps 2x10-15','standing-calf-raise 2x10-15','cable-crunch 2x10-15'),
+  day('Full body B','romanian-deadlift 3x8-12','overhead-press 3x6-10','cable-row 3x8-12','incline-dumbbell-press 2x8-12','leg-extension 2x10-15','dumbbell-curl 2x10-15','standing-calf-raise 3x10-15'),
   day('Full body C','leg-press 3x8-12','dumbbell-bench 3x8-12','pull-up 3x5-10','hip-thrust 2x8-12','face-pull 2x12-20','triceps-pushdown 2x10-15','incline-dumbbell-curl 2x10-15')]},
- {id:'ul4',name:'Upper / lower · 4 days',perWeek:4,goal:'muscle',level:'Intermediate',summary:'Two upper and two lower sessions. Each muscle is trained twice a week with about 10–14 sets.',days:[UPPER_A,LOWER_A,UPPER_B,LOWER_B]},
- {id:'ulppl5',name:'Upper / lower + push / pull / legs · 5 days',perWeek:5,goal:'muscle',level:'Intermediate to advanced',summary:'Five sessions with higher weekly volume. Each muscle is still trained twice a week.',days:[UPPER_A,LOWER_A,PUSH_A,PULL_A,day('Legs','leg-press 3x8-12','hip-thrust 3x8-12','leg-extension 3x10-15','lying-leg-curl 3x10-15','seated-calf-raise 3x10-20','hanging-knee-raise 3x8-15')]},
+ {id:'ul4',name:'Upper / lower · 4 days',perWeek:4,goal:'muscle',level:'Intermediate',summary:'Two upper and two lower sessions. Each muscle is trained twice a week, most with 8–14 sets.',days:[UPPER_A,LOWER_A,UPPER_B,LOWER_B]},
+ {id:'ulppl5',name:'Upper / lower + push / pull / legs · 5 days',perWeek:5,goal:'muscle',level:'Intermediate to advanced',summary:'Five sessions with higher weekly volume. Each muscle is still trained twice a week.',days:[UPPER_B,LOWER_A,PUSH_A,PULL_A,day('Legs','leg-press 3x8-12','hip-thrust 3x8-12','leg-extension 3x10-15','lying-leg-curl 3x10-15','seated-calf-raise 3x10-20','hanging-knee-raise 3x8-15')]},
  {id:'ppl6',name:'Push / pull / legs · 6 days',perWeek:6,goal:'muscle',level:'Advanced',summary:'The push, pull and legs rotation run twice a week. The highest volume here; only worth it if you recover well.',days:[PUSH_A,PULL_A,LEGS_A,
-  day('Push B','overhead-press 3x6-10','incline-dumbbell-press 3x8-12','cable-fly 2x12-15','cable-lateral-raise 3x12-20','skull-crusher 3x8-12','triceps-pushdown 2x10-15'),
+  day('Push B','overhead-press 3x6-10','incline-dumbbell-press 3x8-12','cable-fly 3x12-15','cable-lateral-raise 3x12-20','skull-crusher 3x8-12','triceps-pushdown 2x10-15'),
   day('Pull B','barbell-row 3x6-10','lat-pulldown 3x8-12','chest-supported-row 2x10-15','rear-delt-fly 3x12-20','incline-dumbbell-curl 3x10-15','shrug 2x10-15'),
   day('Legs B','leg-press 3x8-12','hip-thrust 3x8-12','leg-extension 3x10-15','lying-leg-curl 3x10-15','seated-calf-raise 3x10-20','hanging-knee-raise 3x8-15')]},
- {id:'str3',name:'Strength foundations · 3 days',perWeek:3,goal:'strength',level:'Beginner to intermediate',summary:'Heavy sets of 3–6 on the squat, bench press, deadlift and overhead press, alternating two sessions across three days.',days:[
-  day('Strength A','barbell-squat! 3x3-6','bench-press! 3x3-6','barbell-row 3x6-10','leg-curl 2x10-15','face-pull 2x12-20'),
-  day('Strength B','deadlift! 2x3-6','overhead-press! 3x3-6','lat-pulldown 3x8-12','leg-press 2x8-12','dumbbell-curl 2x10-15','cable-crunch 2x10-15')]},
+ {id:'str3',name:'Strength foundations · 3 days',perWeek:3,goal:'strength',level:'Beginner to intermediate',summary:'Heavy sets of 3–6 on the squat, bench press, deadlift and overhead press, alternating two sessions across three days. Accessory work is kept short on purpose.',days:[
+  day('Strength A','barbell-squat! 3x3-6','bench-press! 3x3-6','barbell-row 3x6-10','leg-curl 2x10-15','face-pull 2x12-20','standing-calf-raise 2x10-15'),
+  day('Strength B','deadlift! 2x3-6','overhead-press! 3x3-6','lat-pulldown 3x8-12','leg-press 2x8-12','lateral-raise 2x12-20','dumbbell-curl 2x10-15','cable-crunch 2x10-15')]},
  {id:'str4',name:'Strength · upper / lower · 4 days',perWeek:4,goal:'strength',level:'Intermediate to advanced',summary:'One heavy main lift per session, followed by moderate-rep work for the muscles that drive it.',days:[
-  day('Upper · bench','bench-press! 4x3-6','barbell-row 3x6-10','overhead-press 3x6-10','pull-up 3x5-10','overhead-triceps 2x10-15','dumbbell-curl 2x10-15'),
+  day('Upper · bench','bench-press! 4x3-6','barbell-row 3x6-10','overhead-press 3x6-10','pull-up 3x5-10','face-pull 2x12-20','overhead-triceps 2x10-15','dumbbell-curl 2x10-15'),
   day('Lower · squat','barbell-squat! 4x3-6','romanian-deadlift 3x6-10','leg-press 2x8-12','standing-calf-raise 3x10-15','cable-crunch 3x10-15'),
   day('Upper · press','overhead-press! 3x3-6','incline-dumbbell-press 3x8-12','cable-row 3x8-12','lat-pulldown 3x8-12','lateral-raise 3x12-20','triceps-pushdown 2x10-15','hammer-curl 2x10-15'),
   day('Lower · deadlift','deadlift! 3x3-6','bulgarian-split-squat 3x8-12','leg-curl 3x10-15','leg-extension 2x10-15','seated-calf-raise 3x10-20','hanging-knee-raise 2x8-15')]}
@@ -196,8 +196,8 @@ export function plates(kg,units='metric',bar=units==='imperial'?45:20){
 // Regional gaps a week of training leaves, in plain words.
 export function regionalGaps(items){
  const ids=items.map(i=>i.exerciseId),has=tag=>ids.some(id=>emphasis[id]===tag),trains=g=>ids.some(id=>exerciseById(id).primary.includes(g)),out=[];
- if(trains('triceps')&&!has('triceps-long-head'))out.push('No overhead triceps work: the long head grows more when trained overhead.');
- if(trains('calves')&&!has('gastrocnemius'))out.push('Calf work is seated only: straight-knee raises grow the gastrocnemius far more.');
- if(trains('hamstrings')&&!has('hamstrings-lengthened'))out.push('No hamstring work at long muscle length: add a seated curl or a Romanian deadlift.');
+ if(trains('triceps')&&!has('triceps-long-head'))out.push('No overhead triceps work: in one small trial the triceps grew more when trained overhead.');
+ if(trains('calves')&&!has('gastrocnemius'))out.push('Calf work is seated only: in one small trial standing raises grew the gastrocnemius much more.');
+ if(trains('hamstrings')&&!has('hamstrings-lengthened'))out.push('No hamstring work at long muscle length: in one small trial seated curls grew the hamstrings more than lying curls.');
  return out;
 }
