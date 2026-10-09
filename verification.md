@@ -52,3 +52,21 @@ This is release verification, not an independent security penetration test, clin
 - New stylesheet, grouped sidebar, mobile tab bar, plain-language headings and empty states, fine print folded behind toggles. 29 tests and the asset check pass.
 - Browser verified: all eleven pages in light and dark themes without overflow or console errors, at phone and desktop widths, including an in-progress workout.
 - Not verified: atlas highlight colours in use, the lock screen, every dialog, physical phones.
+
+## Release 1.5.0 (2026-10-09)
+
+- Automated: `npm test` passed 71 tests, including the program and goal suites (`tests/programs.test.js`, `tests/goals.test.js`). `npm run check` passed: 108 movements, 20 groups, 139 mapped anatomical paths, 44 references (41 sources in `assets/evidence.json` plus 3 anatomy references) and all offline assets present.
+- Source DOIs were recorded as checked against Crossref on 2026-10-09. This documentation pass did not repeat that check.
+- The service worker cache is `kinetic-shell-v6`, and its file list includes the 1.5 modules (`programs.js`, `program-view.js`, `focus.js`, `goals.js`, `photos.js`).
+- Browser, 2026-10-09:
+  - Plan page: recommended program with equipment adaptation.
+  - Starting a program, and a complete workout in focus mode (set entry, rest ring, reps in reserve, finish).
+  - Swapping an exercise mid-workout.
+  - The program advancing to the next session with new targets, and the Today card.
+  - Creating a lift goal, and the Goals page.
+  - Photo studio page, and the camera fallback message.
+  - Ranked substitutes in the exercise dialog.
+  - New sources listed on the Sources page.
+  - No console errors.
+- Also checked after the first pass: the "Equipment today" dialog (swaps, removals and the summary), creating weight, run and habit goals, and editing a lift goal.
+- Not verified: the camera itself (blocked in the test browser); the ghost overlay, compare slider and time-lapse with real photos; the recovery-week flow; weight, run and habit goals with real history; imperial units in focus mode; phones; the lock screen with the new features.
