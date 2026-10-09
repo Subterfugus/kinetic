@@ -1,0 +1,83 @@
+{
+  "file": "side-reference.png",
+  "width": 1460,
+  "height": 2652,
+  "source": "https://commons.wikimedia.org/wiki/File:Braus_1921_248.png",
+  "author": "Hermann Braus",
+  "year": 1921,
+  "license": "Public domain (PD-old-100-expired and PD-Art)",
+  "interaction": "Landmark points only. These are label-oriented locations, not segmented muscle boundaries.",
+  "limitations": "Historical atlas plate shows head to upper calf, lacks lower calf and feet, and depicts some anatomy with parts dissected or removed. It is not a matching full-body side view of the front/back assets.",
+  "landmarks": [
+    {
+      "muscleId": "deltoid",
+      "name": "Deltoid",
+      "x": 594,
+      "y": 555,
+      "datasetGroup": "shoulders"
+    },
+    {
+      "muscleId": "pectoralis-major",
+      "name": "Pectoralis major",
+      "x": 875,
+      "y": 603,
+      "datasetGroup": "chest"
+    },
+    {
+      "muscleId": "biceps-brachii",
+      "name": "Biceps brachii",
+      "x": 882,
+      "y": 734,
+      "datasetGroup": "biceps"
+    },
+    {
+      "muscleId": "latissimus-dorsi",
+      "name": "Latissimus dorsi",
+      "x": 487,
+      "y": 930,
+      "datasetGroup": "lats"
+    },
+    {
+      "muscleId": "external-oblique",
+      "name": "External oblique",
+      "x": 787,
+      "y": 1117,
+      "datasetGroup": "abdominals"
+    },
+    {
+      "muscleId": "gluteus-maximus",
+      "name": "Gluteus maximus",
+      "x": 538,
+      "y": 1550,
+      "datasetGroup": "glutes"
+    },
+    {
+      "muscleId": "tensor-fasciae-latae",
+      "name": "Tensor fasciae latae",
+      "x": 805,
+      "y": 1510,
+      "datasetGroup": null
+    },
+    {
+      "muscleId": "vastus-lateralis",
+      "name": "Vastus lateralis",
+      "x": 793,
+      "y": 2110,
+      "datasetGroup": "quadriceps"
+    },
+    {
+      "muscleId": "biceps-femoris",
+      "name": "Biceps femoris",
+      "x": 592,
+      "y": 1930,
+      "datasetGroup": "hamstrings"
+    },
+    {
+      "muscleId": "gastrocnemius",
+      "name": "Gastrocnemius",
+      "x": 582,
+      "y": 2540,
+      "datasetGroup": "calves"
+    }
+  ]
+}

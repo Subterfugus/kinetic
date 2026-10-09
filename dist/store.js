@@ -1,0 +1,9 @@
+export const TODAY=()=>new Date().toLocaleDateString('en-CA');
+export const uid=()=>crypto.randomUUID();
+export const initialState=()=>({version:1,profile:{name:'',age:null,height:null,sex:'',weight:null,activity:1.4,measuredTdee:null,goal:'maintenance',targetWeight:null,calorieTarget:2000,experience:'beginner',days:3,equipment:['bodyweight','dumbbell'],theme:'light',units:'metric',trackWellbeing:true,hrmax:null,activityGoal:150,recoveryHours:48,limitations:''},calories:[],calorieDays:[],weights:[],measurements:[],bodyfat:[],photos:[],sessions:[],draft:null,routines:[],schedule:[],cardio:[],wellbeing:[]});
+let db; export async function openDB(){if(db)return db;db=await new Promise((resolve,reject)=>{const r=indexedDB.open('kinetic-journal',1);r.onupgradeneeded=()=>{r.result.createObjectStore('state');r.result.createObjectStore('photos')};r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)});return db}
+export async function getRecord(store,key){const d=await openDB();return new Promise((resolve,reject)=>{const t=d.transaction(store,'readonly'),r=t.objectStore(store).get(key);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error)})}
+export async function putRecord(store,key,value){const d=await openDB();return new Promise((resolve,reject)=>{const t=d.transaction(store,'readwrite');t.objectStore(store).put(value,key);t.oncomplete=()=>resolve();t.onerror=()=>reject(t.error);t.onabort=()=>reject(t.error||new Error('Storage transaction aborted'))})}
+export async function deleteRecord(store,key){const d=await openDB();return new Promise((resolve,reject)=>{const t=d.transaction(store,'readwrite');t.objectStore(store).delete(key);t.oncomplete=resolve;t.onerror=()=>reject(t.error)})}
+export async function loadState(){const s=await getRecord('state','journal');if(s?.encrypted)return {locked:true,envelope:s};return {state:s||initialState()}}
+export async function saveState(state){await putRecord('state','journal',state)}

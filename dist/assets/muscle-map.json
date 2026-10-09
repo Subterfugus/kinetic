@@ -1,0 +1,1386 @@
+{
+  "source": "https://github.com/suryamolly/muscle_mapper",
+  "originalAuthor": "Ryan Graves",
+  "originalSource": "https://www.figma.com/community/file/1320468164820924031",
+  "license": "CC-BY-4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "licenseEvidence": "muscle_mapper/CREDITS.md; original Figma page was not accessible during research",
+  "notes": [
+    "Original SVG path geometry and path IDs are preserved byte-for-byte.",
+    "Labels are normalized from the existing source IDs, including correction of sartoris to Sartorius.",
+    "Source segments of the same muscle share a canonical muscleId; segment numbering is not a separate physiological muscle.",
+    "Left/right refers to the depicted person, not the viewer.",
+    "Exercise dataset only supports 17 broad categories; datasetGroup filters must be labeled as broad matches, never head-specific evidence.",
+    "Some muscles have no datasetGroup; offer anatomical information without claiming the dataset identifies exercises for them.",
+    "The diagrams are illustrations, not a clinically validated anatomical segmentation atlas.",
+    "No quantitative activation, EMG, participation percentage, per-head targeting, or action percentages are supplied."
+  ],
+  "views": {
+    "front": {
+      "file": "front.svg",
+      "viewBox": "0 0 587 1137",
+      "muscles": [
+        {
+          "pathId": "tibialis_anterior_l",
+          "muscleId": "tibialis-anterior",
+          "name": "Tibialis anterior",
+          "side": "left",
+          "datasetGroup": null,
+          "datasetMatch": "no-specific-dataset-group"
+        },
+        {
+          "pathId": "tibialis_anterior_r",
+          "muscleId": "tibialis-anterior",
+          "name": "Tibialis anterior",
+          "side": "right",
+          "datasetGroup": null,
+          "datasetMatch": "no-specific-dataset-group"
+        },
+        {
+          "pathId": "extensor_hallucis_longus_l",
+          "muscleId": "extensor-hallucis-longus",
+          "name": "Extensor hallucis longus",
+          "side": "left",
+          "datasetGroup": null,
+          "datasetMatch": "no-specific-dataset-group"
+        },
+        {
+          "pathId": "extensor_hallucis_longus_r",
+          "muscleId": "extensor-hallucis-longus",
+          "name": "Extensor hallucis longus",
+          "side": "right",
+          "datasetGroup": null,
+          "datasetMatch": "no-specific-dataset-group"
+        },
+        {
+          "pathId": "fibularis_longus_l",
+          "muscleId": "fibularis-longus",
+          "name": "Fibularis longus",
+          "side": "left",
+          "datasetGroup": null,
+          "datasetMatch": "no-specific-dataset-group"
+        },
+        {
+          "pathId": "extensor_digitorum_longus_l",
+          "muscleId": "extensor-digitorum-longus",
+          "name": "Extensor digitorum longus",
+          "side": "left",
+          "datasetGroup": null,
+          "datasetMatch": "no-specific-dataset-group"
+        },
+        {
+          "pathId": "fibularis_longus_r",
+          "muscleId": "fibularis-longus",
+          "name": "Fibularis longus",
+          "side": "right",
+          "datasetGroup": null,
+          "datasetMatch": "no-specific-dataset-group"
+        },
+        {
+          "pathId": "extensor_digitorum_longus_r",
+          "muscleId": "extensor-digitorum-longus",
+          "name": "Extensor digitorum longus",
+          "side": "right",
+          "datasetGroup": null,
+          "datasetMatch": "no-specific-dataset-group"
+        },
+        {
+          "pathId": "gastrocnemius_l",
+          "muscleId": "gastrocnemius",
+          "name": "Gastrocnemius",
+          "side": "left",
+          "datasetGroup": "calves",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "gastrocnemius_r",
+          "muscleId": "gastrocnemius",
+          "name": "Gastrocnemius",
+          "side": "right",
+          "datasetGroup": "calves",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "semitendinosus_r",
+          "muscleId": "semitendinosus",
+          "name": "Semitendinosus",
+          "side": "right",
+          "datasetGroup": "hamstrings",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "semitendinosus_l",
+          "muscleId": "semitendinosus",
+          "name": "Semitendinosus",
+          "side": "left",
+          "datasetGroup": "hamstrings",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "vastus_lateralis_l",
+          "muscleId": "vastus-lateralis",
+          "name": "Vastus lateralis",
+          "side": "left",
+          "datasetGroup": "quadriceps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "vastus_lateralis_r",
+          "muscleId": "vastus-lateralis",
+          "name": "Vastus lateralis",
+          "side": "right",
+          "datasetGroup": "quadriceps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "vastus_medialis_l",
+          "muscleId": "vastus-medialis",
+          "name": "Vastus medialis",
+          "side": "left",
+          "datasetGroup": "quadriceps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "vastus_medialis_r",
+          "muscleId": "vastus-medialis",
+          "name": "Vastus medialis",
+          "side": "right",
+          "datasetGroup": "quadriceps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "sartoris_l",
+          "muscleId": "sartorius",
+          "name": "Sartorius",
+          "side": "left",
+          "datasetGroup": null,
+          "datasetMatch": "no-specific-dataset-group"
+        },
+        {
+          "pathId": "sartoris_r",
+          "muscleId": "sartorius",
+          "name": "Sartorius",
+          "side": "right",
+          "datasetGroup": null,
+          "datasetMatch": "no-specific-dataset-group"
+        },
+        {
+          "pathId": "gracilis_l",
+          "muscleId": "gracilis",
+          "name": "Gracilis",
+          "side": "left",
+          "datasetGroup": "adductors",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "gracilis_r",
+          "muscleId": "gracilis",
+          "name": "Gracilis",
+          "side": "right",
+          "datasetGroup": "adductors",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "rectus_femoris_l",
+          "muscleId": "rectus-femoris",
+          "name": "Rectus femoris",
+          "side": "left",
+          "datasetGroup": "quadriceps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "rectus_femoris_r",
+          "muscleId": "rectus-femoris",
+          "name": "Rectus femoris",
+          "side": "right",
+          "datasetGroup": "quadriceps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "adductor_longus_l",
+          "muscleId": "adductor-longus",
+          "name": "Adductor longus",
+          "side": "left",
+          "datasetGroup": "adductors",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "adductor_longus_r",
+          "muscleId": "adductor-longus",
+          "name": "Adductor longus",
+          "side": "right",
+          "datasetGroup": "adductors",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "pectineus_r",
+          "muscleId": "pectineus",
+          "name": "Pectineus",
+          "side": "right",
+          "datasetGroup": "adductors",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "pectineus_l",
+          "muscleId": "pectineus",
+          "name": "Pectineus",
+          "side": "left",
+          "datasetGroup": "adductors",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "gluteus_medius_2_l",
+          "muscleId": "gluteus-medius",
+          "name": "Gluteus medius",
+          "side": "left",
+          "datasetGroup": "glutes",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "gluteus_medius_2_r",
+          "muscleId": "gluteus-medius",
+          "name": "Gluteus medius",
+          "side": "right",
+          "datasetGroup": "glutes",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "flexor_digitorum_superficialis_r",
+          "muscleId": "flexor-digitorum-superficialis",
+          "name": "Flexor digitorum superficialis",
+          "side": "right",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "flexor_digitorum_superficialis_l",
+          "muscleId": "flexor-digitorum-superficialis",
+          "name": "Flexor digitorum superficialis",
+          "side": "left",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "pronator_quadratus_r",
+          "muscleId": "pronator-quadratus",
+          "name": "Pronator quadratus",
+          "side": "right",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "pronator_quadratus_l",
+          "muscleId": "pronator-quadratus",
+          "name": "Pronator quadratus",
+          "side": "left",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "extensor_carpi_radialis_longus_l",
+          "muscleId": "extensor-carpi-radialis-longus",
+          "name": "Extensor carpi radialis longus",
+          "side": "left",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "extensor_carpi_radialis_longus_r",
+          "muscleId": "extensor-carpi-radialis-longus",
+          "name": "Extensor carpi radialis longus",
+          "side": "right",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "palmaris_longus_l",
+          "muscleId": "palmaris-longus",
+          "name": "Palmaris longus",
+          "side": "left",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "palmaris_longus_r",
+          "muscleId": "palmaris-longus",
+          "name": "Palmaris longus",
+          "side": "right",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "flexor_carpi_radialis_l",
+          "muscleId": "flexor-carpi-radialis",
+          "name": "Flexor carpi radialis",
+          "side": "left",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "flexor_carpi_radialis_r",
+          "muscleId": "flexor-carpi-radialis",
+          "name": "Flexor carpi radialis",
+          "side": "right",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "pronator_teres_l",
+          "muscleId": "pronator-teres",
+          "name": "Pronator teres",
+          "side": "left",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "pronator_teres_r",
+          "muscleId": "pronator-teres",
+          "name": "Pronator teres",
+          "side": "right",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "triceps_brachii_caput_longum_l",
+          "muscleId": "triceps-brachii-long-head",
+          "name": "Triceps brachii \u00b7 long head",
+          "side": "left",
+          "datasetGroup": "triceps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "triceps_brachii_caput_longum_r",
+          "muscleId": "triceps-brachii-long-head",
+          "name": "Triceps brachii \u00b7 long head",
+          "side": "right",
+          "datasetGroup": "triceps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "brachioradialis_l",
+          "muscleId": "brachioradialis",
+          "name": "Brachioradialis",
+          "side": "left",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "brachioradialis_r",
+          "muscleId": "brachioradialis",
+          "name": "Brachioradialis",
+          "side": "right",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "triceps_brachii_caput_laterale_r",
+          "muscleId": "triceps-brachii-lateral-head",
+          "name": "Triceps brachii \u00b7 lateral head",
+          "side": "right",
+          "datasetGroup": "triceps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "triceps_brachii_caput_laterale_l",
+          "muscleId": "triceps-brachii-lateral-head",
+          "name": "Triceps brachii \u00b7 lateral head",
+          "side": "left",
+          "datasetGroup": "triceps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "biceps_brachii_caput_longum_l",
+          "muscleId": "biceps-brachii-long-head",
+          "name": "Biceps brachii \u00b7 long head",
+          "side": "left",
+          "datasetGroup": "biceps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "biceps_brachii_caput_longum_r",
+          "muscleId": "biceps-brachii-long-head",
+          "name": "Biceps brachii \u00b7 long head",
+          "side": "right",
+          "datasetGroup": "biceps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "biceps_brachii_caput_breve_l",
+          "muscleId": "biceps-brachii-short-head",
+          "name": "Biceps brachii \u00b7 short head",
+          "side": "left",
+          "datasetGroup": "biceps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "biceps_brachii_caput_breve_r",
+          "muscleId": "biceps-brachii-short-head",
+          "name": "Biceps brachii \u00b7 short head",
+          "side": "right",
+          "datasetGroup": "biceps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "external_oblique_1_l",
+          "muscleId": "external-oblique",
+          "name": "External oblique",
+          "side": "left",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "external_oblique_1_r",
+          "muscleId": "external-oblique",
+          "name": "External oblique",
+          "side": "right",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "external_oblique_2_l",
+          "muscleId": "external-oblique",
+          "name": "External oblique",
+          "side": "left",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "external_oblique_2_r",
+          "muscleId": "external-oblique",
+          "name": "External oblique",
+          "side": "right",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "external_oblique_3_l",
+          "muscleId": "external-oblique",
+          "name": "External oblique",
+          "side": "left",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "external_oblique_3_r",
+          "muscleId": "external-oblique",
+          "name": "External oblique",
+          "side": "right",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "external_oblique_4_l",
+          "muscleId": "external-oblique",
+          "name": "External oblique",
+          "side": "left",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "external_oblique_4_r",
+          "muscleId": "external-oblique",
+          "name": "External oblique",
+          "side": "right",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "external_oblique_5_l",
+          "muscleId": "external-oblique",
+          "name": "External oblique",
+          "side": "left",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "external_oblique_5_r",
+          "muscleId": "external-oblique",
+          "name": "External oblique",
+          "side": "right",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "external_oblique_6_l",
+          "muscleId": "external-oblique",
+          "name": "External oblique",
+          "side": "left",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "external_oblique_6_r",
+          "muscleId": "external-oblique",
+          "name": "External oblique",
+          "side": "right",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "external_oblique_7_l",
+          "muscleId": "external-oblique",
+          "name": "External oblique",
+          "side": "left",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "external_oblique_7_r",
+          "muscleId": "external-oblique",
+          "name": "External oblique",
+          "side": "right",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "external_oblique_8_l",
+          "muscleId": "external-oblique",
+          "name": "External oblique",
+          "side": "left",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "external_oblique_8_r",
+          "muscleId": "external-oblique",
+          "name": "External oblique",
+          "side": "right",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "rectus_abdominis_1",
+          "muscleId": "rectus-abdominis",
+          "name": "Rectus abdominis",
+          "side": "central",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "rectus_abdominis_2_l",
+          "muscleId": "rectus-abdominis",
+          "name": "Rectus abdominis",
+          "side": "left",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "rectus_abdominis_2_r",
+          "muscleId": "rectus-abdominis",
+          "name": "Rectus abdominis",
+          "side": "right",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "rectus_abdominis_3_l",
+          "muscleId": "rectus-abdominis",
+          "name": "Rectus abdominis",
+          "side": "left",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "rectus_abdominis_3_r",
+          "muscleId": "rectus-abdominis",
+          "name": "Rectus abdominis",
+          "side": "right",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "rectus_abdominis_4_l",
+          "muscleId": "rectus-abdominis",
+          "name": "Rectus abdominis",
+          "side": "left",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "rectus_abdominis_4_r",
+          "muscleId": "rectus-abdominis",
+          "name": "Rectus abdominis",
+          "side": "right",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "latissimus_dorsi_l",
+          "muscleId": "latissimus-dorsi",
+          "name": "Latissimus dorsi",
+          "side": "left",
+          "datasetGroup": "lats",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "latissimus_dorsi_r",
+          "muscleId": "latissimus-dorsi",
+          "name": "Latissimus dorsi",
+          "side": "right",
+          "datasetGroup": "lats",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "lateral_deltoid_l",
+          "muscleId": "lateral-deltoid",
+          "name": "Deltoid \u00b7 lateral fibers",
+          "side": "left",
+          "datasetGroup": "shoulders",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "lateral_deltoid_r",
+          "muscleId": "lateral-deltoid",
+          "name": "Deltoid \u00b7 lateral fibers",
+          "side": "right",
+          "datasetGroup": "shoulders",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "trapezius_upper_l",
+          "muscleId": "trapezius-upper",
+          "name": "Trapezius \u00b7 upper fibers",
+          "side": "left",
+          "datasetGroup": "traps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "trapezius_upper_r",
+          "muscleId": "trapezius-upper",
+          "name": "Trapezius \u00b7 upper fibers",
+          "side": "right",
+          "datasetGroup": "traps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "anterior_deltoid_r",
+          "muscleId": "anterior-deltoid",
+          "name": "Deltoid \u00b7 anterior fibers",
+          "side": "right",
+          "datasetGroup": "shoulders",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "anterior_deltoid_l",
+          "muscleId": "anterior-deltoid",
+          "name": "Deltoid \u00b7 anterior fibers",
+          "side": "left",
+          "datasetGroup": "shoulders",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "pectoralis_major_l",
+          "muscleId": "pectoralis-major",
+          "name": "Pectoralis major",
+          "side": "left",
+          "datasetGroup": "chest",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "pectoralis_major_r",
+          "muscleId": "pectoralis-major",
+          "name": "Pectoralis major",
+          "side": "right",
+          "datasetGroup": "chest",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "platysma",
+          "muscleId": "platysma",
+          "name": "Platysma",
+          "side": "central",
+          "datasetGroup": "neck",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "sternohyoid",
+          "muscleId": "sternohyoid",
+          "name": "Sternohyoid",
+          "side": "central",
+          "datasetGroup": "neck",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "sternocleidomastoid_l",
+          "muscleId": "sternocleidomastoid",
+          "name": "Sternocleidomastoid",
+          "side": "left",
+          "datasetGroup": "neck",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "sternocleidomastoid_r",
+          "muscleId": "sternocleidomastoid",
+          "name": "Sternocleidomastoid",
+          "side": "right",
+          "datasetGroup": "neck",
+          "datasetMatch": "broad-group-only"
+        }
+      ]
+    },
+    "back": {
+      "file": "back.svg",
+      "viewBox": "0 0 596 1133",
+      "muscles": [
+        {
+          "pathId": "adductor_magnus_r",
+          "muscleId": "adductor-magnus",
+          "name": "Adductor magnus",
+          "side": "right",
+          "datasetGroup": "adductors",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "adductor_magnus_l",
+          "muscleId": "adductor-magnus",
+          "name": "Adductor magnus",
+          "side": "left",
+          "datasetGroup": "adductors",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "semimembranosus_2_r",
+          "muscleId": "semimembranosus",
+          "name": "Semimembranosus",
+          "side": "right",
+          "datasetGroup": "hamstrings",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "semimembranosus_2_l",
+          "muscleId": "semimembranosus",
+          "name": "Semimembranosus",
+          "side": "left",
+          "datasetGroup": "hamstrings",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "semimembranosus_1_r",
+          "muscleId": "semimembranosus",
+          "name": "Semimembranosus",
+          "side": "right",
+          "datasetGroup": "hamstrings",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "semimembranosus_1_l",
+          "muscleId": "semimembranosus",
+          "name": "Semimembranosus",
+          "side": "left",
+          "datasetGroup": "hamstrings",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "semitendinosus_r",
+          "muscleId": "semitendinosus",
+          "name": "Semitendinosus",
+          "side": "right",
+          "datasetGroup": "hamstrings",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "semitendinosus_l",
+          "muscleId": "semitendinosus",
+          "name": "Semitendinosus",
+          "side": "left",
+          "datasetGroup": "hamstrings",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "biceps_femoris_l",
+          "muscleId": "biceps-femoris",
+          "name": "Biceps femoris",
+          "side": "left",
+          "datasetGroup": "hamstrings",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "biceps_femoris_r",
+          "muscleId": "biceps-femoris",
+          "name": "Biceps femoris",
+          "side": "right",
+          "datasetGroup": "hamstrings",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "gastrocnemius_r",
+          "muscleId": "gastrocnemius",
+          "name": "Gastrocnemius",
+          "side": "right",
+          "datasetGroup": "calves",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "gastrocnemius_l",
+          "muscleId": "gastrocnemius",
+          "name": "Gastrocnemius",
+          "side": "left",
+          "datasetGroup": "calves",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "gluteus_maximus_r",
+          "muscleId": "gluteus-maximus",
+          "name": "Gluteus maximus",
+          "side": "right",
+          "datasetGroup": "glutes",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "gluteus_maximus_l",
+          "muscleId": "gluteus-maximus",
+          "name": "Gluteus maximus",
+          "side": "left",
+          "datasetGroup": "glutes",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "gluteus_medius_2_r",
+          "muscleId": "gluteus-medius",
+          "name": "Gluteus medius",
+          "side": "right",
+          "datasetGroup": "glutes",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "gluteus_medius_2_l",
+          "muscleId": "gluteus-medius",
+          "name": "Gluteus medius",
+          "side": "left",
+          "datasetGroup": "glutes",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "gluteus_medius_1_r",
+          "muscleId": "gluteus-medius",
+          "name": "Gluteus medius",
+          "side": "right",
+          "datasetGroup": "glutes",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "gluteus_medius_1_l",
+          "muscleId": "gluteus-medius",
+          "name": "Gluteus medius",
+          "side": "left",
+          "datasetGroup": "glutes",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "external_oblique_1_r",
+          "muscleId": "external-oblique",
+          "name": "External oblique",
+          "side": "right",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "external_oblique_1_l",
+          "muscleId": "external-oblique",
+          "name": "External oblique",
+          "side": "left",
+          "datasetGroup": "abdominals",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "extensor_digitorum_r",
+          "muscleId": "extensor-digitorum",
+          "name": "Extensor digitorum",
+          "side": "right",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "extensor_digitorum_l",
+          "muscleId": "extensor-digitorum",
+          "name": "Extensor digitorum",
+          "side": "left",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "brachioradialis_r",
+          "muscleId": "brachioradialis",
+          "name": "Brachioradialis",
+          "side": "right",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "brachioradialis_l",
+          "muscleId": "brachioradialis",
+          "name": "Brachioradialis",
+          "side": "left",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "extensor_carpi_ulnaris_r",
+          "muscleId": "extensor-carpi-ulnaris",
+          "name": "Extensor carpi ulnaris",
+          "side": "right",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "extensor_carpi_ulnaris_l",
+          "muscleId": "extensor-carpi-ulnaris",
+          "name": "Extensor carpi ulnaris",
+          "side": "left",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "anconeus_r",
+          "muscleId": "anconeus",
+          "name": "Anconeus",
+          "side": "right",
+          "datasetGroup": null,
+          "datasetMatch": "no-specific-dataset-group"
+        },
+        {
+          "pathId": "anconeus_l",
+          "muscleId": "anconeus",
+          "name": "Anconeus",
+          "side": "left",
+          "datasetGroup": null,
+          "datasetMatch": "no-specific-dataset-group"
+        },
+        {
+          "pathId": "flexor_carpi_ulnaris_r",
+          "muscleId": "flexor-carpi-ulnaris",
+          "name": "Flexor carpi ulnaris",
+          "side": "right",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "flexor_carpi_ulnaris_l",
+          "muscleId": "flexor-carpi-ulnaris",
+          "name": "Flexor carpi ulnaris",
+          "side": "left",
+          "datasetGroup": "forearms",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "triceps_brachii_caput_laterale_r",
+          "muscleId": "triceps-brachii-lateral-head",
+          "name": "Triceps brachii \u00b7 lateral head",
+          "side": "right",
+          "datasetGroup": "triceps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "triceps_brachii_caput_longum_r",
+          "muscleId": "triceps-brachii-long-head",
+          "name": "Triceps brachii \u00b7 long head",
+          "side": "right",
+          "datasetGroup": "triceps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "triceps_brachii_caput_mediale_r",
+          "muscleId": "triceps-brachii-medial-head",
+          "name": "Triceps brachii \u00b7 medial head",
+          "side": "right",
+          "datasetGroup": "triceps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "triceps_brachii_caput_laterale_l",
+          "muscleId": "triceps-brachii-lateral-head",
+          "name": "Triceps brachii \u00b7 lateral head",
+          "side": "left",
+          "datasetGroup": "triceps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "triceps_brachii_caput_longum_l",
+          "muscleId": "triceps-brachii-long-head",
+          "name": "Triceps brachii \u00b7 long head",
+          "side": "left",
+          "datasetGroup": "triceps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "triceps_brachii_caput_mediale_l",
+          "muscleId": "triceps-brachii-medial-head",
+          "name": "Triceps brachii \u00b7 medial head",
+          "side": "left",
+          "datasetGroup": "triceps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "sternocleidomastoid_r",
+          "muscleId": "sternocleidomastoid",
+          "name": "Sternocleidomastoid",
+          "side": "right",
+          "datasetGroup": "neck",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "sternocleidomastoid_l",
+          "muscleId": "sternocleidomastoid",
+          "name": "Sternocleidomastoid",
+          "side": "left",
+          "datasetGroup": "neck",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "infraspinatus_r",
+          "muscleId": "infraspinatus",
+          "name": "Infraspinatus",
+          "side": "right",
+          "datasetGroup": "shoulders",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "infraspinatus_l",
+          "muscleId": "infraspinatus",
+          "name": "Infraspinatus",
+          "side": "left",
+          "datasetGroup": "shoulders",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "latissimus_dorsi_r",
+          "muscleId": "latissimus-dorsi",
+          "name": "Latissimus dorsi",
+          "side": "right",
+          "datasetGroup": "lats",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "latissimus_dorsi_l",
+          "muscleId": "latissimus-dorsi",
+          "name": "Latissimus dorsi",
+          "side": "left",
+          "datasetGroup": "lats",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "lateral_deltoid_r",
+          "muscleId": "lateral-deltoid",
+          "name": "Deltoid \u00b7 lateral fibers",
+          "side": "right",
+          "datasetGroup": "shoulders",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "lateral_deltoid_l",
+          "muscleId": "lateral-deltoid",
+          "name": "Deltoid \u00b7 lateral fibers",
+          "side": "left",
+          "datasetGroup": "shoulders",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "posterior_deltoid_l",
+          "muscleId": "posterior-deltoid",
+          "name": "Deltoid \u00b7 posterior fibers",
+          "side": "left",
+          "datasetGroup": "shoulders",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "posterior_deltoid_r",
+          "muscleId": "posterior-deltoid",
+          "name": "Deltoid \u00b7 posterior fibers",
+          "side": "right",
+          "datasetGroup": "shoulders",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "trapezius_middle_r",
+          "muscleId": "trapezius-middle",
+          "name": "Trapezius \u00b7 middle fibers",
+          "side": "right",
+          "datasetGroup": "traps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "trapezius_middle_l",
+          "muscleId": "trapezius-middle",
+          "name": "Trapezius \u00b7 middle fibers",
+          "side": "left",
+          "datasetGroup": "traps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "trapezius_lower_l",
+          "muscleId": "trapezius-lower",
+          "name": "Trapezius \u00b7 lower fibers",
+          "side": "left",
+          "datasetGroup": "traps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "trapezius_lower_r",
+          "muscleId": "trapezius-lower",
+          "name": "Trapezius \u00b7 lower fibers",
+          "side": "right",
+          "datasetGroup": "traps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "trapezius_upper_l",
+          "muscleId": "trapezius-upper",
+          "name": "Trapezius \u00b7 upper fibers",
+          "side": "left",
+          "datasetGroup": "traps",
+          "datasetMatch": "broad-group-only"
+        },
+        {
+          "pathId": "trapezius_upper_r",
+          "muscleId": "trapezius-upper",
+          "name": "Trapezius \u00b7 upper fibers",
+          "side": "right",
+          "datasetGroup": "traps",
+          "datasetMatch": "broad-group-only"
+        }
+      ]
+    }
+  },
+  "muscles": [
+    {
+      "id": "adductor-longus",
+      "name": "Adductor longus",
+      "datasetGroup": "adductors"
+    },
+    {
+      "id": "adductor-magnus",
+      "name": "Adductor magnus",
+      "datasetGroup": "adductors"
+    },
+    {
+      "id": "anconeus",
+      "name": "Anconeus",
+      "datasetGroup": null
+    },
+    {
+      "id": "biceps-brachii-long-head",
+      "name": "Biceps brachii \u00b7 long head",
+      "datasetGroup": "biceps"
+    },
+    {
+      "id": "biceps-brachii-short-head",
+      "name": "Biceps brachii \u00b7 short head",
+      "datasetGroup": "biceps"
+    },
+    {
+      "id": "biceps-femoris",
+      "name": "Biceps femoris",
+      "datasetGroup": "hamstrings"
+    },
+    {
+      "id": "brachioradialis",
+      "name": "Brachioradialis",
+      "datasetGroup": "forearms"
+    },
+    {
+      "id": "anterior-deltoid",
+      "name": "Deltoid \u00b7 anterior fibers",
+      "datasetGroup": "shoulders"
+    },
+    {
+      "id": "lateral-deltoid",
+      "name": "Deltoid \u00b7 lateral fibers",
+      "datasetGroup": "shoulders"
+    },
+    {
+      "id": "posterior-deltoid",
+      "name": "Deltoid \u00b7 posterior fibers",
+      "datasetGroup": "shoulders"
+    },
+    {
+      "id": "extensor-carpi-radialis-longus",
+      "name": "Extensor carpi radialis longus",
+      "datasetGroup": "forearms"
+    },
+    {
+      "id": "extensor-carpi-ulnaris",
+      "name": "Extensor carpi ulnaris",
+      "datasetGroup": "forearms"
+    },
+    {
+      "id": "extensor-digitorum",
+      "name": "Extensor digitorum",
+      "datasetGroup": "forearms"
+    },
+    {
+      "id": "extensor-digitorum-longus",
+      "name": "Extensor digitorum longus",
+      "datasetGroup": null
+    },
+    {
+      "id": "extensor-hallucis-longus",
+      "name": "Extensor hallucis longus",
+      "datasetGroup": null
+    },
+    {
+      "id": "external-oblique",
+      "name": "External oblique",
+      "datasetGroup": "abdominals"
+    },
+    {
+      "id": "fibularis-longus",
+      "name": "Fibularis longus",
+      "datasetGroup": null
+    },
+    {
+      "id": "flexor-carpi-radialis",
+      "name": "Flexor carpi radialis",
+      "datasetGroup": "forearms"
+    },
+    {
+      "id": "flexor-carpi-ulnaris",
+      "name": "Flexor carpi ulnaris",
+      "datasetGroup": "forearms"
+    },
+    {
+      "id": "flexor-digitorum-superficialis",
+      "name": "Flexor digitorum superficialis",
+      "datasetGroup": "forearms"
+    },
+    {
+      "id": "gastrocnemius",
+      "name": "Gastrocnemius",
+      "datasetGroup": "calves"
+    },
+    {
+      "id": "gluteus-maximus",
+      "name": "Gluteus maximus",
+      "datasetGroup": "glutes"
+    },
+    {
+      "id": "gluteus-medius",
+      "name": "Gluteus medius",
+      "datasetGroup": "glutes"
+    },
+    {
+      "id": "gracilis",
+      "name": "Gracilis",
+      "datasetGroup": "adductors"
+    },
+    {
+      "id": "infraspinatus",
+      "name": "Infraspinatus",
+      "datasetGroup": "shoulders"
+    },
+    {
+      "id": "latissimus-dorsi",
+      "name": "Latissimus dorsi",
+      "datasetGroup": "lats"
+    },
+    {
+      "id": "palmaris-longus",
+      "name": "Palmaris longus",
+      "datasetGroup": "forearms"
+    },
+    {
+      "id": "pectineus",
+      "name": "Pectineus",
+      "datasetGroup": "adductors"
+    },
+    {
+      "id": "pectoralis-major",
+      "name": "Pectoralis major",
+      "datasetGroup": "chest"
+    },
+    {
+      "id": "platysma",
+      "name": "Platysma",
+      "datasetGroup": "neck"
+    },
+    {
+      "id": "pronator-quadratus",
+      "name": "Pronator quadratus",
+      "datasetGroup": "forearms"
+    },
+    {
+      "id": "pronator-teres",
+      "name": "Pronator teres",
+      "datasetGroup": "forearms"
+    },
+    {
+      "id": "rectus-abdominis",
+      "name": "Rectus abdominis",
+      "datasetGroup": "abdominals"
+    },
+    {
+      "id": "rectus-femoris",
+      "name": "Rectus femoris",
+      "datasetGroup": "quadriceps"
+    },
+    {
+      "id": "sartorius",
+      "name": "Sartorius",
+      "datasetGroup": null
+    },
+    {
+      "id": "semimembranosus",
+      "name": "Semimembranosus",
+      "datasetGroup": "hamstrings"
+    },
+    {
+      "id": "semitendinosus",
+      "name": "Semitendinosus",
+      "datasetGroup": "hamstrings"
+    },
+    {
+      "id": "sternocleidomastoid",
+      "name": "Sternocleidomastoid",
+      "datasetGroup": "neck"
+    },
+    {
+      "id": "sternohyoid",
+      "name": "Sternohyoid",
+      "datasetGroup": "neck"
+    },
+    {
+      "id": "tibialis-anterior",
+      "name": "Tibialis anterior",
+      "datasetGroup": null
+    },
+    {
+      "id": "trapezius-lower",
+      "name": "Trapezius \u00b7 lower fibers",
+      "datasetGroup": "traps"
+    },
+    {
+      "id": "trapezius-middle",
+      "name": "Trapezius \u00b7 middle fibers",
+      "datasetGroup": "traps"
+    },
+    {
+      "id": "trapezius-upper",
+      "name": "Trapezius \u00b7 upper fibers",
+      "datasetGroup": "traps"
+    },
+    {
+      "id": "triceps-brachii-lateral-head",
+      "name": "Triceps brachii \u00b7 lateral head",
+      "datasetGroup": "triceps"
+    },
+    {
+      "id": "triceps-brachii-long-head",
+      "name": "Triceps brachii \u00b7 long head",
+      "datasetGroup": "triceps"
+    },
+    {
+      "id": "triceps-brachii-medial-head",
+      "name": "Triceps brachii \u00b7 medial head",
+      "datasetGroup": "triceps"
+    },
+    {
+      "id": "vastus-lateralis",
+      "name": "Vastus lateralis",
+      "datasetGroup": "quadriceps"
+    },
+    {
+      "id": "vastus-medialis",
+      "name": "Vastus medialis",
+      "datasetGroup": "quadriceps"
+    }
+  ]
+}

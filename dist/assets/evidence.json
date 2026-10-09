@@ -1,0 +1,660 @@
+{
+  "schemaVersion": 1,
+  "verifiedDate": "2026-10-08",
+  "scope": "Offline educational fitness application for generally healthy adults",
+  "sources": [
+    {
+      "id": "mifflin1990",
+      "title": "A new predictive equation for resting energy expenditure in healthy individuals",
+      "authors": [
+        "Mark D. Mifflin",
+        "Sachiko T. St Jeor",
+        "Lisa A. Hill",
+        "Barbara J. Scott",
+        "Sandra A. Daugherty",
+        "Young O. Koh"
+      ],
+      "year": 1990,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/2305711/",
+      "doi": "10.1093/ajcn/51.2.241",
+      "type": "primary derivation study",
+      "evidenceStrength": "Moderate for population prediction; limited for an individual's true RMR",
+      "summary": "Researchers measured resting energy expenditure by indirect calorimetry in 498 healthy adults aged 19–78, including normal-weight and obese participants. Weight, height, age, and sex predicted resting expenditure with R²=0.71. The simplified equations preserved predictive performance. This is an estimate of resting expenditure, not total daily energy needs.",
+      "supportedClaims": [
+        "Male equation: 10×kg + 6.25×cm − 5×years + 5 kcal/day.",
+        "Female equation: 10×kg + 6.25×cm − 5×years − 161 kcal/day."
+      ],
+      "limitations": [
+        "Original binary sex categories are model coefficients, not a full representation of gender or physiology.",
+        "Activity multipliers and precise error intervals are not provided by this paper.",
+        "Not validated here for children, pregnancy, illness, or every athlete population."
+      ]
+    },
+    {
+      "id": "hall2011",
+      "title": "Quantification of the effect of energy imbalance on bodyweight",
+      "authors": [
+        "Kevin D. Hall",
+        "Gary Sacks",
+        "Dhruva Chandramohan",
+        "Carson C. Chow",
+        "Y. Claire Wang",
+        "Steven L. Gortmaker",
+        "Boyd A. Swinburn"
+      ],
+      "year": 2011,
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC3880593/",
+      "doi": "10.1016/S0140-6736(11)60812-X",
+      "type": "primary mathematical modeling study",
+      "evidenceStrength": "Moderate for dynamic population modeling; individual forecasts remain uncertain",
+      "summary": "A physiological model accounts for changes in body composition and energy expenditure as weight changes. It explains why a constant calorie deficit does not produce unlimited linear weight loss. Resting expenditure and movement costs change with weight. Baseline energy requirements and adherence create substantial uncertainty in forecasts.",
+      "supportedClaims": [
+        "The 3500-kcal-per-pound rule ignores adaptation and should not be extrapolated into long-term guaranteed weight loss.",
+        "Weight forecasts should account for changing expenditure."
+      ],
+      "limitations": [
+        "A simple app calculation is not the validated full Hall model.",
+        "A 7700-kcal-per-kg conversion is only an energy-equivalent illustration, not a reliable timeline or tissue-composition prediction."
+      ]
+    },
+    {
+      "id": "careau2021",
+      "title": "Energy compensation and adiposity in humans",
+      "authors": [
+        "Vincent Careau",
+        "Lewis G. Halsey",
+        "Herman Pontzer",
+        "et al.",
+        "IAEA DLW database group"
+      ],
+      "year": 2021,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/34453886/",
+      "doi": "10.1016/j.cub.2021.08.016",
+      "type": "primary observational analysis",
+      "evidenceStrength": "Moderate association evidence; insufficient for individual causal adjustment",
+      "summary": "An analysis of 1,754 adults with total and basal energy-expenditure data found evidence that activity expenditure and basal expenditure can compensate. The modeled average compensation was 28%, with substantial variation related to body composition. The observational design cannot resolve causal direction.",
+      "supportedClaims": [
+        "Additional activity need not increase total daily expenditure by the full estimated exercise energy cost.",
+        "Compensation differs between individuals."
+      ],
+      "limitations": [
+        "Do not automatically subtract 28% from a user's exercise calories.",
+        "This cross-sectional population association is not a personal exercise-response equation or proof of a causal mechanism."
+      ]
+    },
+    {
+      "id": "acsm2026",
+      "title": "American College of Sports Medicine Position Stand. Resistance Training Prescription for Muscle Function, Hypertrophy, and Physical Performance in Healthy Adults: An Overview of Reviews",
+      "authors": [
+        "Brad S. Currier",
+        "Alysha C. D'Souza",
+        "Maria A. Fiatarone Singh",
+        "Caroline V. Lowisz",
+        "Eric S. Rawson",
+        "Brad J. Schoenfeld",
+        "Abbie E. Smith-Ryan",
+        "Jeremy P. Steen",
+        "Gwendolyn A. Thomas",
+        "N. Travis Triplett",
+        "Tyrone A. Washington",
+        "Timothy J. Werner",
+        "Stuart M. Phillips"
+      ],
+      "year": 2026,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/41843416/",
+      "doi": "10.1249/MSS.0000000000003897",
+      "type": "authoritative position stand / overview of reviews",
+      "evidenceStrength": "High for broad benefits; variable for specific programming comparisons",
+      "summary": "The updated ACSM position stand synthesized 137 reviews covering over 30,000 participants. Progressive resistance training improves strength, hypertrophy, and physical function. Strength can benefit from heavier loads, full range of motion, 2–3 sets, and at least two weekly sessions. Higher weekly volume can enhance hypertrophy. Failure training and complex programming did not consistently improve outcomes.",
+      "supportedClaims": [
+        "Strength was enhanced with ≥80% 1RM loads and ≥2 sessions/week.",
+        "Hypertrophy was enhanced by ≥10 sets/week.",
+        "Progressive resistance training is recommended for healthy adults."
+      ],
+      "limitations": [
+        "A volume threshold is not a universal optimal dose or minimum needed for any benefit.",
+        "Evidence varies by outcome; most interventions lasted 6–52 weeks.",
+        "This updates the 2009 position stand."
+      ]
+    },
+    {
+      "id": "acsm2009",
+      "title": "American College of Sports Medicine position stand. Progression models in resistance training for healthy adults",
+      "authors": [
+        "American College of Sports Medicine"
+      ],
+      "year": 2009,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/19204579/?dopt=Abstract",
+      "doi": "10.1249/MSS.0b013e3181915670",
+      "type": "historical authoritative position stand",
+      "evidenceStrength": "Moderate historical guidance; superseded as general guidance by ACSM 2026",
+      "summary": "The earlier ACSM position stand described progressive overload and practical load progression. At a specified repetition-maximum load, it recommended increasing resistance by 2–10% when the trainee can exceed the target by one or two repetitions. Recommendations were to be tailored to goals, ability, and experience.",
+      "supportedClaims": [
+        "A 2–10% load increase after exceeding the desired repetition target is an established historical progression approach."
+      ],
+      "limitations": [
+        "This is a practical progression rule, not a proven universal optimum.",
+        "Use small feasible increments and user judgment; current general training guidance should cite ACSM 2026.",
+        "The original abstract does not specify a two-session confirmation."
+      ]
+    },
+    {
+      "id": "zourdos2016",
+      "title": "Novel Resistance Training-Specific Rating of Perceived Exertion Scale Measuring Repetitions in Reserve",
+      "authors": [
+        "Michael C. Zourdos",
+        "Alex Klemp",
+        "Chad Dolan",
+        "Justin M. Quiles",
+        "Kyle A. Schau",
+        "Edward Jo",
+        "Eric Helms",
+        "Ben Esgro",
+        "Scott Duncan",
+        "Sonia Garcia Merino",
+        "Rocky Blanco"
+      ],
+      "year": 2016,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/26049792/",
+      "doi": "10.1519/JSC.0000000000001049",
+      "type": "primary comparative study",
+      "evidenceStrength": "Limited-to-moderate for scale use",
+      "summary": "Twenty-nine novice and experienced squatters reported perceived exertion using a repetitions-in-reserve scale. Ratings were inversely associated with repetition velocity. The scale provides a practical way to report how many further repetitions a person believes they could complete and to adjust daily training effort.",
+      "supportedClaims": [
+        "RPE 10 corresponds to 0 RIR; RPE 9 to 1 RIR; RPE 8 to 2 RIR."
+      ],
+      "limitations": [
+        "RIR is subjective, not a direct measurement of remaining capability.",
+        "The small squat study does not establish exact accuracy across all exercises or users.",
+        "RPE-to-RIR mapping is a scale convention."
+      ]
+    },
+    {
+      "id": "refalo2024",
+      "title": "Similar muscle hypertrophy following eight weeks of resistance training to momentary muscular failure or with repetitions-in-reserve in resistance-trained individuals",
+      "authors": [
+        "Martin C. Refalo",
+        "Eric R. Helms",
+        "Zac P. Robinson",
+        "D. Lee Hamilton",
+        "Jackson J. Fyfe"
+      ],
+      "year": 2024,
+      "url": "https://www.tandfonline.com/doi/full/10.1080/02640414.2024.2321021",
+      "doi": "10.1080/02640414.2024.2321021",
+      "type": "primary randomized within-participant training trial",
+      "evidenceStrength": "Moderate for the studied program; limited generalizability",
+      "summary": "Participants trained each leg with either failure sets or sets stopped at perceived 1–2 repetitions in reserve during an eight-week leg press and leg extension program. Overall quadriceps growth was similar. Failure training produced greater acute fatigue, supporting the feasibility of stopping slightly short of failure.",
+      "supportedClaims": [
+        "In this study, 1–2 RIR produced similar overall quadriceps hypertrophy to failure training."
+      ],
+      "limitations": [
+        "The finding concerns trained adults, two lower-body exercises, and eight weeks.",
+        "It does not prove that every RIR target is equivalent or establish an optimal RIR for all goals."
+      ]
+    },
+    {
+      "id": "epley_formula2019",
+      "title": "Myoelectric control algorithm for robot-assisted therapy: a hardware-in-the-loop simulation study",
+      "authors": [
+        "Juan C. Yepes",
+        "Mario A. Portela",
+        "Álvaro J. Saldarriaga",
+        "Vera Z. Pérez",
+        "Manuel J. Betancur"
+      ],
+      "year": 2019,
+      "url": "https://link.springer.com/article/10.1186/s12938-018-0622-1",
+      "doi": "10.1186/s12938-018-0622-1",
+      "type": "primary engineering study documenting formula",
+      "evidenceStrength": "Formula documentation only; not evidence of general predictive validity",
+      "summary": "The methods explicitly document the commonly used Epley estimate as lifted weight multiplied by one plus repetitions divided by thirty. Repetitions refer to a maximum repetition set performed to fatigue. This source verifies the displayed formula; it does not provide broad validation of its accuracy.",
+      "supportedClaims": [
+        "Epley estimated 1RM = load×(1 + repetitions/30)."
+      ],
+      "limitations": [
+        "The original Epley publication was not directly inspected.",
+        "A nonmaximal set makes an unadjusted repetition-max equation less interpretable.",
+        "Do not claim this study validates Epley for every exercise or population."
+      ]
+    },
+    {
+      "id": "reynolds2006",
+      "title": "Prediction of one repetition maximum strength from multiple repetition maximum testing and anthropometry",
+      "authors": [
+        "Jeff M. Reynolds",
+        "Toryanno J. Gordon",
+        "Robert A. Robergs"
+      ],
+      "year": 2006,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/16937972/",
+      "doi": "10.1519/R-15304.1",
+      "type": "primary prediction study",
+      "evidenceStrength": "Moderate for studied exercises and repetition ranges",
+      "summary": "Seventy adults completed bench press and leg press maximum tests at 1, 5, 10, and 20 repetitions. The relationship between repetition count and load was nonlinear. Five-repetition tests produced the strongest predictions; accuracy declined at higher repetitions.",
+      "supportedClaims": [
+        "For the studied bench press and leg press, no more than 10 repetitions should be used in linear 1RM estimates.",
+        "Prediction depends on the exercise and repetition range."
+      ],
+      "limitations": [
+        "This study developed its own equations; it is not universal validation of Epley.",
+        "Restricting an app's Epley input to 2–10 repetitions is a conservative product choice informed by this evidence."
+      ]
+    },
+    {
+      "id": "tanaka2001",
+      "title": "Age-predicted maximal heart rate revisited",
+      "authors": [
+        "Hirofumi Tanaka",
+        "Kevin D. Monahan",
+        "Douglas R. Seals"
+      ],
+      "year": 2001,
+      "url": "https://www.jacc.org/doi/full/10.1016/S0735-1097%2800%2901054-8",
+      "doi": "10.1016/S0735-1097(00)01054-8",
+      "type": "primary meta-analysis with laboratory validation",
+      "evidenceStrength": "Moderate for population mean; limited individual precision",
+      "summary": "A meta-analysis and laboratory study of 514 healthy adults supported an age-based maximum-heart-rate prediction of 208 minus 0.7 times age. Individual values varied substantially, with laboratory standard deviations of 7–11 beats per minute. Age prediction provides a broad guide, not an individual's measured maximum.",
+      "supportedClaims": [
+        "Estimated HRmax = 208 − 0.7×age in years.",
+        "Individual HRmax can differ meaningfully from age prediction."
+      ],
+      "limitations": [
+        "Healthy, unmedicated, nonsmoking adults were studied.",
+        "Medication and cardiovascular conditions can affect heart rate.",
+        "An approximate ±10 bpm illustration is not a formal individual confidence interval."
+      ]
+    },
+    {
+      "id": "aha_hr2024",
+      "title": "Target Heart Rates Chart",
+      "authors": [
+        "American Heart Association"
+      ],
+      "year": 2024,
+      "url": "https://www.heart.org/en/healthy-living/exercise-and-physical-activity/fitness-basics/target-heart-rates",
+      "doi": null,
+      "type": "authoritative public guidance",
+      "evidenceStrength": "Authoritative general guide; approximate intensity boundaries",
+      "summary": "The AHA describes moderate activity as roughly 50–70% of maximum heart rate and vigorous activity as roughly 70–85%. These are averages for general guidance. Medication and heart conditions may require different individualized targets.",
+      "supportedClaims": [
+        "AHA moderate guide: 0.50–0.70×HRmax.",
+        "AHA vigorous guide: 0.70–0.85×HRmax."
+      ],
+      "limitations": [
+        "The AHA page uses 220−age; applying its percentages to Tanaka HRmax combines two disclosed sources.",
+        "These percentages are not lactate or ventilatory threshold measurements.",
+        "Do not substitute these percentages for heart-rate-reserve percentages."
+      ]
+    },
+    {
+      "id": "compendium2024",
+      "title": "2024 Adult Compendium of Physical Activities: A third update of the energy costs of human activities",
+      "authors": [
+        "Stephen D. Herrmann",
+        "Erik A. Willis",
+        "Barbara E. Ainsworth",
+        "Tiago V. Barreira",
+        "Mary Hastert",
+        "Chelsea L. Kracht",
+        "John M. Schuna Jr.",
+        "Zhenghui Cai",
+        "Minghui Quan",
+        "Catrine Tudor-Locke",
+        "Melicia C. Whitt-Glover",
+        "David R. Jacobs Jr."
+      ],
+      "year": 2024,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/38242596/",
+      "doi": "10.1016/j.jshs.2023.10.010",
+      "type": "authoritative activity-energy reference",
+      "evidenceStrength": "Moderate for standardized activity classification; limited for personal calories",
+      "summary": "The updated Adult Compendium standardizes the estimated energy cost of many activities using MET values. One standard MET uses a resting reference of 3.5 mL oxygen/kg/min. Values describe activity categories and help compare intensity; they do not measure the exact energy use of an individual session.",
+      "supportedClaims": [
+        "Standard MET values can support broad exercise-energy estimates.",
+        "The general adult reference is intended for non-disabled adults without conditions materially affecting metabolism."
+      ],
+      "limitations": [
+        "Efficiency, pace, terrain, and individual resting metabolism change true expenditure.",
+        "A MET estimate should not be presented as measured calories.",
+        "The Adult Compendium covers ages 19–59; separate references exist for older adults."
+      ]
+    },
+    {
+      "id": "compendium_methods2024",
+      "title": "Compendium of Physical Activities: definition of terms and corrected METs",
+      "authors": [
+        "Compendium of Physical Activities"
+      ],
+      "year": 2024,
+      "url": "https://pacompendium.com/corrected-mets/",
+      "additionalUrls": [
+        "https://pacompendium.com/"
+      ],
+      "doi": null,
+      "type": "authoritative reference methodology",
+      "evidenceStrength": "Strong for the reference convention; limited individual prediction",
+      "summary": "The Compendium defines one MET approximately as 1 kcal/kg/hour and explains that it was designed to standardize epidemiological activity classifications. Its authors state that it was not designed to determine precise individual activity energy costs. Standard METs do not correct for a person's age, sex, body size, or measured resting metabolism.",
+      "supportedClaims": [
+        "Gross kcal ≈ MET×body mass in kg×duration in hours.",
+        "Subtracting one resting MET gives an approximate net increment above rest."
+      ],
+      "limitations": [
+        "The net subtraction is arithmetic under the standard-MET assumption, not a validated personalized correction.",
+        "Gross calories include resting expenditure.",
+        "Do not automatically add activity estimates to a daily estimate that already includes that activity."
+      ]
+    },
+    {
+      "id": "cdc_intensity2025",
+      "title": "How to Measure Physical Activity Intensity",
+      "authors": [
+        "Centers for Disease Control and Prevention"
+      ],
+      "year": 2025,
+      "url": "https://www.cdc.gov/physical-activity-basics/measuring/",
+      "doi": null,
+      "type": "authoritative public guidance",
+      "evidenceStrength": "Authoritative general guidance",
+      "summary": "CDC distinguishes absolute activity intensity from intensity relative to the individual's fitness. Moderate aerobic activity generally permits talking but not singing. During vigorous activity, speaking more than a few words requires a breath. Absolute moderate intensity spans 3–5.9 METs; vigorous intensity begins at 6 METs.",
+      "supportedClaims": [
+        "The talk test is a practical alternative or companion to heart-rate estimates.",
+        "Absolute intensity: 3–5.9 METs moderate; ≥6 METs vigorous."
+      ],
+      "limitations": [
+        "Absolute MET categories do not necessarily match an individual's relative exertion.",
+        "Use relative effort when assessing whether an activity feels moderate or vigorous for the user."
+      ]
+    },
+    {
+      "id": "who2020",
+      "title": "WHO guidelines on physical activity and sedentary behaviour",
+      "authors": [
+        "World Health Organization"
+      ],
+      "year": 2020,
+      "url": "https://www.who.int/publications/i/item/9789240015128",
+      "additionalUrls": [
+        "https://www.ncbi.nlm.nih.gov/books/NBK566046/"
+      ],
+      "doi": null,
+      "type": "authoritative evidence-based guideline",
+      "evidenceStrength": "Strong recommendation; moderate certainty for adult activity targets",
+      "summary": "For adults, WHO recommends 150–300 minutes of moderate aerobic activity or 75–150 vigorous minutes weekly, or an equivalent mix, plus strengthening all major muscle groups on at least two days. Some activity is better than none. Starting with small amounts and building gradually provides benefit. Reducing sedentary time also matters.",
+      "supportedClaims": [
+        "Adult weekly target: 150–300 moderate minutes or 75–150 vigorous minutes.",
+        "Muscle strengthening: ≥2 days/week.",
+        "A mixed-minute tally can treat one vigorous minute as two moderate-equivalent minutes."
+      ],
+      "limitations": [
+        "These are public-health targets, not individualized performance prescriptions.",
+        "Adult recommendations should not be applied unchanged to children.",
+        "WHO 2020 adult guidelines do not provide an adult sleep-duration target."
+      ]
+    },
+    {
+      "id": "aasm_sleep2015",
+      "title": "Recommended Amount of Sleep for a Healthy Adult: A Joint Consensus Statement of the American Academy of Sleep Medicine and Sleep Research Society",
+      "authors": [
+        "Nathaniel F. Watson",
+        "M. Safwan Badr",
+        "Gregory Belenky",
+        "Donald L. Bliwise",
+        "Orfeu M. Buxton",
+        "Daniel J. Buysse",
+        "David F. Dinges",
+        "James E. Gangwisch",
+        "Michael A. Grandner",
+        "Clete A. Kushida",
+        "Raman K. Malhotra",
+        "Jennifer L. Martin",
+        "Sanjay R. Patel",
+        "Stuart F. Quan",
+        "Esra Tasali"
+      ],
+      "year": 2015,
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4442216/",
+      "doi": "10.5664/jcsm.4758",
+      "type": "authoritative consensus statement",
+      "evidenceStrength": "Consensus supported by evidence review; individual needs vary",
+      "summary": "The AASM and Sleep Research Society recommend that healthy adults aged 18–60 regularly sleep at least seven hours per night. Sleep need varies by individual and circumstances. More than nine hours may be appropriate during recovery from sleep debt, illness, or for young adults.",
+      "supportedClaims": [
+        "Adults aged 18–60: aim for ≥7 hours of sleep regularly."
+      ],
+      "limitations": [
+        "This is AASM/SRS guidance, not an adult WHO sleep recommendation.",
+        "Sleep duration alone does not fully describe sleep quality or recovery.",
+        "Do not treat eight hours as a guaranteed optimum for every adult."
+      ]
+    },
+    {
+      "id": "deurenberg1991",
+      "title": "Body mass index as a measure of body fatness: age- and sex-specific prediction formulas",
+      "authors": [
+        "Paul Deurenberg",
+        "Jan A. Weststrate",
+        "Jaap C. Seidell"
+      ],
+      "year": 1991,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/2043597/",
+      "doi": "10.1079/BJN19910073",
+      "type": "primary anthropometric prediction study",
+      "evidenceStrength": "Moderate group prediction; limited individual precision",
+      "summary": "Body composition data from 1,229 people supported a BMI-, age-, and sex-based adult body-fat equation. Its standard error of estimate was 4.1 percentage points. The adult formula slightly overestimated body fat in obese participants. BMI-based body fat is an estimate and cannot directly distinguish muscularity from adiposity.",
+      "supportedClaims": [
+        "Adult BF% = 1.20×BMI + 0.23×age − 10.8×sex − 5.4; male=1, female=0.",
+        "BMI = kg / metres².",
+        "Reported SEE = 4.1 body-fat percentage points."
+      ],
+      "limitations": [
+        "SEE is not an individual's guaranteed error bound.",
+        "Binary sex coefficients and population sampling limit generalization.",
+        "Do not show an estimate as a measured body-fat value or use it to infer small tissue changes."
+      ]
+    },
+    {
+      "id": "smartscales2021",
+      "title": "Accuracy of Smart Scales on Weight and Body Composition: Observational Study",
+      "authors": [
+        "Justine Frija-Masson",
+        "Jimmy Mullaert",
+        "Emmanuelle Vidal-Petiot",
+        "Nathalie Pons-Kerjean",
+        "Martin Flamant",
+        "Marie-Pia d'Ortho"
+      ],
+      "year": 2021,
+      "url": "https://mhealth.jmir.org/2021/4/e22487",
+      "doi": "10.2196/22487",
+      "type": "primary cross-sectional validation study",
+      "evidenceStrength": "Moderate for tested devices and patient sample; limited generalizability",
+      "summary": "Three consumer smart scales were compared with DXA in hospital patients. Weight readings were reasonably accurate, while fat and lean-mass estimates had substantial disagreement. The authors advised against routinely using the devices for clinical body-composition assessment.",
+      "supportedClaims": [
+        "A weight reading and a device's body-composition estimate have different accuracy.",
+        "Do not assume a precise-looking consumer body-fat percentage is a direct measurement."
+      ],
+      "limitations": [
+        "Only three devices and a hospital population were studied.",
+        "The design did not establish within-person trend accuracy or performance of every newer device.",
+        "A single body-fat change does not establish fat or muscle gain/loss."
+      ]
+    }
+  ],
+  "implementationNotes": [
+    {
+      "topic": "Estimate labels",
+      "note": "Always label predicted RMR, TDEE, exercise energy, estimated 1RM, HRmax, and body-fat results as estimates. Do not imply a formula calculates a user's actual physiological value."
+    },
+    {
+      "topic": "Resting vs total expenditure",
+      "sourceIds": [
+        "mifflin1990",
+        "hall2011",
+        "compendium_methods2024"
+      ],
+      "note": "Mifflin estimates resting expenditure. An activity multiplier is an app starting assumption, not part of the Mifflin validation. Show the chosen multiplier and avoid double counting planned exercise."
+    },
+    {
+      "topic": "Weight trend calibration",
+      "sourceIds": [
+        "hall2011",
+        "careau2021"
+      ],
+      "note": "Use consistently collected weight and intake trends to inform adjustments. A 14–28 day review window, a 7-day mean, or ±100–200 kcal changes are practical defaults, not thresholds validated by these papers."
+    },
+    {
+      "topic": "1RM behavior",
+      "sourceIds": [
+        "epley_formula2019",
+        "reynolds2006"
+      ],
+      "note": "Use same-unit load×(1+reps/30) for 2–10 near-maximal repetitions. For one completed maximal repetition, report the lifted load directly as a measured single. Do not automatically add RIR to reps without labeling that extrapolation as heuristic. Do not convert an estimate into an instruction to attempt a maximum."
+    },
+    {
+      "topic": "Training volume",
+      "sourceIds": [
+        "acsm2026",
+        "refalo2024"
+      ],
+      "note": "A beginner can benefit from low volume. A starting 6–10 hard sets per muscle per week is a programming default; ≥10 is an evidence-supported hypertrophy-oriented target, not a prerequisite. Indirect-set counting and deload triggers are modeling conventions and should be disclosed."
+    },
+    {
+      "topic": "Cardio zones",
+      "sourceIds": [
+        "tanaka2001",
+        "aha_hr2024",
+        "cdc_intensity2025"
+      ],
+      "note": "Prefer moderate/vigorous bands and the talk test. If five zones are shown, label boundaries as a selectable coaching convention. Percent HRmax and percent heart-rate reserve are distinct methods and must not be mixed. Estimated bands do not locate physiological thresholds."
+    },
+    {
+      "topic": "Body composition",
+      "sourceIds": [
+        "deurenberg1991",
+        "smartscales2021"
+      ],
+      "note": "Do not assign health or attractiveness categories to a body-fat estimate. Keep device/manual readings separate from calculated estimates. No original Navy circumference report was directly verified in this research pass."
+    },
+    {
+      "topic": "Recovery",
+      "sourceIds": [
+        "aasm_sleep2015",
+        "acsm2026"
+      ],
+      "note": "A readiness score derived from sleep, soreness, stress, and performance is an app heuristic. Show its components and permit user judgment; it is not a validated medical or overtraining diagnosis."
+    }
+  ],
+  "formulaRegistry": [
+    {
+      "id": "mifflin_rmr_male",
+      "expression": "10 * weightKg + 6.25 * heightCm - 5 * ageYears + 5",
+      "unit": "kcal/day",
+      "sourceIds": [
+        "mifflin1990"
+      ]
+    },
+    {
+      "id": "mifflin_rmr_female",
+      "expression": "10 * weightKg + 6.25 * heightCm - 5 * ageYears - 161",
+      "unit": "kcal/day",
+      "sourceIds": [
+        "mifflin1990"
+      ]
+    },
+    {
+      "id": "epley_e1rm",
+      "expression": "load * (1 + repetitions / 30)",
+      "unit": "same as load",
+      "sourceIds": [
+        "epley_formula2019",
+        "reynolds2006"
+      ]
+    },
+    {
+      "id": "tanaka_hrmax",
+      "expression": "208 - 0.7 * ageYears",
+      "unit": "bpm",
+      "sourceIds": [
+        "tanaka2001"
+      ]
+    },
+    {
+      "id": "gross_met_energy",
+      "expression": "MET * weightKg * durationMinutes / 60",
+      "unit": "kcal",
+      "sourceIds": [
+        "compendium_methods2024"
+      ]
+    },
+    {
+      "id": "net_met_energy",
+      "expression": "Math.max(0, MET - 1) * weightKg * durationMinutes / 60",
+      "unit": "kcal above standardized rest",
+      "sourceIds": [
+        "compendium_methods2024"
+      ]
+    },
+    {
+      "id": "bmi",
+      "expression": "weightKg / (heightCm / 100) ** 2",
+      "unit": "kg/m²",
+      "sourceIds": [
+        "deurenberg1991"
+      ]
+    },
+    {
+      "id": "deurenberg_adult_bodyfat",
+      "expression": "1.20 * BMI + 0.23 * ageYears - 10.8 * sexCoefficient - 5.4",
+      "unit": "percent estimate; sexCoefficient male=1 female=0",
+      "sourceIds": [
+        "deurenberg1991"
+      ]
+    },
+    {
+      "id": "moderate_equivalent_minutes",
+      "expression": "moderateMinutes + 2 * vigorousMinutes",
+      "unit": "moderate-equivalent minutes/week",
+      "sourceIds": [
+        "who2020"
+      ]
+    }
+  ],
+  "activityMetExamples": [
+    {
+      "code": "17190",
+      "label": "Walking 2.8–3.4 mph, level, moderate pace",
+      "met": 3.8,
+      "url": "https://pacompendium.com/walking/"
+    },
+    {
+      "code": "17200",
+      "label": "Walking 3.5–3.9 mph, level, brisk pace",
+      "met": 4.8,
+      "url": "https://pacompendium.com/walking/"
+    },
+    {
+      "code": "12030",
+      "label": "Running 5.0–5.2 mph",
+      "met": 8.5,
+      "url": "https://pacompendium.com/running/"
+    },
+    {
+      "code": "12050",
+      "label": "Running 6.0–6.3 mph",
+      "met": 9.3,
+      "url": "https://pacompendium.com/running/"
+    },
+    {
+      "code": "01020",
+      "label": "Bicycling 10–11.9 mph, leisure",
+      "met": 6.8,
+      "url": "https://pacompendium.com/wp-content/uploads/2024/03/4_2024_adult-compendium-tracking-guide-1-2024.pdf"
+    },
+    {
+      "code": "01030",
+      "label": "Bicycling 12–13.9 mph, leisure",
+      "met": 8,
+      "url": "https://pacompendium.com/wp-content/uploads/2024/03/4_2024_adult-compendium-tracking-guide-1-2024.pdf"
+    }
+  ]
+}
