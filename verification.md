@@ -46,3 +46,9 @@ This is release verification, not an independent security penetration test, clin
 - 29 tests passed, adding a regression for prefilled loads from the most recent non-warm-up sets. Asset integrity unchanged.
 - Browser verified on a disposable localhost journal: prefilled loads, last-session line, in-workout progression hint, automatic rest timer with +30s, elapsed time, calorie quick picks, backup reminder, imperial cardio distance/pace, new Settings rows and the 375-pixel workout layout, with no console errors.
 - Not browser-verified: rest-end sound/vibration, screen wake lock, the browser's persistent-storage decision, the update toast and an offline reload under cache v3.
+
+## Release 1.3 interface and wording overhaul
+
+- New stylesheet, grouped sidebar, mobile tab bar, plain-language headings and empty states, fine print folded behind toggles. 29 tests and the asset check pass.
+- Browser verified: all eleven pages in light and dark themes without overflow or console errors, at phone and desktop widths, including an in-progress workout.
+- Not verified: atlas highlight colours in use, the lock screen, every dialog, physical phones.

@@ -4,7 +4,7 @@ A device-local fitness journal with 63 curated exercises, an interactive muscle 
 
 ## Open the app
 
-Use the private hosted link supplied with this delivery. Open it once online and wait for **Settings & backup → Offline availability** to confirm caching. Core features then work without a connection. Source links still require internet.
+Use the private hosted link supplied with this delivery. Open it once online and wait for **Settings → Offline** to confirm caching. Core features then work without a connection. Source links still require internet.
 
 For a fully local copy, install Node.js from its official website if it is not already installed. Extract the complete folder and double-click **Start-Kinetic.cmd** on Windows, or run `npm start` in this folder. Open **http://127.0.0.1:4173** in your browser. Keep the server window open while first loading the app. Opening `index.html` directly is not supported because modules, storage and offline caching require an HTTP origin.
 
