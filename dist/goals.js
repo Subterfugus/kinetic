@@ -1,13 +1,15 @@
 import {esc,btn,empty,field,select,modal,dateLabel,num,chart} from './ui.js';
 import {TODAY,uid} from './store.js';
+import {validDate} from './validation.js';
 import {smoothWeight,regression,performance,addDays,dayNumber,within,resistanceMetricsEligible} from './science.js';
 import {estimate1rm,bestEstimate} from './programs.js';
 import {exercises,exerciseById} from './data.js';
 const byDate=(a,b)=>a.date.localeCompare(b.date),CARDIO=['Running','Walking','Cycling','Rowing','Swimming','Hiking','Other'],WEEK=7,CAP=104,r2=v=>Math.round(v*100)/100;
 
-export const target1rm=g=>estimate1rm(g.target,g.reps||1,0)??g.target;
+export const repsOf=g=>Number.isInteger(g.reps)&&g.reps>=1&&g.reps<=10?g.reps:1;
+export const target1rm=g=>estimate1rm(g.target,repsOf(g),0)??g.target;
 export function liftSeries(goal,sessions){return performance(sessions,goal.exerciseId).map(p=>({date:p.date,value:bestEstimate(p.sets)})).filter(p=>p.value!==null&&Number.isFinite(p.value))}
-export function runSeries(goal,cardio){const d=goal.distance;return cardio.filter(c=>c.type===goal.activity&&c.duration>0&&c.distance>=d*.5&&c.distance<=d*2).sort(byDate).map(c=>({date:c.date,value:c.duration*(d/c.distance)**1.06}))}
+export function runSeries(goal,cardio){const d=goal.distance;if(!(d>0))return [];return cardio.filter(c=>c.type===goal.activity&&c.duration>0&&c.distance>=d*.5&&c.distance<=d*2).sort(byDate).map(c=>({date:c.date,value:c.duration*(d/c.distance)**1.06}))}
 export function habitWeeks(goal,sessions,today,weeks=8){return Array.from({length:weeks},(_,i)=>{const end=addDays(today,-WEEK*(weeks-1-i));return sessions.filter(s=>within(s.date,end,WEEK)).length})}
 export function habitStreak(counts,target){let n=0;for(let i=counts.length-1;i>=0&&counts[i]>=target;i--)n++;return n}
 export const enoughHistory=points=>points.length>=4&&dayNumber(points.at(-1).date)-dayNumber(points[0].date)>=21;
@@ -37,34 +39,38 @@ export function paceCheck(goal,current,profile,today){
 
 export function goalStatus(goal,state,today){
   const type=goal.type;let series=[],current=null,target=goal.target;
-  if(type==='habit'){const counts=habitWeeks(goal,state.sessions||[],today),streak=habitStreak(counts,goal.target);return {title:type,current:counts.at(-1),target,fraction:Math.min(1,counts.at(-1)/goal.target),series:[],counts,streak,projection:null,pace:null,reached:false}}
-  if(type==='lift'){series=liftSeries(goal,state.sessions||[]);target=target1rm(goal);current=series.at(-1)?.value??null}
+  if(type==='habit'){const counts=habitWeeks(goal,state.sessions||[],today),streak=habitStreak(counts,goal.target);return {title:type,current:counts.at(-1),target,fraction:goal.target>0?Math.min(1,counts.at(-1)/goal.target):0,series:[],counts,streak,projection:null,pace:null,reached:false}}
+  if(type==='lift'){series=liftSeries(goal,state.sessions||[]).filter(p=>p.date<=today);target=target1rm(goal);current=series.at(-1)?.value??null}
   else if(type==='weight'){const w=(state.weights||[]).filter(x=>x.date<=today),recent=w.filter(x=>within(x.date,today,WEEK));series=smoothWeight(w).map(({date,value})=>({date,value}));current=recent.length?recent.reduce((a,x)=>a+x.kg,0)/recent.length:[...w].sort(byDate).at(-1)?.kg??null}
   else if(type==='run'){series=runSeries(goal,state.cardio||[]).filter(p=>p.date<=today);current=series.at(-1)?.value??null}
-  const fraction=current===null?0:progressFraction(goal.start,current,target),dir=goal.start!==null&&goal.start!==undefined?Math.sign(target-goal.start):type==='run'?-1:type==='lift'?1:0;
-  const reached=current!==null&&dir!==0&&(dir>0?current>=target:current<=target);
-  return {title:type,current,target,fraction:reached?1:fraction,series,projection:reached||current===null?null:project(series,target,today),pace:reached?null:paceCheck(goal,current,state.profile,today),reached}}
+  // Lifts always rise and run times always fall; only body weight takes its direction from where it started.
+  const start=goal.start??series[0]?.value??null,dir=type==='lift'?1:type==='run'?-1:start===null?0:Math.sign(target-start);
+  const reached=!!goal.achieved||current!==null&&(dir===0?type==='weight':dir>0?current>=target:current<=target);
+  const fraction=reached?1:current===null?0:start!==null&&dir*(target-start)>0?progressFraction(start,current,target):type==='lift'?Math.max(0,Math.min(1,current/target)):0;
+  return {title:type,current,target,fraction,series,projection:reached||current===null?null:project(series,target,today),pace:reached?null:paceCheck(goal,current,state.profile,today),reached}}
 
-export const parseTime=v=>{const s=String(v??'').trim();if(!s)return NaN;if(!s.includes(':'))return Number(s);const p=s.split(':').map(Number);if(p.length>3||p.some(x=>!Number.isFinite(x)||x<0))return NaN;return p.length===3?p[0]*60+p[1]+p[2]/60:p[0]+p[1]/60};
+export const parseTime=v=>{const s=String(v??'').trim().replace(',','.');if(!s)return NaN;if(!s.includes(':'))return Number(s);const p=s.split(':');if(p.length>3||p.some(x=>!x.trim()))return NaN;const q=p.map(Number);if(q.some((x,i)=>!Number.isFinite(x)||x<0||i>0&&x>=60))return NaN;return q.length===3?q[0]*60+q[1]+q[2]/60:q[0]+q[1]/60};
 export function fmtTime(min){const t=Math.round(min*60),h=Math.floor(t/3600),m=Math.floor(t%3600/60),s=t%60,p=n=>String(n).padStart(2,'0');return h?`${h}:${p(m)}:${p(s)}`:`${m}:${p(s)}`}
 const weeksText=w=>w>=CAP?'more than 2 years':w<1.5?'about a week':'about '+Math.round(w)+' weeks';
 function fmt(g,C,v){if(v===null||v===undefined||!Number.isFinite(v))return '—';if(g.type==='lift')return num(C.displayLoad(v),1)+' '+C.loadUnit();if(g.type==='weight')return num(C.displayWeight(v),1)+' '+C.weightUnit();if(g.type==='run')return fmtTime(v);return String(v)}
 export function goalTitle(g,C){
-  if(g.type==='lift')return `${exerciseById(g.exerciseId)?.name||'Lift'} · ${num(C.displayLoad(g.target),1)} ${C.loadUnit()} × ${g.reps||1}`;
+  if(g.type==='lift')return `${exerciseById(g.exerciseId)?.name||'Lift'} · ${num(C.displayLoad(g.target),1)} ${C.loadUnit()} × ${repsOf(g)}`;
   if(g.type==='weight')return `Body weight · ${num(C.displayWeight(g.target),1)} ${C.weightUnit()}`;
   if(g.type==='run')return `${g.activity||'Running'} · ${num(C.displayDist(g.distance),2)} ${C.distUnit()} in ${fmtTime(g.target)}`;
   return `Train ${g.target} ${g.target===1?'time':'times'} a week`}
-function projectionText(g,st){
+function projectionText(g,st,today){
   if(st.reached)return 'Target reached'+(g.achieved?' on '+dateLabel(g.achieved):'')+'.';
   if(st.projection)return `At your recent pace: ${weeksText(st.projection.weeksSteady)}. If progress slows, as it usually does: ${weeksText(st.projection.weeksSlowing)}.`;
-  if(!enoughHistory(st.series))return 'Not enough history yet. Log 4 sessions over 3 weeks.';
+  if(!enoughHistory(st.series))return 'Not enough history yet: a projection needs at least 4 data points spread over 3 weeks.';
+  if(st.series.filter(p=>within(p.date,today,84)).length<3)return 'Not enough recent data to project. Log a few more entries.';
   return 'The recent trend is not moving toward this.'}
 function deadlineText(g,st,C,today){
   if(!g.deadline||st.reached||st.current===null)return '';
   const weeks=(dayNumber(g.deadline)-dayNumber(today))/WEEK;if(weeks<=0)return 'Deadline passed ('+dateLabel(g.deadline)+').';
-  const gap=Math.abs(st.target-st.current)/weeks,need='needs about '+fmt(g,C,gap)+' a week';
-  if(!st.projection)return 'Deadline '+dateLabel(g.deadline)+': '+need;
-  return addDays(today,Math.round(st.projection.weeksSteady*WEEK))<=g.deadline?'On track for '+dateLabel(g.deadline):'Behind: '+need}
+  const gap=Math.abs(st.target-st.current)/weeks,need='needs about '+(g.type==='run'?fmtTime(gap)+' faster each week':fmt(g,C,gap)+' a week'),p=st.projection,fits=w=>addDays(today,Math.round(w*WEEK))<=g.deadline,on='On track for '+dateLabel(g.deadline);
+  if(!p)return 'Deadline '+dateLabel(g.deadline)+': '+need;
+  if(!fits(p.weeksSteady))return 'Behind: '+need;
+  return fits(p.weeksSlowing)?on+', even if progress slows.':on+' at your recent pace, but not if progress slows.'}
 
 const bar=f=>`<div class="goal-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(f*100)}"><i style="width:${Math.round(f*100)}%"></i></div>`;
 const ordered=goals=>[...goals].sort((a,b)=>(!!a.achieved-!!b.achieved)||a.date.localeCompare(b.date));
@@ -72,10 +78,10 @@ function card(g,C,today){
   const st=goalStatus(g,C.state,today),title=goalTitle(g,C),pct=Math.round(st.fraction*100);let body;
   if(g.type==='habit'){body=`${bar(st.fraction)}<p class="goal-line">Last 7 days: ${st.current} of ${g.target} · Streak: ${st.streak} ${st.streak===1?'week':'weeks'}</p><div class="goal-weeks" role="img" aria-label="Workouts in each of the last ${st.counts.length} weeks, oldest first: ${st.counts.join(', ')}">${st.counts.map(c=>`<span class="goal-sq ${c>=g.target?'on':c>0?'part':''}">${c}</span>`).join('')}</div>`}
   else{
-    const now=st.current===null?'no data yet':(g.type==='lift'&&(g.reps||1)>1?'estimated one-rep max ':'')+fmt(g,C,st.current)+' now';
+    const now=st.current===null?'no data yet':(g.type==='lift'&&repsOf(g)>1?'estimated one-rep max ':'')+fmt(g,C,st.current)+' now';
     const disp=g.type==='lift'?v=>C.displayLoad(v):g.type==='weight'?v=>C.displayWeight(v):v=>v,unit=g.type==='lift'?C.loadUnit():g.type==='weight'?C.weightUnit():'min',s=st.series.map(p=>({date:p.date,value:disp(p.value)}));
     const dl=deadlineText(g,st,C,today),svg=s.length>=2?chart(s,{unit,secondary:[{date:s[0].date,value:disp(st.target)},{date:s.at(-1).date,value:disp(st.target)}],seriesLabel:'You',secondaryLabel:'Target',height:150}):'';
-    body=`${bar(st.fraction)}<p class="goal-line"><strong>${pct}% of the way</strong> · ${esc(now)}</p><p class="goal-proj">${esc(projectionText(g,st))}</p>${dl?`<p class="goal-deadline">${esc(dl)}</p>`:''}${st.pace?`<p class="goal-pace ${st.pace.level}">${esc(st.pace.message)}</p>`:''}${svg?`<div class="goal-chart">${svg}</div>`:''}`}
+    body=`${bar(st.fraction)}<p class="goal-line"><strong>${pct}% of the way</strong> · ${esc(now)}</p><p class="goal-proj">${esc(projectionText(g,st,today))}</p>${dl?`<p class="goal-deadline">${esc(dl)}</p>`:''}${st.pace?`<p class="goal-pace ${st.pace.level}">${esc(st.pace.message)}</p>`:''}${svg?`<div class="goal-chart">${svg}</div>`:''}`}
   return `<article class="card goal-card ${g.achieved?'done':''}"><div class="goal-head"><h2>${esc(title)}</h2>${g.achieved?'<span class="goal-badge">Reached</span>':''}</div>${g.deadline&&!g.achieved?`<p class="meta">Deadline ${esc(dateLabel(g.deadline,{month:'short',day:'numeric',year:'numeric'}))}</p>`:''}${body}${g.note?`<p class="meta">${esc(g.note)}</p>`:''}<div class="goal-actions">${btn('Edit',`goal-edit:${g.id}`,'small')}${btn('Delete',`goal-delete:${g.id}`,'small ghost')}</div></article>`}
 
 export function goalsView(C){
@@ -89,33 +95,44 @@ export function goalsSummary(C){
   return `<section class="card goal-summary"><div class="goal-summary-head"><h2>Goals</h2>${btn('Goals','go-goals','small')}</div>${active.slice(0,3).map(g=>`<div class="goal-mini"><span>${esc(goalTitle(g,C))}</span>${bar(goalStatus(g,C.state,today).fraction)}</div>`).join('')||'<p class="meta">All goals reached.</p>'}</section>`}
 
 // Marks goals achieved once the target is met (habit goals are never marked). Call after saves, never during render.
-export async function syncGoals(C){const today=TODAY();let n=0;for(const g of C.state.goals||[]){if(g.achieved||g.type==='habit')continue;if(goalStatus(g,C.state,today).reached){g.achieved=today;n++}}if(n)await C.save(n===1?'Goal reached':n+' goals reached');return n}
+export async function syncGoals(C){const today=TODAY();let n=0;for(const g of C.state.goals||[]){if(g.achieved||g.type==='habit')continue;let r=false;try{r=goalStatus(g,C.state,today).reached}catch{}if(r){g.achieved=today;n++}}if(n)await C.save(n===1?'Goal reached':n+' goals reached');return n}
+
+// Turns submitted form data into a goal record (or throws a readable Error). Edits keep id, date and start.
+export function buildGoal(fd,old,C,today){
+  const type=fd.get('type'),deadline=fd.get('deadline')||null,note=String(fd.get('note')||'').trim(),n=k=>Number(fd.get(k));
+  if(!['lift','weight','run','habit'].includes(type))throw Error('Choose a goal type.');
+  if(deadline&&!validDate(deadline))throw Error('Choose a valid deadline.');
+  if(deadline&&deadline<today&&deadline!==old?.deadline)throw Error('Choose a deadline that is today or later.');
+  if(note.length>300)throw Error('Keep the note under 300 characters.');
+  const v={id:old?.id||uid(),date:old?.date||today,type,target:0,start:null,deadline,achieved:null,note};
+  if(type==='lift'){const reps=n('reps'),t=C.parseLoad(n('liftTarget'));if(!exerciseById(fd.get('exerciseId')))throw Error('Choose an exercise.');if(!Number.isInteger(reps)||reps<1||reps>10)throw Error('Reps must be a whole number from 1 to 10.');if(!(t>=.1&&t<=1000))throw Error('Enter a target load.');Object.assign(v,{target:r2(t),exerciseId:fd.get('exerciseId'),reps})}
+  else if(type==='weight'){const t=C.parseWeight(n('weightTarget'));if(!(t>=25&&t<=400))throw Error('Enter a weight between 25 and 400 kg (or the equivalent in pounds).');v.target=r2(t)}
+  else if(type==='run'){const raw=String(fd.get('runTarget')||'').trim(),m=old?.type==='run'&&raw===fmtTime(old.target)?old.target:parseTime(raw),d=C.parseDist(n('distance')),act=fd.get('activity');if(!CARDIO.includes(act))throw Error('Choose an activity.');if(!(d>=.1&&d<=1000))throw Error('Enter a distance of at least 0.1 km.');if(!(m>=.1&&m<=6000))throw Error('Enter a time as mm:ss or as minutes, for example 25:00.');Object.assign(v,{target:r2(m),activity:act,distance:r2(d)})}
+  else{const p=n('perWeek');if(!Number.isInteger(p)||p<1||p>14)throw Error('Workouts per week must be a whole number from 1 to 14.');v.target=p}
+  const same=!!old&&old.type===type&&({lift:['exerciseId'],run:['activity','distance']}[type]||[]).every(k=>old[k]===v[k]);
+  v.start=same&&old.start!==undefined?old.start:type==='habit'?null:goalStatus(v,C.state,today).current;
+  if(same&&old.achieved&&old.target===v.target&&old.reps===v.reps)v.achieved=old.achieved;
+  return v}
 
 function dialog(C,id=''){
-  const g=(C.state.goals||[]).find(x=>x.id===id)||{type:'lift',exerciseId:'',reps:1,target:'',deadline:'',note:'',activity:'Running',distance:5},today=TODAY();
+  const old=id?(C.state.goals||[]).find(x=>x.id===id):null;if(id&&!old)return;
+  const g=old||{type:'lift',exerciseId:'',reps:1,target:'',deadline:'',note:'',activity:'Running',distance:5},today=TODAY();
   const lifts=exercises.filter(e=>resistanceMetricsEligible(e.id)).sort((a,b)=>a.name.localeCompare(b.name)).map(e=>[e.id,e.name]);
-  const sec=(t,html)=>`<div class="wide form-grid goal-fields" data-for="${t}" ${g.type===t?'':'hidden'}>${html}</div>`,dist=g.type==='run'?r2(C.displayDist(g.distance)):C.displayDist(5);
+  const sec=(t,html)=>`<div class="wide form-grid goal-fields" data-for="${t}" ${g.type===t?'':'hidden'}>${html}</div>`,dist=g.type==='run'?C.displayDist(g.distance):C.displayDist(5);
   modal(id?'Edit goal':'Add a goal',`<div class="form-grid">${select('type','Goal type',g.type,[['lift','Lift'],['weight','Body weight'],['run','Run or other cardio time'],['habit','Weekly habit']])}
-${sec('lift',select('exerciseId','Exercise',g.exerciseId||lifts[0]?.[0],lifts)+field('liftTarget','Target load ('+C.loadUnit()+')',g.type==='lift'?r2(C.displayLoad(g.target)):'','number','min="0" step="any"')+field('reps','For reps',g.reps||1,'number','min="1" max="10" step="1"'))}
-${sec('weight',field('weightTarget','Target weight ('+C.weightUnit()+')',g.type==='weight'?r2(C.displayWeight(g.target)):'','number','min="1" step="any"'))}
+${sec('lift',select('exerciseId','Exercise',g.exerciseId||lifts[0]?.[0],lifts)+field('liftTarget','Target load ('+C.loadUnit()+')',g.type==='lift'?C.displayLoad(g.target):'','number','min="0" step="any"')+field('reps','For reps',repsOf(g),'number','min="1" max="10" step="1"'))}
+${sec('weight',field('weightTarget','Target weight ('+C.weightUnit()+')',g.type==='weight'?C.displayWeight(g.target):'','number','min="1" step="any"'))}
 ${sec('run',select('activity','Activity',g.activity||'Running',CARDIO)+field('distance','Distance ('+C.distUnit()+')',dist,'number','min="0.1" step="any"')+field('runTarget','Target time (mm:ss or minutes)',g.type==='run'?fmtTime(g.target):'','text','placeholder="25:00" autocomplete="off"'))}
 ${sec('habit',field('perWeek','Workouts per week',g.type==='habit'?g.target:3,'number','min="1" max="14" step="1"'))}
-<div class="wide">${field('deadline','Deadline · optional',g.deadline||'','date','min="'+today+'"')}</div><div class="wide">${field('note','Note · optional',g.note||'','text','maxlength="300"')}</div></div>
+<div class="wide">${field('deadline','Deadline · optional',g.deadline||'','date','min="'+(g.deadline&&g.deadline<today?g.deadline:today)+'"')}</div><div class="wide">${field('note','Note · optional',g.note||'','text','maxlength="300"')}</div></div>
 <p class="meta">A challenging target plus a weekly habit goal works better than a target that is only realistic.</p>`,async fd=>{
-    const type=fd.get('type'),deadline=fd.get('deadline')||null,note=String(fd.get('note')||'').trim(),n=k=>Number(fd.get(k));
-    if(deadline&&deadline<today)throw Error('Choose a deadline that is today or later.');
-    const v={id:id||uid(),date:g.date||today,type,target:0,start:null,deadline,achieved:null,note};
-    if(type==='lift'){const reps=n('reps'),t=C.parseLoad(n('liftTarget'));if(!fd.get('exerciseId'))throw Error('Choose an exercise.');if(!Number.isInteger(reps)||reps<1||reps>10)throw Error('Reps must be a whole number from 1 to 10.');if(!(t>0&&t<=1000))throw Error('Enter a target load.');Object.assign(v,{target:r2(t),exerciseId:fd.get('exerciseId'),reps})}
-    else if(type==='weight'){const t=C.parseWeight(n('weightTarget'));if(!(t>=25&&t<=400))throw Error('Enter a weight between 25 and 400 kg (or the equivalent in pounds).');v.target=r2(t)}
-    else if(type==='run'){const m=parseTime(fd.get('runTarget')),d=C.parseDist(n('distance'));if(!(d>0&&d<=1000))throw Error('Enter a distance.');if(!(m>0&&m<=6000))throw Error('Enter a time as mm:ss or as minutes.');Object.assign(v,{target:r2(m),activity:fd.get('activity'),distance:r2(d)})}
-    else{const p=n('perWeek');if(!Number.isInteger(p)||p<1||p>14)throw Error('Workouts per week must be a whole number from 1 to 14.');v.target=p}
-    const same=id&&['type','exerciseId','reps','activity','distance'].every(k=>g[k]===v[k]);
-    v.start=same&&g.start!==undefined?g.start:type==='habit'?null:goalStatus(v,C.state,today).current;
-    if(same&&g.achieved&&g.target===v.target)v.achieved=g.achieved;
-    C.state.goals=id?C.state.goals.map(x=>x.id===id?v:x):[...(C.state.goals||[]),v];
-    await C.save(id?'Goal updated':'Goal added');await syncGoals(C)});
+    const v=buildGoal(fd,old,C,today);
+    C.state.goals=old?C.state.goals.map(x=>x.id===id?v:x):[...(C.state.goals||[]),v];
+    await C.save(old?'Goal updated':'Goal added')});
   const form=document.querySelector('#modal form'),sel=form?.querySelector('[name="type"]');
-  sel?.addEventListener('change',()=>form.querySelectorAll('.goal-fields').forEach(el=>{el.hidden=el.dataset.for!==sel.value}))}
+  // Hidden sections are disabled so their constraints (min/max) can never block submission.
+  const show=()=>form.querySelectorAll('.goal-fields').forEach(el=>{const on=el.dataset.for===sel.value;el.hidden=!on;el.querySelectorAll('input,select').forEach(i=>{i.disabled=!on})});
+  if(sel){show();sel.addEventListener('change',show)}}
 
 export async function goalAction(a,id,C){
   if(a==='goal-new'){dialog(C);return true}
