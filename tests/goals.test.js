@@ -1,0 +1,11 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {project,progressFraction,runSeries,habitStreak,habitWeeks,paceCheck} from '../dist/goals.js';
+const pts=(n,start,step,gap=7)=>Array.from({length:n},(_,i)=>({date:new Date(Date.parse('2026-01-01T12:00:00Z')+i*gap*864e5).toISOString().slice(0,10),value:start+step*i}));
+test('project rising',()=>{const p=project(pts(7,100,2),150,'2026-02-12');assert.ok(p);assert.ok(Math.abs(p.weeklyRate-2)<1e-6);assert.ok(p.weeksSteady>0&&p.weeksSlowing>=p.weeksSteady);assert.ok(Math.abs(p.weeksSteady-19)<.1)});
+test('project falling',()=>{const p=project(pts(7,90,-.5),80,'2026-02-12');assert.ok(p&&p.weeklyRate<0&&p.weeksSteady>0&&p.weeksSlowing>=p.weeksSteady)});
+test('project null cases',()=>{assert.equal(project(pts(3,100,2),150,'2026-02-12'),null);assert.equal(project(pts(4,100,2,3),150,'2026-01-10'),null);assert.equal(project(pts(7,100,2),50,'2026-02-12'),null)});
+test('project caps',()=>{const p=project(pts(7,100,.01),500,'2026-02-12');assert.equal(p.weeksSteady,104);assert.equal(p.far,true)});
+test('progressFraction',()=>{assert.equal(progressFraction(60,80,100),.5);assert.equal(progressFraction(90,80,70),.5);assert.equal(progressFraction(null,80,100),0);assert.equal(progressFraction(100,100,100),0);assert.equal(progressFraction(60,120,100),1);assert.equal(progressFraction(60,50,100),0)});
+test('runSeries Riegel',()=>{const s=runSeries({activity:'Running',distance:10},[{date:'2026-01-01',type:'Running',duration:25,distance:5},{date:'2026-01-02',type:'Running',duration:5,distance:1},{date:'2026-01-03',type:'Cycling',duration:25,distance:5}]);assert.equal(s.length,1);assert.ok(Math.abs(s[0].value-25*2**1.06)<1e-9)});
+test('habit',()=>{assert.equal(habitStreak([1,3,3,4],3),3);assert.equal(habitStreak([3,3,2],3),0);const c=habitWeeks({},[{date:'2026-03-12'},{date:'2026-03-06'},{date:'2026-03-05'}],'2026-03-12',2);assert.deepEqual(c,[1,2])});
+test('paceCheck',()=>{const g={type:'weight',target:70,deadline:'2026-02-12'};const p=paceCheck(g,80,{},'2026-01-12');assert.equal(p.level,'fast');assert.match(p.message,/1% of body weight/);assert.equal(paceCheck({...g,deadline:'2026-07-12'},80,{},'2026-01-12').level,'ok');assert.equal(paceCheck({type:'weight',target:80},80,{},'2026-01-12'),null)});

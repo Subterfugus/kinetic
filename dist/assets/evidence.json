@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "verifiedDate": "2026-10-08",
+  "verifiedDate": "2026-10-09",
   "scope": "Offline educational fitness application for generally healthy adults",
   "sources": [
     {
@@ -191,31 +191,6 @@
       "limitations": [
         "The finding concerns trained adults, two lower-body exercises, and eight weeks.",
         "It does not prove that every RIR target is equivalent or establish an optimal RIR for all goals."
-      ]
-    },
-    {
-      "id": "epley_formula2019",
-      "title": "Myoelectric control algorithm for robot-assisted therapy: a hardware-in-the-loop simulation study",
-      "authors": [
-        "Juan C. Yepes",
-        "Mario A. Portela",
-        "Álvaro J. Saldarriaga",
-        "Vera Z. Pérez",
-        "Manuel J. Betancur"
-      ],
-      "year": 2019,
-      "url": "https://link.springer.com/article/10.1186/s12938-018-0622-1",
-      "doi": "10.1186/s12938-018-0622-1",
-      "type": "primary engineering study documenting formula",
-      "evidenceStrength": "Formula documentation only; not evidence of general predictive validity",
-      "summary": "The methods explicitly document the commonly used Epley estimate as lifted weight multiplied by one plus repetitions divided by thirty. Repetitions refer to a maximum repetition set performed to fatigue. This source verifies the displayed formula; it does not provide broad validation of its accuracy.",
-      "supportedClaims": [
-        "Epley estimated 1RM = load×(1 + repetitions/30)."
-      ],
-      "limitations": [
-        "The original Epley publication was not directly inspected.",
-        "A nonmaximal set makes an unadjusted repetition-max equation less interpretable.",
-        "Do not claim this study validates Epley for every exercise or population."
       ]
     },
     {
@@ -478,6 +453,645 @@
         "The design did not establish within-person trend accuracy or performance of every newer device.",
         "A single body-fat change does not establish fat or muscle gain/loss."
       ]
+    },
+    {
+      "id": "lesuer1997",
+      "title": "The accuracy of prediction equations for estimating 1-RM performance in the bench press, squat, and deadlift",
+      "authors": [
+        "Dale A. LeSuer",
+        "James H. McCormick",
+        "Jerry L. Mayhew",
+        "Ronald L. Wasserstein",
+        "Michael D. Arnold"
+      ],
+      "year": 1997,
+      "url": "https://doi.org/10.1519/00124278-199711000-00001",
+      "doi": "10.1519/00124278-199711000-00001",
+      "type": "primary validation study",
+      "evidenceStrength": "Limited to moderate; college students, three lifts",
+      "summary": "Researchers compared seven published prediction equations against measured one-repetition maximum in the bench press, squat and deadlift in college students. The equations were reasonably accurate for the bench press and squat and underestimated the deadlift. The app uses the Epley form, load × (1 + reps/30), which first appeared in Boyd Epley's 1985 \"Poundage chart\" (Boyd Epley Workout, Body Enterprises, Lincoln, NE), not in this paper; this study supports the general usefulness of such equations, not Epley's formula specifically.",
+      "supportedClaims": [
+        "Repetition-based equations such as Epley give a usable estimate of one-repetition maximum for the bench press and squat.",
+        "Estimated maximums are approximations and should be labelled as estimates."
+      ],
+      "limitations": [
+        "Accuracy falls as reps rise above about 10.",
+        "Estimates are exercise-specific; the deadlift was underestimated.",
+        "Participants were college students, so results may not carry over to other groups."
+      ]
+    },
+    {
+      "id": "pelland2026",
+      "title": "The Resistance Training Dose Response: Meta-Regressions Exploring the Effects of Weekly Volume and Frequency on Muscle Hypertrophy and Strength Gains",
+      "authors": [
+        "Joshua C. Pelland",
+        "Jacob F. Remmert",
+        "Zac P. Robinson",
+        "Seth R. Hinson",
+        "Michael C. Zourdos"
+      ],
+      "year": 2026,
+      "url": "https://doi.org/10.1007/s40279-025-02344-w",
+      "doi": "10.1007/s40279-025-02344-w",
+      "type": "systematic meta-regression",
+      "evidenceStrength": "Moderate to strong for population-level dose-response; individual response varies",
+      "summary": "Multilevel meta-regressions pooled 67 studies with 2,058 participants. Sets that only indirectly train a muscle were counted as 0.5 of a set (\"fractional\"), which had the strongest relative evidence of the counting methods tested. Muscle size and strength rose with weekly set volume, with diminishing returns that were more pronounced for strength. Frequency had effects on hypertrophy compatible with negligible, while strength gains rose with frequency, again with diminishing returns.",
+      "supportedClaims": [
+        "Weekly sets per muscle show a dose-response with diminishing returns.",
+        "Counting secondary-muscle sets as half a set fits the data best.",
+        "Training frequency matters little for hypertrophy when volume is equal; it appears more relevant for strength."
+      ],
+      "limitations": [
+        "Participants were mostly young men (79.1%), average age about 25.",
+        "Meta-regression shows associations across studies, not individual prescriptions.",
+        "The 0.5 weighting is a best-fitting convention, not a measured physiological constant."
+      ]
+    },
+    {
+      "id": "schoenfeld2017",
+      "title": "Dose-response relationship between weekly resistance training volume and increases in muscle mass: A systematic review and meta-analysis",
+      "authors": [
+        "Brad J. Schoenfeld",
+        "Dan Ogborn",
+        "James W. Krieger"
+      ],
+      "year": 2017,
+      "url": "https://doi.org/10.1080/02640414.2016.1210197",
+      "doi": "10.1080/02640414.2016.1210197",
+      "type": "systematic review and meta-analysis",
+      "evidenceStrength": "Moderate; small number of studies",
+      "summary": "A meta-regression of 15 studies (34 treatment groups) found that more weekly sets were associated with greater muscle growth. Each additional weekly set was associated with a 0.37% larger percentage gain, and higher-volume groups gained about 3.9% more than lower-volume groups. The three-level comparison (under 5, 5–9 and 10+ sets per muscle) showed only a trend (P = 0.074). The authors describe a graded dose-response relationship.",
+      "supportedClaims": [
+        "More weekly sets per muscle generally produce more growth, in a graded way."
+      ],
+      "limitations": [
+        "Only 15 studies were included, and the three-level volume comparison was not statistically significant.",
+        "Does not show where returns level off for an individual.",
+        "Superseded in detail by newer dose-response work."
+      ]
+    },
+    {
+      "id": "schoenfeld2021",
+      "title": "Loading recommendations for muscle strength, hypertrophy, and local endurance: A re-examination of the repetition continuum",
+      "authors": [
+        "Brad J. Schoenfeld",
+        "Jozo Grgic",
+        "Derrick W. Van Every",
+        "Daniel L. Plotkin"
+      ],
+      "year": 2021,
+      "url": "https://doi.org/10.3390/sports9020032",
+      "doi": "10.3390/sports9020032",
+      "type": "narrative review",
+      "evidenceStrength": "Low to moderate; narrative review and author interpretation",
+      "summary": "This narrative review challenges the idea that each repetition range is tied to a specific adaptation. Based on emerging evidence, the authors propose that muscular adaptations, including hypertrophy, can be obtained across a wide spectrum of loading zones. The app uses it to support flexible rep ranges for growth. The abstract does not itself state the heavier-load advantage for maximal strength, which the app takes from the wider literature.",
+      "supportedClaims": [
+        "Muscle growth is similar across a wide range of rep counts when sets are hard.",
+        "Heavier loads are better for maximal strength."
+      ],
+      "limitations": [
+        "Narrative review without a formal pooled analysis.",
+        "The strength-specific claim and the condition that sets are hard are not stated in the abstract and were not verified against the full text."
+      ]
+    },
+    {
+      "id": "refalo2023",
+      "title": "Influence of resistance training proximity-to-failure on skeletal muscle hypertrophy: A systematic review with meta-analysis",
+      "authors": [
+        "Martin C. Refalo",
+        "Eric R. Helms",
+        "Eric T. Trexler",
+        "D. Lee Hamilton",
+        "Jackson J. Fyfe"
+      ],
+      "year": 2023,
+      "url": "https://doi.org/10.1007/s40279-022-01784-y",
+      "doi": "10.1007/s40279-022-01784-y",
+      "type": "systematic review and meta-analysis",
+      "evidenceStrength": "Moderate; 15 studies with varied failure definitions",
+      "summary": "A meta-analysis of 15 studies compared training to failure with stopping short. Using any definition of set failure there was a trivial advantage for failure (effect size 0.19, 95% CI 0.00 to 0.37). For momentary muscular failure specifically there was no clear advantage (effect size 0.12, CI -0.13 to 0.37). The authors conclude there is no evidence that training to momentary failure is superior for hypertrophy.",
+      "supportedClaims": [
+        "Training to failure is not required for growth.",
+        "Stopping a few reps short gives similar growth."
+      ],
+      "limitations": [
+        "Studies defined failure and non-failure differently.",
+        "Results concern hypertrophy, not strength or recovery cost.",
+        "A trivial benefit of set failure under the broad definition cannot be ruled out."
+      ]
+    },
+    {
+      "id": "plotkin2022",
+      "title": "Progressive overload without progressing load? The effects of load or repetition progression on muscular adaptations",
+      "authors": [
+        "Daniel Plotkin",
+        "Max Coleman",
+        "Derrick Van Every",
+        "Jaime Maldonado",
+        "Douglas Oberlin",
+        "Michael Israetel",
+        "Jared Feather",
+        "Andrew Alto",
+        "Andrew D. Vigotsky",
+        "Brad J. Schoenfeld"
+      ],
+      "year": 2022,
+      "url": "https://doi.org/10.7717/peerj.14142",
+      "doi": "10.7717/peerj.14142",
+      "type": "randomized trial",
+      "evidenceStrength": "Moderate to low; 43 participants, 8 weeks",
+      "summary": "Forty-three resistance-trained people were randomized to add load at a fixed rep range or add reps at a fixed load, training lower body twice a week for 8 weeks. Rectus femoris growth modestly favored adding reps and strength slightly favored adding load, both of questionable practical significance. Other outcomes were essentially the same. Both progression methods appear viable.",
+      "supportedClaims": [
+        "Adding reps and adding load are both valid ways to progress.",
+        "Basis for double progression."
+      ],
+      "limitations": [
+        "Short 8-week study in trained lifters, lower body only.",
+        "Small differences were uncertain with wide intervals."
+      ]
+    },
+    {
+      "id": "coleman2024",
+      "title": "Gaining more from doing less? The effects of a one-week deload period during supervised resistance training on muscular adaptations",
+      "authors": [
+        "Max Coleman",
+        "Ryan Burke",
+        "Francesca Augustin",
+        "Alec Piñero",
+        "Jaime Maldonado",
+        "James P. Fisher",
+        "Michael Israetel",
+        "Patroklos Androulakis Korakakis",
+        "Paul Swinton",
+        "Douglas Oberlin",
+        "Brad J. Schoenfeld"
+      ],
+      "year": 2024,
+      "url": "https://doi.org/10.7717/peerj.16777",
+      "doi": "10.7717/peerj.16777",
+      "type": "randomized trial",
+      "evidenceStrength": "Moderate to low; 39 participants, single 9-week program",
+      "summary": "Thirty-nine resistance-trained adults were randomized to rest completely from lifting for one week at the midpoint of a 9-week high-volume program or to train continuously. Lower-body muscle size, endurance and power did not differ, while continuous training produced larger gains in isometric and dynamic lower-body strength. Continuous training also showed slight psychological benefits on a readiness questionnaire.",
+      "supportedClaims": [
+        "A planned week off mid-program did not improve growth and slightly reduced lower-body strength gains.",
+        "Basis for suggesting recovery weeks only when progress stalls."
+      ],
+      "limitations": [
+        "The deload was complete rest, not reduced training.",
+        "Short program; upper-body training was unsupervised.",
+        "Does not test deloads for people who are actually stalled or fatigued."
+      ]
+    },
+    {
+      "id": "bell2023",
+      "title": "Integrating deloading into strength and physique sports training programmes: An international Delphi consensus approach",
+      "authors": [
+        "Lee Bell",
+        "Ben William Strafford",
+        "Max Coleman",
+        "Patroklos Androulakis Korakakis",
+        "David Nolan"
+      ],
+      "year": 2023,
+      "url": "https://doi.org/10.1186/s40798-023-00633-0",
+      "doi": "10.1186/s40798-023-00633-0",
+      "type": "expert consensus (Delphi)",
+      "evidenceStrength": "Low; expert opinion, not a trial",
+      "summary": "Expert strength and physique coaches rated statements about deloading across three Delphi rounds (34, 29 and 21 coaches completed rounds one to three). The panel reached consensus on design principles and proposed defining a deload as a period of reduced training stress meant to reduce fatigue, promote recovery and improve preparedness for later training. It reflects coaching practice rather than measured outcomes.",
+      "supportedClaims": [
+        "Expert consensus describes deloads as a period of reduced training stress."
+      ],
+      "limitations": [
+        "Consensus of coaches, not evidence that deloads improve results.",
+        "Small panel that shrank between rounds."
+      ]
+    },
+    {
+      "id": "singer2024",
+      "title": "Give it a rest: a systematic review with Bayesian meta-analysis on the effect of inter-set rest interval duration on muscle hypertrophy",
+      "authors": [
+        "Alec Singer",
+        "Milo Wolf",
+        "Leonardo Generoso",
+        "Elizabeth Arias",
+        "Kenneth Delcastillo",
+        "Edwin Echevarria",
+        "Amaris Martinez",
+        "Patroklos Androulakis Korakakis",
+        "Martin C. Refalo",
+        "Paul A. Swinton",
+        "Brad J. Schoenfeld"
+      ],
+      "year": 2024,
+      "url": "https://doi.org/10.3389/fspor.2024.1429789",
+      "doi": "10.3389/fspor.2024.1429789",
+      "type": "systematic review with Bayesian meta-analysis",
+      "evidenceStrength": "Moderate to low; 9 studies, substantial heterogeneity",
+      "summary": "Nine randomized studies (19 measurements) compared different rest intervals between sets with other variables controlled. Results suggest a small hypertrophic benefit from resting longer than about 60 seconds, possibly through preserving volume load. No appreciable differences were detected when resting beyond about 90 seconds.",
+      "supportedClaims": [
+        "Rest longer than about 60 s gives a small growth benefit.",
+        "Little is added beyond about 90 s."
+      ],
+      "limitations": [
+        "Few studies and substantial heterogeneity.",
+        "Credible intervals included zero for the longer-versus-shorter comparisons.",
+        "Hypertrophy only, not strength or time efficiency."
+      ]
+    },
+    {
+      "id": "ramoscampo2024",
+      "title": "Efficacy of split versus full-body resistance training on strength and muscle growth: A systematic review with meta-analysis",
+      "authors": [
+        "Domingo J. Ramos-Campo",
+        "Pedro J. Benito-Peinado",
+        "Luis Andreu-Caravaca",
+        "Miguel A. Rojo-Tirado",
+        "Jacobo Á. Rubio-Arias"
+      ],
+      "year": 2024,
+      "url": "https://doi.org/10.1519/JSC.0000000000004774",
+      "doi": "10.1519/JSC.0000000000004774",
+      "type": "systematic review and meta-analysis",
+      "evidenceStrength": "Moderate; 14 studies, 392 participants",
+      "summary": "Fourteen studies with 392 participants compared split and full-body routines. Strength gains in the bench press and lower limbs, and muscle size measures including lean body mass, were not significantly different between routines when training volume was equated. The authors conclude people can choose a routine by preference.",
+      "supportedClaims": [
+        "Split and full-body routines give similar results when weekly volume is equal."
+      ],
+      "limitations": [
+        "Few studies per muscle outcome.",
+        "Only applies when volume is matched."
+      ]
+    },
+    {
+      "id": "nunes2021",
+      "title": "What influence does resistance exercise order have on muscular strength gains and muscle hypertrophy? A systematic review and meta-analysis",
+      "authors": [
+        "João Pedro Nunes",
+        "Jozo Grgic",
+        "Paolo M. Cunha",
+        "Alex S. Ribeiro",
+        "Brad J. Schoenfeld",
+        "Belmiro F. de Salles",
+        "Edilson S. Cyrino"
+      ],
+      "year": 2021,
+      "url": "https://doi.org/10.1080/17461391.2020.1733672",
+      "doi": "10.1080/17461391.2020.1733672",
+      "type": "systematic review and meta-analysis",
+      "evidenceStrength": "Moderate; 11 good-to-excellent quality studies",
+      "summary": "Eleven studies were pooled. Overall strength gains did not differ by order, but strength gains were larger in whichever exercise type was performed first (multi-joint first favored multi-joint strength, single-joint first favored single-joint strength). No significant effect of exercise order was found for hypertrophy.",
+      "supportedClaims": [
+        "Exercises done first in a session gain more strength.",
+        "Order does not change muscle growth."
+      ],
+      "limitations": [
+        "Few studies per comparison.",
+        "Short interventions, so long-term effects are unknown."
+      ]
+    },
+    {
+      "id": "haugen2023",
+      "title": "Effect of free-weight vs. machine-based strength training on maximal strength, hypertrophy and jump performance - a systematic review and meta-analysis",
+      "authors": [
+        "Markus E. Haugen",
+        "Fredrik T. Vårvik",
+        "Stian Larsen",
+        "Arvid S. Haugen",
+        "Roland van den Tillaar",
+        "Thomas Bjørnsen"
+      ],
+      "year": 2023,
+      "url": "https://doi.org/10.1186/s13102-023-00713-4",
+      "doi": "10.1186/s13102-023-00713-4",
+      "type": "systematic review and meta-analysis",
+      "evidenceStrength": "Moderate; 13 studies, 1,016 participants, only 5 for hypertrophy",
+      "summary": "Thirteen studies with 1,016 adults were pooled. Hypertrophy and jump performance did not differ between free-weight and machine training. Strength gains were specific to the training type: free-weight tests improved more after free-weight training, with a similar tendency for machines.",
+      "supportedClaims": [
+        "Free weights and machines build similar muscle.",
+        "Strength gains are largest in the type you train."
+      ],
+      "limitations": [
+        "Only five studies measured hypertrophy.",
+        "Studies lasted at least 6 weeks and included adults aged 18 to 60 only."
+      ]
+    },
+    {
+      "id": "kikuchi2017",
+      "title": "Low-load bench press and push-up induce similar muscle hypertrophy and strength gain",
+      "authors": [
+        "Naoki Kikuchi",
+        "Koichi Nakazato"
+      ],
+      "year": 2017,
+      "url": "https://doi.org/10.1016/j.jesf.2017.06.003",
+      "doi": "10.1016/j.jesf.2017.06.003",
+      "type": "randomized trial",
+      "evidenceStrength": "Low; 18 young men, 8 weeks",
+      "summary": "Eighteen young men were randomized to bench press at 40% of their one-repetition maximum or push-ups adjusted (for example kneeling) to the same load, twice a week for 8 weeks. Both groups gained bench press strength and chest and triceps muscle thickness; biceps thickness rose only in the bench press group. The authors judged the two comparably effective.",
+      "supportedClaims": [
+        "Push-ups and low-load bench press produced similar growth and strength gain."
+      ],
+      "limitations": [
+        "Very small sample of young men.",
+        "Push-up position was adjusted to match a low load, so findings may not apply to standard push-ups."
+      ]
+    },
+    {
+      "id": "maeo2021",
+      "title": "Greater hamstrings muscle hypertrophy but similar damage protection after training at long versus short muscle lengths",
+      "authors": [
+        "Sumiaki Maeo",
+        "Meng Huang",
+        "Yuhang Wu",
+        "Hikaru Sakurai",
+        "Yuki Kusagawa",
+        "Takashi Sugiyama",
+        "Hiroaki Kanehisa",
+        "Tadao Isaka"
+      ],
+      "year": 2021,
+      "url": "https://doi.org/10.1249/MSS.0000000000002523",
+      "doi": "10.1249/MSS.0000000000002523",
+      "type": "within-participant randomized trial",
+      "evidenceStrength": "Low to moderate; 20 adults, 12 weeks",
+      "summary": "Twenty healthy adults trained one leg with seated leg curls and the other with prone curls for 12 weeks, with muscle volume measured by MRI. Whole hamstring volume rose about 14% with seated curls versus 9% with prone curls, a difference seen in the biarticular but not the monoarticular hamstrings. Protection against later muscle damage was similar for both.",
+      "supportedClaims": [
+        "Seated leg curls (hamstrings trained at long length) grew the hamstrings more than lying curls."
+      ],
+      "limitations": [
+        "Small sample of healthy adults.",
+        "Only one exercise comparison per muscle."
+      ]
+    },
+    {
+      "id": "maeo2023",
+      "title": "Triceps brachii hypertrophy is substantially greater after elbow extension training performed in the overhead versus neutral arm position",
+      "authors": [
+        "Sumiaki Maeo",
+        "Yuhang Wu",
+        "Meng Huang",
+        "Hikaru Sakurai",
+        "Yuki Kusagawa",
+        "Takashi Sugiyama",
+        "Hiroaki Kanehisa",
+        "Tadao Isaka"
+      ],
+      "year": 2023,
+      "url": "https://doi.org/10.1080/17461391.2022.2100279",
+      "doi": "10.1080/17461391.2022.2100279",
+      "type": "within-participant randomized trial",
+      "evidenceStrength": "Low to moderate; 21 adults, 12 weeks",
+      "summary": "Twenty-one adults did cable elbow extensions with one arm overhead and the other arm at the side for 12 weeks. MRI showed whole triceps volume rose about 19.9% overhead versus 13.9% at the side, and the long head about 28.5% versus 19.6%, despite lighter loads overhead.",
+      "supportedClaims": [
+        "Overhead triceps extensions grew the triceps, especially the long head, more than the same exercise with the arm by the side."
+      ],
+      "limitations": [
+        "Small sample.",
+        "Cable extension only; other triceps exercises were not tested."
+      ]
+    },
+    {
+      "id": "kinoshita2023",
+      "title": "Triceps surae muscle hypertrophy is greater after standing versus seated calf-raise training",
+      "authors": [
+        "Momoka Kinoshita",
+        "Sumiaki Maeo",
+        "Yuuto Kobayashi",
+        "Yuuri Eihara",
+        "Munetaka Ono",
+        "Mauto Sato",
+        "Takashi Sugiyama",
+        "Hiroaki Kanehisa",
+        "Tadao Isaka"
+      ],
+      "year": 2023,
+      "url": "https://doi.org/10.3389/fphys.2023.1272106",
+      "doi": "10.3389/fphys.2023.1272106",
+      "type": "within-participant randomized trial",
+      "evidenceStrength": "Low; 14 untrained adults, 12 weeks",
+      "summary": "Fourteen untrained adults trained one leg with standing calf raises and the other with seated calf raises for 12 weeks. Gastrocnemius growth was far greater standing (lateral 12.4% vs 1.7%, medial 9.2% vs 0.6%), while soleus growth was similar (2.1% vs 2.9%).",
+      "supportedClaims": [
+        "Standing calf raises grew the gastrocnemius far more than seated raises; soleus growth was similar."
+      ],
+      "limitations": [
+        "Small sample of untrained adults.",
+        "Does not show whether seated raises add anything for the soleus in trained lifters."
+      ]
+    },
+    {
+      "id": "plotkin2023",
+      "title": "Hip thrust and back squat training elicit similar gluteus muscle hypertrophy and transfer similarly to the deadlift",
+      "authors": [
+        "Daniel L. Plotkin",
+        "Merlina A. Rodas",
+        "Andrew D. Vigotsky",
+        "Mason C. McIntosh",
+        "Emma Breeze",
+        "Rachel Ubrik",
+        "Cole Robitzsch",
+        "Anthony Agyin-Birikorang",
+        "Madison L. Mattingly",
+        "J. Max Michel",
+        "Nicholas J. Kontos",
+        "Sarah Lennon",
+        "Andrew D. Frugé",
+        "Christopher M. Wilburn",
+        "Wendi H. Weimar",
+        "Adil Bashir",
+        "Ronald J. Beyers",
+        "Menno Henselmans",
+        "Bret M. Contreras",
+        "Michael D. Roberts"
+      ],
+      "year": 2023,
+      "url": "https://doi.org/10.3389/fphys.2023.1279170",
+      "doi": "10.3389/fphys.2023.1279170",
+      "type": "randomized trial",
+      "evidenceStrength": "Low to moderate; 34 untrained adults, 9 weeks",
+      "summary": "Thirty-four untrained college-aged adults were randomized to hip thrust (18) or back squat (16) with equated set volume for 9 weeks. Gluteus growth was similar, with wide uncertainty. Squats produced greater growth in the quadriceps and adductors, and strength gains favored the trained lift. Deadlift strength improved similarly in both groups.",
+      "supportedClaims": [
+        "Hip thrusts and squats grew the glutes similarly.",
+        "Squats grew the thighs more."
+      ],
+      "limitations": [
+        "Untrained participants and a short 9-week period.",
+        "Wide confidence intervals for gluteal differences."
+      ]
+    },
+    {
+      "id": "vigotsky2018",
+      "title": "Interpreting signal amplitudes in surface electromyography studies in sport and rehabilitation sciences",
+      "authors": [
+        "Andrew D. Vigotsky",
+        "Israel Halperin",
+        "Gregory J. Lehman",
+        "Gabriel S. Trajano",
+        "Taian M. Vieira"
+      ],
+      "year": 2018,
+      "url": "https://doi.org/10.3389/fphys.2017.00985",
+      "doi": "10.3389/fphys.2017.00985",
+      "type": "narrative review",
+      "evidenceStrength": "Moderate for methodological reasoning; not an outcome trial",
+      "summary": "This review explains what can and cannot be inferred from comparing surface EMG amplitudes between muscles, exercises and loads. The authors argue that conclusions about strength and hypertrophy drawn from such comparisons are frequently unsubstantiated and unwarranted.",
+      "supportedClaims": [
+        "EMG amplitude cannot be used to rank exercises for growth.",
+        "Why the app describes muscle roles qualitatively rather than with percentages."
+      ],
+      "limitations": [
+        "Does not test any training outcome directly.",
+        "Does not say which exercises are best."
+      ]
+    },
+    {
+      "id": "harkin2016",
+      "title": "Does monitoring goal progress promote goal attainment? A meta-analysis of the experimental evidence",
+      "authors": [
+        "Benjamin Harkin",
+        "Thomas L. Webb",
+        "Betty P. I. Chang",
+        "Andrew Prestwich",
+        "Mark Conner",
+        "Ian Kellar",
+        "Yael Benn",
+        "Paschal Sheeran"
+      ],
+      "year": 2016,
+      "url": "https://doi.org/10.1037/bul0000025",
+      "doi": "10.1037/bul0000025",
+      "type": "meta-analysis of randomized experiments",
+      "evidenceStrength": "Moderate to strong; 138 studies, N = 19,951, across many goal types",
+      "summary": "A meta-analysis of 138 randomized studies found interventions increased how often people monitored goal progress and modestly improved goal attainment (d = 0.40). Effects were larger when progress was physically recorded or reported publicly.",
+      "supportedClaims": [
+        "Monitoring progress makes reaching a goal more likely, more so when progress is recorded."
+      ],
+      "limitations": [
+        "Covers many kinds of goals, not specifically exercise.",
+        "Effect size is modest."
+      ]
+    },
+    {
+      "id": "swann2023",
+      "title": "The (over)use of SMART goals for physical activity promotion: A narrative review and critique",
+      "authors": [
+        "Christian Swann",
+        "Patricia C. Jackman",
+        "Alex Lawrence",
+        "Rebecca M. Hawkins",
+        "Scott G. Goddard",
+        "Ollie Williamson",
+        "Matthew J. Schweickle",
+        "Stewart A. Vella",
+        "Simon Rosenbaum",
+        "Panteleimon Ekkekakis"
+      ],
+      "year": 2023,
+      "url": "https://doi.org/10.1080/17437199.2021.2023608",
+      "doi": "10.1080/17437199.2021.2023608",
+      "type": "narrative review and critique",
+      "evidenceStrength": "Low to moderate; critical review, not a trial",
+      "summary": "This review examines the SMART goal acronym in physical activity promotion and argues it is not grounded in scientific theory, is not consistent with empirical evidence, and is applied inconsistently. It also notes a risk of harmful effects and offers recommendations for better goal-setting practice.",
+      "supportedClaims": [
+        "SMART goals are not a proven standard, so the app avoids presenting them as such."
+      ],
+      "limitations": [
+        "Critique rather than a test of alternatives.",
+        "Does not provide a replacement goal-setting method."
+      ]
+    },
+    {
+      "id": "helms2014",
+      "title": "Evidence-based recommendations for natural bodybuilding contest preparation: nutrition and supplementation",
+      "authors": [
+        "Eric R. Helms",
+        "Alan A. Aragon",
+        "Peter J. Fitschen"
+      ],
+      "year": 2014,
+      "url": "https://doi.org/10.1186/1550-2783-11-20",
+      "doi": "10.1186/1550-2783-11-20",
+      "type": "narrative review with recommendations",
+      "evidenceStrength": "Low to moderate; expert review for a specialized population",
+      "summary": "This review of the literature on contest preparation recommends setting calories to produce bodyweight loss of roughly 0.5 to 1% per week to maximize muscle retention. It also covers protein, fat, meal timing and supplements for natural bodybuilders.",
+      "supportedClaims": [
+        "Losing about 0.5–1% of body weight per week helps retain muscle."
+      ],
+      "limitations": [
+        "Written for competitive natural bodybuilders; general applicability is assumed, not tested.",
+        "Narrative review, not a controlled trial."
+      ]
+    },
+    {
+      "id": "iraki2019",
+      "title": "Nutrition recommendations for bodybuilders in the off-season: A narrative review",
+      "authors": [
+        "Juma Iraki",
+        "Peter Fitschen",
+        "Sergio Espinar",
+        "Eric Helms"
+      ],
+      "year": 2019,
+      "url": "https://doi.org/10.3390/sports7070154",
+      "doi": "10.3390/sports7070154",
+      "type": "narrative review with recommendations",
+      "evidenceStrength": "Low to moderate; expert review for a specialized population",
+      "summary": "This narrative review recommends a modest calorie surplus (about 10 to 20%) with a target weight gain of roughly 0.25 to 0.5% of bodyweight per week for novice and intermediate bodybuilders. Advanced lifters are advised to be more conservative.",
+      "supportedClaims": [
+        "Gaining about 0.25–0.5% of body weight per week for novice and intermediate lifters."
+      ],
+      "limitations": [
+        "Written for natural bodybuilders; not a controlled trial.",
+        "Advanced lifters need smaller surpluses than the headline range."
+      ]
+    },
+    {
+      "id": "steele2022",
+      "title": "Long-term time-course of strength adaptation to minimal dose resistance training through retrospective longitudinal growth modeling",
+      "authors": [
+        "James Steele",
+        "James P. Fisher",
+        "Jurgen Giessing",
+        "Patroklos Androulakis-Korakakis",
+        "Milo Wolf",
+        "Bram Kroeske",
+        "Rob Reuters"
+      ],
+      "year": 2022,
+      "url": "https://doi.org/10.1080/02701367.2022.2070592",
+      "doi": "10.1080/02701367.2022.2070592",
+      "type": "retrospective observational study",
+      "evidenceStrength": "Low to moderate; large sample but not randomized, minimal-dose training",
+      "summary": "Training records from 14,690 participants (60% female, mean age 48) doing once-weekly single sets to failure across six exercises were modeled for up to about 6.8 years. Strength followed a linear-log curve that approached a plateau by roughly 1 to 2 years, with about 30–50% gains in the first year and about 50–60% over baseline after six years.",
+      "supportedClaims": [
+        "Strength follows a fast-then-plateau (roughly logarithmic) curve over years.",
+        "Why goal projections include a slowing scenario."
+      ],
+      "limitations": [
+        "Retrospective data from a private exercise company.",
+        "Minimal-dose training in middle-aged adults may not match other programs.",
+        "The authors note it is unclear whether the plateau can be overcome with other approaches."
+      ]
+    },
+    {
+      "id": "riegel1981",
+      "title": "Athletic records and human endurance",
+      "authors": [
+        "Peter S. Riegel"
+      ],
+      "year": 1981,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/7235349/",
+      "doi": null,
+      "type": "primary empirical analysis",
+      "evidenceStrength": "Low to moderate; old analysis of record performances",
+      "summary": "Riegel analyzed athletic record performances across distances to describe how endurance falls as distance increases. The app uses the resulting power-law form, T2 = T1 × (D2/D1)^1.06, to predict race times from a known performance. The formula is an empirical fit to record-level data.",
+      "supportedClaims": [
+        "Race-time prediction T2 = T1 × (D2/D1)^1.06."
+      ],
+      "limitations": [
+        "Unreliable for much longer distances than the one measured.",
+        "Fitted to record performances, so less accurate for recreational runners.",
+        "Summary written from the abstract-level description; full text not reviewed."
+      ]
     }
   ],
   "implementationNotes": [
@@ -505,7 +1119,7 @@
     {
       "topic": "1RM behavior",
       "sourceIds": [
-        "epley_formula2019",
+        "lesuer1997",
         "reynolds2006"
       ],
       "note": "Use same-unit load×(1+reps/30) for 2–10 near-maximal repetitions. For one completed maximal repetition, report the lifted load directly as a measured single. Do not automatically add RIR to reps without labeling that extrapolation as heuristic. Do not convert an estimate into an instruction to attempt a maximum."
@@ -566,7 +1180,7 @@
       "expression": "load * (1 + repetitions / 30)",
       "unit": "same as load",
       "sourceIds": [
-        "epley_formula2019",
+        "lesuer1997",
         "reynolds2006"
       ]
     },
@@ -616,6 +1230,22 @@
       "unit": "moderate-equivalent minutes/week",
       "sourceIds": [
         "who2020"
+      ]
+    },
+    {
+      "id": "riegel_time",
+      "expression": "time1 * (distance2 / distance1) ^ 1.06",
+      "unit": "same as time1",
+      "sourceIds": [
+        "riegel1981"
+      ]
+    },
+    {
+      "id": "fractional_sets",
+      "expression": "primarySets + 0.5 * secondarySets",
+      "unit": "sets per week",
+      "sourceIds": [
+        "pelland2026"
       ]
     }
   ],

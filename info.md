@@ -119,3 +119,24 @@ User called the 1.1/1.2 look ugly and the wording obnoxious; full creative freed
 - Wired in app.js (startup + `start-tour` action), settings.js (button), sw.js (tour.js cached, cache v5), style.css (tour styles), package 1.4.0.
 - 30 tests pass (new: tour steps complete and cover the main areas). Browser-checked: auto-opens on a fresh device, Next/Back through all steps, Open Settings, relaunch from Settings, no console errors. A locked journal does not show the tour.
 - MAINTENANCE RULE (also in "Goal and working rules" above): update the steps in dist/tour.js whenever pages, navigation names or headline features change, and adjust the tour test in tests/polish.test.js if step titles change.
+
+## 2026-10-09 — Release 1.5 programs, focus mode, goals, photo studio — DONE
+User asked for: focus mode, programs that set today's weights, goals with projections, photo studio, a science audit, recommended programs, and automatic equipment substitution that rebalances the session.
+
+Science (agents: 3 Sonnet research/audit, 1 Haiku DOI check, 1 Sonnet for evidence.json)
+- Rules adopted: fractional sets (secondary muscle = 0.5), weekly sets 6–10 beginner / 10–16 intermediate / cap 20, double progression, reactive (not scheduled) recovery weeks at half the sets, rest 2–3 min compounds / 1–2 min isolations, 1–3 reps in reserve, split chosen by schedule.
+- Deliberately NOT built: 5/3/1-style percent waves (no trial shows them beating simpler progression) and scheduled deload weeks (the one trial, Coleman 2024, found no benefit).
+- Practical defaults with no trial behind them (labelled as such in the app/docs): load increment sizes, the stall rule, monthly strength ceilings in goal pace warnings, photo protocol advice.
+- Audit fixes: the old `epley_formula2019` source was an unrelated robotics paper → replaced with `lesuer1997`; overhead presses gained `traps` as secondary; old `alternatives()` could suggest hinges for squats → tightened, and the UI now uses the ranked `substitutes()`.
+- evidence.json: 22 sources added (41 + 3 anatomy), every DOI checked against Crossref, summaries written from PubMed abstracts. Caveats recorded in the entries: riegel1981 and lesuer1997 abstracts not read; schoenfeld2021 claims partly unverified from the abstract.
+
+Code
+- New: dist/programs.js (pure engine), dist/program-view.js (Plan/Today program screens, swap dialog, "Equipment today"), dist/focus.js (focus mode), dist/goals.js (Goals page, written by an agent), dist/photos.js (photo studio, written by an agent), tests/programs.test.js (23), tests/goals.test.js (8).
+- data.js: 45 exercises added (108). store.js: root keys `goals`, `program`. validation.js: validates both, optional draft fields (range, targetLoad, targetRir, rest, why, covers, program) and photo `pose`.
+- app.js: Goals nav entry, action dispatch for program/goal/photo, prefs `focusAuto` and `bar`, `C.restEnd`, `C.stopRest`, goal sync after each save. training.js: Focus mode and Equipment today buttons, per-exercise rest, target line, program advances on finish. planning.js: program section on top, three new evidence principles, old "Starter routine" card only for the mobility goal. anatomy.js: ranked substitutes in the exercise dialog. sw.js cache v6. package 1.5.0.
+- Welcome tour updated (Training, Plan, Track, Library steps) per the standing rule.
+- A Sonnet review agent found 12 issues; fixed: invalid numbers leaking into the draft, double-tap logging two sets, finish from focus mode, swaps wiping completed sets, recovery-week targets on swapped exercises, keyboard focus/inert, camera stream leak, missing error message on browse-swap, timed exercises dropped silently. Not fixed: every photo's Delete button has the same accessible name.
+
+Verified in the browser pane: recommended program adapted to dumbbells + bodyweight, starting it, a full workout in focus mode, swap mid-workout, Equipment today (summary dialog), program advancing with new targets, Today card, creating a lift goal, photo studio page and camera-unavailable fallback, ranked substitutes, new sources, no console errors. 61 tests + asset check pass.
+NOT verified: the camera itself (blocked in the pane), ghost overlay, compare slider and time-lapse with real photos, recovery-week flow, weight/run/habit goals with real history, imperial units in focus mode, plate line on a real barbell lift, phones, the lock screen with the new features, offline reload on cache v6.
+Ideas not done: custom exercises, photos out of the main journal record, 11.6 MB side-reference.png, quick-log bar, macros, GPS, device sync.
