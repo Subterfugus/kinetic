@@ -1,4 +1,4 @@
-const CACHE='kinetic-shell-v1';
+const CACHE='kinetic-shell-v2';
 const FILES=['/','/index.html','/style.css','/app.js','/store.js','/ui.js','/science.js','/data.js','/validation.js','/vault.js','/training.js','/journal.js','/anatomy.js','/planning.js','/settings.js','/favicon.svg','/manifest.webmanifest','/assets/evidence.json','/assets/muscle-map.json','/assets/side-landmarks.json','/assets/front.svg','/assets/back.svg','/assets/side-reference.png'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('kinetic-shell-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));

@@ -4,7 +4,7 @@ Verified October 8, 2026. Browser QA used a separate localhost origin with expli
 
 ## Automated
 
-- 22 tests passed: published equation coefficients/domains, effort-gated Epley, assistance semantics, gross/net MET energy, heart-rate methods, calendar-based smoothing/slope, complete-day handling, stable-weight maintenance calibration, timeline limits, composition, shared bench-press relationships, frequency/warm-up exclusions, records/progression, equipment substitutions, correlations, backup validation, and encrypted round-trip/wrong-passphrase/tamper rejection.
+- 28 tests passed: published equation coefficients/domains, effort-gated Epley, assistance semantics, gross/net MET energy, heart-rate methods, calendar-based smoothing/slope, complete-day handling, stable-weight maintenance calibration, timeline limits, composition, shared bench-press relationships, frequency/warm-up exclusions, records/progression, equipment substitutions, correlations, backup validation, and encrypted round-trip/wrong-passphrase/tamper rejection.
 - Integrity passed: 63 movements, 20 groups, 139 mapped anatomical paths, 21 references and all offline assets.
 - JavaScript syntax checks passed.
 
@@ -27,3 +27,16 @@ Verified October 8, 2026. Browser QA used a separate localhost origin with expli
 ## Limits of verification
 
 This is release verification, not an independent security penetration test, clinical validation or a systematic review of all exercise biomechanics. Passphrase changes were tested at the cryptographic function level, rather than entering credentials through browser automation. The host's private access is enforced by Sites; the journal's isolation is implemented locally. Browser storage can still be lost, so backups are part of the normal workflow.
+
+## Release 1.1 polish verification
+
+- Two independent GPT-6.1 Sol / High agents reviewed scientific/data behavior and usability. Their concrete findings were addressed; a follow-up scientific review confirmed the core fixes.
+- Six regression tests cover timed-set observations, null/warm-up performance records, saved progression targets, restorable partial draft edits, raw/status chart data and preserved historical session duration/start.
+- Browser verified an empty timed set cannot be marked complete; 45 recorded seconds saved as one working set. Out-of-range input showed a local error, did not enter saved state, and recovered after correction.
+- Browser verified unchanged imperial profile and weigh-in edits save successfully while preserving 1,780 / 2,492 kcal/day calculations from the original canonical values.
+- Browser verified an activity with custom 6.7 MET retains its estimate after editing only a note.
+- Dialogs expose names and focus the intended entry/search field. Mobile navigation makes the workspace inert while open and returns focus to the menu trigger on close.
+- Inspected weight data contains both 7-day mean and raw reading. Chart readouts and calorie complete/partial legends are available.
+- Verified 375-pixel set cards and 1440-pixel desktop layout in both existing themes; final browser errors were absent.
+
+- Final v2 offline check: stopped the isolated QA server, reloaded Training successfully, and verified both saved sessions remained available.

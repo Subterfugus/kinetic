@@ -40,3 +40,42 @@ Implementation, scientific audit and release verification are complete. Private 
 - Stopped the isolated QA server and verified offline reload, anatomy, saved session statistics and scientific-reference search.
 - Verified desktop and 375-pixel mobile layout. Tested WebMCP staging and rejection of unexpected input.
 - Added local launcher, README, architecture, final methodology and verification documentation. Source remains free of sample health records.
+
+## 2026-10-08 — Delivery
+- Private deployment succeeded: https://kinetic-fitness-journal.wigglypearl2.chatgpt.site
+- Pushed source commit: 1bdac1e9a09820434abbf63f7b41d727e9bb62b5.
+- Packaged kinetic-offline.zip directly from that committed source, including the local launcher, app, tests and documentation.
+- Hosting packaging required Git Bash on PATH and GNU tar's force-local option for Windows drive paths. Credentials were renewed in session memory and were never written into project files or shell arguments.
+- Verified the delivered local server renders the app without browser errors; verified the dark theme in the isolated QA journal.
+- Created kinetic-preview.jpg from the empty journal's anatomy interface. Test records remain confined to a separate QA browser origin and are absent from application source and downloadable package.
+- Task-owned preview servers were stopped after verification. The published application remains available, and the downloaded launcher can start a local copy when needed.
+- Scope adjustments: 63 curated exercises; licensed interactive 2D front/back atlas with labeled historical lateral reference; manual cardio; no wearable integration, bespoke 3D model or clinical rehabilitation recommendations.
+- Final outcome: implementation, research, verification, private publishing and local packaging complete.
+
+
+## 2026-10-08 — Polish pass in progress
+- User authorized a broad polish pass and continued agent reviews. Maintained info.md and a matching info.me copy as requested.
+- GPT-6.1 Sol / High agents audited scientific/data behavior and usability without changing Site files.
+- Corrected custom MET preservation, session-edit duration, repetition-target progression and missing-performance observations.
+- Timed/static movements no longer start with phantom repetitions. Dynamic core movements retain repetition tracking.
+- Replaced wide workout tables with responsive set cards, reachable completion controls, expandable effort/details and a mobile finish bar.
+- Draft edits use validated clones; invalid inputs never poison saved state. Completed-set effort and measurement checks run before completion.
+- Added dialog names, field helper associations, focused entry fields, focus restoration and an accessible mobile navigation drawer.
+- Preserved exact canonical values when unchanged converted inputs are submitted; allowed arbitrary precision for imperial edits.
+- Added chart readouts and complete/partial-day legends; data tables expose raw and smoothed series.
+- Refined spacing, typography, cards, themes and anatomical presentation. No user records or fake history added.
+- Verification and updated private publication are in progress.
+
+## 2026-10-08 — Polish verification complete
+- 28 automated tests passed, including six targeted regressions for issues found by the audit agents.
+- Asset integrity remained valid: 63 movements, 20 groups, 139 original paths, 21 references and every offline asset.
+- Verified timed-set rejection/completion, invalid input recovery, unchanged imperial profile and weigh-in saves, custom MET preservation, raw chart inspection and mobile drawer focus.
+- Follow-up scientific audit confirmed the core corrections; remaining swap/routine target issues were resolved.
+- Preserved historical session duration and recorded start during edits. Updated methods and release documentation accordingly.
+- Static cache version advanced to v2. No schema reset or record deletion is required.
+- Preparing the updated private release and local download.
+
+## 2026-10-08 — Final offline verification
+- Stopped the isolated QA server and successfully reloaded the updated Training page from its offline cache, retaining both saved QA sessions.
+- Rechecked the unusual Yepes robotics citation against its published equation 4: it correctly documents the Epley formula. Clarified its visible link as Formula documentation rather than implying general validation.
+- Private publication and updated offline archive follow this verified source state.
