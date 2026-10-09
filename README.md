@@ -11,17 +11,17 @@ For a fully local copy, install Node.js from its official website if it is not a
 ## Get started
 
 1. Set your optional profile, units, equipment and goal in Settings. Energy estimates require the published equation inputs; the calorie target is separately editable.
-2. Start a workout, choose exercises, and mark completed sets. A unilateral set row represents a completed left/right pair. Keep load conventions consistent.
+2. Start a workout, choose exercises, and mark completed sets. Loads are prefilled from your last session of each movement, and completing a set starts the rest timer (both the automatic start and the beep can be switched off in the workout). A unilateral set row represents a completed left/right pair. Keep load conventions consistent.
 3. Explore Muscle atlas. The same exercise relationships drive highlights, workout history and muscle-group set counts.
 4. Log calories manually. Mark a day complete when its intake is fully recorded; incomplete days are excluded from intake averages and maintenance calibration.
 5. Add weigh-ins, measurements, method-identified body-fat readings, photos, cardio, or optional wellbeing records.
-6. Export a full backup regularly. Restore validates a backup before replacing the journal.
+6. Export a full backup regularly; Overview reminds you when this device has no backup from the last 14 days. Restore validates a backup before replacing the journal.
 
 ## Privacy and backups
 
 Records and photos stay in IndexedDB on the current browser and origin. No health records are sent to a server, and no analytics or external data API is used. The private host serves the app files; it does not synchronize journals. Localhost and the hosted URL have separate journals. To move between browsers, devices or origins, export and restore a full backup.
 
-The optional passphrase vault encrypts the journal and photos at rest. There is no passphrase recovery service. An unlocked browser session can read its records. Full backups are encrypted when the vault is enabled; CSV exports remain readable. Browser clearing, device loss and storage eviction can remove records, so downloaded backups are essential.
+The optional passphrase vault encrypts the journal and photos at rest. There is no passphrase recovery service. An unlocked browser session can read its records. Full backups are encrypted when the vault is enabled; CSV exports remain readable. Browser clearing, device loss and storage eviction can remove records, so downloaded backups are essential. The app asks the browser to protect its storage from automatic eviction; Settings shows whether that was granted. Timer, sound and backup-reminder preferences are stored per device and are not part of the journal or its backups.
 
 ## Scientific interpretation and scope
 
@@ -35,4 +35,4 @@ See `scientific-methodology.md`, `asset-provenance.md`, `verification.md`, `arch
 
 Native JavaScript modules; no runtime package dependencies or build step. `dist/` is the complete static application. Node.js is used only for the local server and checks.
 
-Run `npm test` for scientific, validation and encryption tests; `npm run check` for exercise/anatomy/source/offline-asset integrity. After changing cached assets, bump the service-worker cache version and verify offline behavior.
+Run `npm test` for scientific, validation and encryption tests; `npm run check` for exercise/anatomy/source/offline-asset integrity. The service worker serves cached files first and refreshes them in the background, so a changed file appears on the second load. After changing cached assets, bump the service-worker cache version and verify offline behavior.

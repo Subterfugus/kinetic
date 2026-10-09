@@ -16,6 +16,6 @@
 
 `app.js` coordinates routes, persistence and forms. Feature modules own journal, training, planning, settings/evidence and anatomy workflows; `ui.js` provides common dialogs and inspectable SVG charts. `style.css` defines responsive layouts and themes.
 
-`sw.js` caches a finite same-origin allowlist covering the shell, modules, evidence and anatomical assets. Requests use the network when available and fall back to cached files. No external dependency or data service is needed. The source bibliography remains readable offline; opening original publications is optional online work. A new browser/origin needs its first successful app load before offline use.
+`sw.js` caches a finite same-origin allowlist covering the shell, modules, evidence and anatomical assets. Requests are answered from the cache first and refreshed from the network in the background. Device preferences (rest-timer behaviour, last backup date) live in localStorage and the running rest timer in sessionStorage, outside the validated journal. No external dependency or data service is needed. The source bibliography remains readable offline; opening original publications is optional online work. A new browser/origin needs its first successful app load before offline use.
 
 Sites hosts static `dist/` privately. Personal records do not leave the browser. The optional local server binds only to loopback. Journals are isolated by origin, so moving from localhost to the private hosted URL requires a backup restore.

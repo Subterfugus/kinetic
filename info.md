@@ -79,3 +79,30 @@ Implementation, scientific audit and release verification are complete. Private 
 - Stopped the isolated QA server and successfully reloaded the updated Training page from its offline cache, retaining both saved QA sessions.
 - Rechecked the unusual Yepes robotics citation against its published equation 4: it correctly documents the Epley formula. Clarified its visible link as Formula documentation rather than implying general validation.
 - Private publication and updated offline archive follow this verified source state.
+
+## 2026-10-08 — Release 1.2 "gym-floor" pass (Claude Code, in progress)
+User granted full creative freedom after a code review. Usage budget is tight, so this log is updated after each step; anything not marked DONE is not started.
+Planned, in order:
+1. Workout logging: prefill loads from the last session, "Last time" line and progression hint inside the workout, auto rest timer with sound/vibration that survives reload, elapsed time, screen wake lock.
+2. Data safety: request persistent browser storage, backup reminder with last-backup date (device-local preference in localStorage; no journal schema change).
+3. Offline: cache-first service worker with background refresh (cache v3).
+4. Small wins: recent-entry quick picks for calories, maintenance-estimate shortcut for the calorie target, imperial cardio distances, performance pages default to exercises actually trained.
+Deliberately deferred (larger/riskier): moving photos out of the main journal record, compressing side-reference.png (11.6 MB), onboarding flow, mobile bottom tab bar, custom exercises, CSV import.
+
+### 1.2 status checkpoint — code applied, browser verification pending
+DONE in code (28 existing tests + asset check still pass, all modules pass `node --check`):
+- science.js: `lastSets()` (most recent working sets for an exercise).
+- training.js: `itemFor(...,previous)` prefills loads; `withHistory()`; "Last time" line and "Ready to progress" hint in each exercise card; elapsed time in the live banner; auto-rest and beep preference checkboxes; completing a set calls `C.startRest`.
+- app.js: device prefs in localStorage key `kinetic-device-prefs` (autoRest, restSound, lastBackup, backupSnooze); rest timer end stored in sessionStorage `kinetic-rest`, +30s button, beep/vibration, auto-dismiss 20 s after zero; screen wake lock while a workout is open on Training; `navigator.storage.persist()` requested after the first save; backup nudge on Overview (5+ records, no backup in 14 days, 7-day snooze); calorie "Log again" quick picks; `C.recentExercise()`; mile conversion helpers; "updated, reload" toast on service-worker change.
+- journal.js: maintenance-estimate "Use as target" shortcut; cardio distances/pace/speed in miles for imperial; energy line uses the display weight unit.
+- planning.js: Insights default exercise and pace unit. settings.js: last-backup and eviction-protection rows; export records the backup date.
+- sw.js: cache-first with background refresh, cache `kinetic-shell-v3`.
+- style.css: appended rules for the new elements.
+TODO: new regression tests, browser check, README/architecture/verification notes, version bump to 1.2.0, commit (not pushed/deployed unless the user asks).
+
+### 1.2 verification — DONE (not committed, not deployed)
+- 29 automated tests pass (new: load prefill from most recent working sets); asset check passes; package version 1.2.0.
+- Browser check on a throwaway localhost journal (imperial units, two seeded bench sessions, then reset to empty): routine start prefilled 132.28 lb on all three sets; "Last time" and "Ready to progress ~135.6 lb" lines rendered; ticking a set started the 5 s rest timer, which reached "Rest complete" with the +30s button; elapsed time shown; calorie "Log again" pick filled 450 / Oats and saved; Overview showed the backup nudge at 5 records; cardio row showed 3.11 mi · 6.2 mph · 9.66 min/mi; Settings showed last-backup and eviction-protection rows; Insights defaulted to bench press; no console errors; 375 px layout intact.
+- Not exercised in a browser: beep/vibration output, wake lock, the persistent-storage grant itself (browser decides), service-worker update toast, offline reload under cache v3.
+- The hosted copy at chatgpt.site is still 1.1; redeploying and committing are left to the user.
+Next candidates: photos out of the main journal record, compress side-reference.png, onboarding, mobile tab bar, custom exercises, CSV import.

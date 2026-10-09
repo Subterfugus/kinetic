@@ -40,3 +40,9 @@ This is release verification, not an independent security penetration test, clin
 - Verified 375-pixel set cards and 1440-pixel desktop layout in both existing themes; final browser errors were absent.
 
 - Final v2 offline check: stopped the isolated QA server, reloaded Training successfully, and verified both saved sessions remained available.
+
+## Release 1.2 gym-floor pass
+
+- 29 tests passed, adding a regression for prefilled loads from the most recent non-warm-up sets. Asset integrity unchanged.
+- Browser verified on a disposable localhost journal: prefilled loads, last-session line, in-workout progression hint, automatic rest timer with +30s, elapsed time, calorie quick picks, backup reminder, imperial cardio distance/pace, new Settings rows and the 375-pixel workout layout, with no console errors.
+- Not browser-verified: rest-end sound/vibration, screen wake lock, the browser's persistent-storage decision, the update toast and an offline reload under cache v3.

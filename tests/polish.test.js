@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {itemFor,completedSession} from '../dist/training.js';
-import {performance,progression,workSets} from '../dist/science.js';
+import {performance,progression,workSets,lastSets} from '../dist/science.js';
 import {validateDraft,validateState} from '../dist/validation.js';
 import {initialState} from '../dist/store.js';
 import {chart} from '../dist/ui.js';
@@ -44,3 +44,11 @@ test('Inspectable weight and calorie charts expose secondary readings and comple
 });
 
 test('Correcting a historical session preserves its duration and recorded start',()=>{const draft=session('2026-10-01',[set()]);draft.startedAt=1000;draft.durationMinutes=60;draft.editingId=draft.id;const saved=completedSession(draft,120000);assert.equal(saved.durationMinutes,60);assert.equal(saved.startedAt,1000);assert.equal(saved.editingId,undefined);delete draft.editingId;assert.equal(completedSession(draft,121000).durationMinutes,2)});
+
+test('New workout items prefill loads from the most recent working sets only',()=>{
+ const sessions=[session('2026-10-01',[set({id:'a',load:50})]),session('2026-10-05',[set({id:'w',load:20,warmup:true}),set({id:'b',load:60}),set({id:'c',load:62.5})])];
+ const previous=lastSets(sessions,'bench-press');assert.equal(previous.date,'2026-10-05');assert.deepEqual(previous.sets.map(s=>s.load),[60,62.5]);
+ const item=itemFor('bench-press',3,8,30,previous);assert.deepEqual(item.sets.map(s=>s.load),[60,62.5,62.5]);assert.ok(item.sets.every(s=>s.reps===8&&!s.done));
+ assert.equal(lastSets(sessions,'plank'),null);assert.equal(itemFor('bench-press',1,8,30,null).sets[0].load,null);
+ validateDraft({id:'draft',name:'Prefilled',date:'2026-10-08',restSeconds:120,notes:'',exercises:[item]},{editing:true});
+});
