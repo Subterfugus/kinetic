@@ -170,3 +170,10 @@ Brady asked for science-based suggested workouts, a graphic of every muscle a wo
 - Units: switching units in the Settings profile converts and relabels the weight, target weight and height already typed, and saves them in that unit (previously the labels and numbers stayed in the old unit until you saved). Weight error messages and the target notice now use the chosen unit.
 - Tour: new "Muscle atlas" step; Today, Training and Library steps updated. Cache v8, package 1.7.0, 76 tests.
 - Side view removed (Brady: the lateral plate looked completely different and worse). muscle_mapper only ships front/back views (checked the repo; Figma and Wikimedia are blocked from this environment). Deleted side-reference.png (11.6 MB) and side-landmarks.json; the atlas offers Front and Back. Cache v10. A matching side view can be added if Brady exports one from the Figma file.
+
+## 2026-10-10 — Update checker — DONE (draft PR)
+Brady asked for the app to check for updates automatically but never update itself.
+- dist/updates.js: once a day when online (and on "Check now" in Settings → Updates), asks `api.github.com/repos/Subterfugus/kinetic/releases/latest`. A newer tag shows a dismissible notice above every page with "What's new" (release notes as plain text) and a button: the APK download on Android, the release page on the web. Failures are silent; a 404 means no release. Nothing is downloaded or installed by the app.
+- `APP_VERSION` in dist/updates.js must equal package.json (tested). Bump both when releasing; the tag check in the Android workflow already ties the tag to package.json.
+- Device prefs: updateCheck (on by default), updateCheckedAt, updateLatest, updateDismissed. Settings has the switch; the tour's Settings step mentions it. Cache v11, 81 tests.
+- Limitation: GitHub only answers anonymous requests for public repositories. While the repository is private, the check finds nothing.
