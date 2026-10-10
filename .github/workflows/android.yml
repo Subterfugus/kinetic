@@ -1,15 +1,23 @@
 name: Android APK
 
-# Builds the installable Android app from dist/. Every run uploads the APK as a workflow artifact;
-# pushing a tag such as v1.5.0 also attaches it to the GitHub Release for that tag.
+# Builds the installable Android app from dist/. Every run uploads the APK as a workflow artifact.
+# A push to main whose package.json version has no GitHub Release yet publishes that release
+# (tag v<version>) with the APK attached, so releasing is just bumping the version and merging.
+# Pushing a tag such as v1.5.0 by hand still works and attaches the APK to that tag's release.
 on:
   push:
+    branches: [main]
     tags: ['v*']
   pull_request:
   workflow_dispatch:
 
 permissions:
   contents: write
+
+# Two quick merges to main must not both try to create the same release.
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   apk:
@@ -42,6 +50,22 @@ jobs:
           if [ "${GITHUB_REF_NAME}" != "v${version}" ]; then
             echo "::error::Tag ${GITHUB_REF_NAME} does not match package.json version ${version}"
             exit 1
+          fi
+
+      - name: Decide whether this run publishes a release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if [ "${GITHUB_REF_TYPE}" = tag ]; then
+            echo "RELEASE_TAG=${GITHUB_REF_NAME}" >> "$GITHUB_ENV"
+          elif [ "${GITHUB_EVENT_NAME}" = push ] && [ "${GITHUB_REF}" = refs/heads/main ]; then
+            if gh release view "v${version}" >/dev/null 2>&1; then
+              echo "Release v${version} already exists; this build is not published."
+            else
+              echo "No release for v${version} yet; this build publishes it."
+              echo "RELEASE_TAG=v${version}" >> "$GITHUB_ENV"
+            fi
           fi
 
       - name: Copy dist/ into the Android project
@@ -78,16 +102,16 @@ jobs:
           name: kinetic-apk
           path: ${{ env.APK }}
 
-      - name: Attach the APK to the GitHub Release
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Publish the APK on the GitHub Release
+        if: env.RELEASE_TAG != ''
         env:
           GH_TOKEN: ${{ github.token }}
         # Kinetic.apk is the same file under a fixed name, so the README's download button
         # (releases/latest/download/Kinetic.apk) always points at the newest release.
         run: |
           cp "$APK" out/Kinetic.apk
-          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
-            gh release upload "$GITHUB_REF_NAME" "$APK" out/Kinetic.apk --clobber
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" "$APK" out/Kinetic.apk --clobber
           else
-            gh release create "$GITHUB_REF_NAME" "$APK" out/Kinetic.apk --title "Kinetic ${GITHUB_REF_NAME#v}" --generate-notes
+            gh release create "$RELEASE_TAG" "$APK" out/Kinetic.apk --target "$GITHUB_SHA" --title "Kinetic ${RELEASE_TAG#v}" --generate-notes
           fi
