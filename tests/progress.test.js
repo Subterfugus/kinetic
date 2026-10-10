@@ -37,9 +37,14 @@ test('Each exercise gets its heaviest set, best estimated max and weight lifted 
 
 test('Ranges bin by week, and by month when longer than about 14 months',()=>{
  const w=bins('2026-08-14','2026-10-10');assert.equal(w.unit,'week');assert.equal(w.list.at(-1).to,'2026-10-10');assert.equal(w.list.length,9);
- const m=bins('2024-01-15','2026-10-10');assert.equal(m.unit,'month');assert.equal(m.list[0].from,'2024-01-01');assert.equal(m.list.at(-1).from,'2026-10-01');
+ const m=bins('2024-01-15','2026-10-10');assert.equal(m.unit,'month');assert.equal(m.list[0].from,'2024-01-01');assert.equal(m.list.at(-1).from,'2026-10-01');assert.equal(m.list.at(-1).to,'2026-10-10');
  assert.equal(rangeStart(fakeC().state,0,'2026-10-10'),'2026-09-01');
  assert.equal(rangeStart(fakeC().state,28,'2026-10-10'),'2026-09-13');
+});
+
+test('Two workouts on one day make one point with the day\'s best and total',()=>{
+ const h=exerciseHistory([...sessions,{...session('2026-09-08',[['bench-press',[set(72,2)]]]),id:'later'}],'bench-press');
+ assert.equal(h.length,2);assert.equal(h[1].top,72);assert.equal(h[1].volume,390+144);
 });
 
 test('Weekly muscle sets count main targets in full and assisting muscles as half',()=>{
