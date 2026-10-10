@@ -444,3 +444,4 @@ html[data-theme=dark]{--fig-none:#3d3a36;--fig-base:#3d3a36;--fig-skin:#2a2825}
 .button-group.center{justify-content:center;margin-top:10px}
 @media(max-width:800px){.week-map-body{grid-template-columns:1fr}}
 .focus .muscle-figure.tiny{margin:2px 0 6px}.focus .muscle-figure.tiny svg{width:44px}
+.release-notes{white-space:pre-wrap;overflow-wrap:anywhere;max-height:50vh;overflow:auto;font-size:.9375rem;line-height:1.55}

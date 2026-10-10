@@ -39,7 +39,7 @@
 
     <!-- Permissions -->
 
-    <!-- The app loads only bundled files; INTERNET is for opening evidence source links. -->
+    <!-- The app loads only bundled files; INTERNET is for opening evidence source links and the daily update check (dist/updates.js). -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Progress photos: Android asks the first time "Take photo" is used. -->
     <uses-permission android:name="android.permission.CAMERA" />
