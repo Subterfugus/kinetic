@@ -186,3 +186,11 @@ Brady asked for a "prefer lower/higher reps" option in general and per exercise,
 - evidence.json: schoenfeld2017load, morton2016, lopez2021, currier2023, lasevicius2018 plus an implementation note. Methodology items 33–34.
 - Tour: Library and Settings steps mention the new exercises and the rep preference. Cache v12, package 1.8.0, tests/release18.test.js.
 
+## 1.9.0 · calorie target follows Settings, bug sweep (2026-10-10)
+Brady reported that changing height, weight and similar Settings didn't change the calorie target. The target was a stored number (default 2000) that only changed when typed.
+- `profile.calorieMode` is `auto` (default) or `manual`. `syncCalorieTarget` (dist/science.js) runs before every save, on load, unlock and restore, and sets `calorieTarget` from `calorieGoal(state)` when automatic. Typing a number on the Calories page makes it manual ("Custom" pill); "Switch to automatic" returns. Older journals: a typed target stays manual, the 2000 default or an accepted maintenance estimate becomes automatic (validation.js `legacyCalorieMode`).
+- `currentWeight(state)`: Settings weight if edited on or after the newest weigh-in (`profile.weightDate`), else the 7-day mean of weigh-ins. Calories, Body energy estimates and protein suggestion all use it.
+- Goal rules and sources: scientific-methodology.md item 33. New sources murphy2022 and helms2023.
+- Sweep fixes: chart axes use round tick values and readable text on phones (charts kept a fixed 220 px box and shrank the drawing); weigh-in and cardio lists show 10 with "Show all"; plural fixes ("1 activity", "1 session", "1 set"); a 1RM hint when no set qualifies; plain wording for the formula's sex input; Settings no longer mentions a hosted app; About counts groups from data. Cache v13.
+- Known and left alone: Training's 1RM estimate only uses sets to failure (science.e1rm) while Goals counts reps in reserve (programs.estimate1rm). Flagged to the rep-preference work.
+- Muscle atlas zoom on phones (Brady: couldn't zoom the muscle map). The stage had `touch-action:none` and only +/− buttons. Now: two-finger pinch zooms around the fingers (up to 4×), double-tap zooms in or out, ctrl+wheel (trackpad pinch) on desktop, and at normal size a vertical swipe scrolls the page (`touch-action:pan-y`, switched to `none` once zoomed). anatomy.js `zoomAt`.
