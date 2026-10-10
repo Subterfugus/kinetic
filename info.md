@@ -216,3 +216,10 @@ Brady asked for proper graphs over time of bodyweight, weight lifted, weight lif
 
 ## 1.11.1 · Update notice fix on Android (2026-10-10)
 Brady (on 1.7, Android) tapped Check now: Settings said 1.11 was available but showed no download. The notice is inserted at the top of #main, off screen while scrolled to Settings → Updates. Check now now opens the What's new dialog, Settings → Updates has What's new / Download buttons (updateButtons in dist/updates.js), and native.js sends every outside http(s) link to the new KineticNative.openUrl (ACTION_VIEW) so downloads open in the phone's browser. Cache v16, package 1.11.1.
+
+## 1.11.2 · calorie target stuck at 2000 (2026-10-10)
+Brady: on the phone the calorie target stayed at 2000 after changing weight. Causes found:
+- `btn()` rendered `<button>` with no type, so inside a form it also submitted the form. The Calories "Cancel" button (shown after "Set my own number") submitted the target form and switched the target to custom at its current value (often the 2000 default). `btn()` now renders `type="button"`; data-action buttons never submit forms.
+- With no sex chosen for the formula (the default), no estimate was possible and the target silently stayed at 2000. `calorieGoal` now falls back to the midpoint constant (−78) and says so.
+- One-time migration: a custom target of exactly 2000 becomes automatic (`profile.calorieModeChecked` marks it done).
+- Settings → Profile now shows the current target and whether it is automatic, custom (with "Switch to automatic") or waiting on a missing field. Cache v17.
