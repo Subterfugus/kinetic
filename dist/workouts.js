@@ -6,6 +6,7 @@ import {figure,muscleLoad,groupChips} from './figure.js';
 import {esc,btn} from './ui.js';
 import {TODAY,uid} from './store.js';
 import {openFocus} from './focus.js';
+import {holdBack,offerSteps} from './steps.js';
 
 const range=r=>r[0]===r[1]?String(r[0]):r[0]+'–'+r[1];
 const current=C=>suggestWorkout(C.state,{focus:C.ui.suggestFocus||'auto',today:TODAY(),shuffle:C.ui.suggestShuffle||0});
@@ -23,8 +24,8 @@ export function suggestionCard(C,{compact=false}={}){
 export async function startSuggested(C){
  if(C.state.draft){location.hash='training';return}
  const w=current(C);if(!w.items.length)return;
- C.state.draft={id:uid(),name:w.name.replace(' · suggested',''),date:TODAY(),startedAt:Date.now(),exercises:w.items.map(s=>{const item=itemFromSlot(C,s,false);if(!item.why)item.why=s.why.slice(0,300);return item}),notes:'',restSeconds:150};
- await C.save('Workout started');location.hash='training';if(C.prefs.focusAuto)openFocus(C);
+ C.state.draft={id:uid(),name:w.name.replace(' · suggested',''),date:TODAY(),startedAt:Date.now(),exercises:w.items.map(s=>{const item=itemFromSlot(C,s,false);if(!item.why)item.why=s.why.slice(0,300);return holdBack(C,item)}),notes:'',restSeconds:150};
+ await C.save('Workout started');location.hash='training';if(C.prefs.focusAuto)openFocus(C);offerSteps(C);
 }
 
 export async function suggestAction(a,id,C){
