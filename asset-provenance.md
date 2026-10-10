@@ -24,7 +24,10 @@ There are no dedicated named paths for soleus, brachialis, erector spinae, supra
 
 The `datasetGroup` fields are coarse convenience filters only. Selecting a biceps head does **not** prove an exercise isolates that head. Null groups indicate no precise source category; Sartorius is deliberately not misclassified as quadriceps.
 
-## Side anatomy reference
+## Side anatomy reference (removed in 1.7)
+
+Removed on 2026-10-10 at the owner's request: the plate looked nothing like the front/back maps. The licensed source (muscle_mapper at the commit above, and its current `main`) ships only front and back views, male and female; no side view exists there. The notes below describe the removed files.
+
 
 - `anatomy/side-reference.png`: unmodified 1460 × 2652 historical plate from Hermann Braus, *Anatomie des Menschen*, 1921.
 - Source and license declaration: https://commons.wikimedia.org/wiki/File:Braus_1921_248.png . Saved source page: `Braus_1921_248-source.html`.

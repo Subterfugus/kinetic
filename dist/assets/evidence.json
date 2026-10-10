@@ -1092,6 +1092,37 @@
         "Fitted to record performances, so less accurate for recreational runners.",
         "Summary written from the abstract-level description; full text not reviewed."
       ]
+    },
+    {
+      "id": "morton2018",
+      "title": "A systematic review, meta-analysis and meta-regression of the effect of protein supplementation on resistance training-induced gains in muscle mass and strength in healthy adults",
+      "authors": [
+        "Robert W. Morton",
+        "Kevin T. Murphy",
+        "Sean R. McKellar",
+        "Brad J. Schoenfeld",
+        "Menno Henselmans",
+        "Eric Helms",
+        "Alan A. Aragon",
+        "Michaela C. Devries",
+        "Laura Banfield",
+        "James W. Krieger",
+        "Stuart M. Phillips"
+      ],
+      "year": 2018,
+      "url": "https://doi.org/10.1136/bjsports-2017-097608",
+      "doi": "10.1136/bjsports-2017-097608",
+      "type": "systematic review and meta-analysis",
+      "evidenceStrength": "Moderate; 49 randomized trials, 1,863 participants",
+      "summary": "Pooled 49 randomized trials of protein supplementation during resistance training in healthy adults. Extra protein added a small amount of fat-free mass and strength. In a meta-regression, gains in fat-free mass stopped increasing at a total daily intake of about 1.62 g per kg of body weight, with a 95% confidence interval of roughly 1.03 to 2.20 g/kg.",
+      "supportedClaims": [
+        "About 1.6 g of protein per kg of body weight per day is a reasonable daily target for people who lift; more than that did not add measurable muscle on average."
+      ],
+      "limitations": [
+        "The breakpoint has a wide confidence interval; some people may benefit from more.",
+        "Trials studied healthy adults; it does not apply to kidney disease or other medical conditions.",
+        "Supplementation trials, not whole-diet feeding studies."
+      ]
     }
   ],
   "implementationNotes": [

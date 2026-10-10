@@ -380,3 +380,67 @@ body.focus-open{overflow:hidden}body.focus-open>.timer{display:none}
 .focus-chips button.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 @media(prefers-reduced-motion:reduce){.focus-ring .fill{transition:none}}
 .notice.adjust summary{cursor:pointer}.notice.adjust[open] summary{margin-bottom:8px}
+/* 1.6: quick log, first-run setup, protein meter, program prompt */
+.quick-log{position:fixed;right:24px;bottom:24px;z-index:35;width:56px;height:56px;border-radius:50%;border:0;background:var(--blue);color:#fff;display:grid;place-items:center;box-shadow:0 8px 24px #00000033;cursor:pointer}
+.quick-log .icon{width:26px;height:26px;stroke-width:2.4}
+.quick-log:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+html[data-theme=dark] .quick-log{color:#1a1917}
+.timer{bottom:96px}
+.quick-grid{display:grid;gap:8px}
+.quick-item{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);cursor:pointer;font:inherit}
+.quick-item:hover,.quick-item:focus-visible{border-color:var(--blue)}
+.quick-item .icon{width:22px;height:22px;flex:none;color:var(--blue)}
+.quick-item span{display:flex;flex-direction:column}
+.quick-item small{color:var(--muted)}
+.setup .eyebrow{margin:0 0 4px}
+.setup-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:14px 0}
+.setup-choice,.setup-day{position:relative;cursor:pointer}
+.setup-choice input,.setup-day input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.setup-choice span{display:flex;flex-direction:column;gap:2px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.setup-choice small{color:var(--muted)}
+.setup-choice input:checked+span,.setup-day input:checked+span{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue)}
+.setup-choice input:focus-visible+span,.setup-day input:focus-visible+span{outline:3px solid var(--ink);outline-offset:2px}
+.setup-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 12px;margin:14px 0;text-align:left}
+.setup-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin:14px 0}
+.setup-day span{display:grid;place-items:center;height:44px;border:1px solid var(--line);border-radius:10px;background:var(--surface);font-weight:600;font-variant-numeric:tabular-nums}
+.protein-meter{margin:14px 0 4px}
+.protein-meter .meter-head{display:flex;justify-content:space-between;gap:12px;font-size:.875rem;margin-bottom:6px}
+.protein-meter .meter-head span:first-child{font-weight:600}
+.protein-meter .meta{margin:6px 0 0}
+.progress.protein>span{background:var(--ink)}
+.subsection-gap{margin-bottom:22px}
+.program-prompt .button-group{margin-top:14px}
+.accent-card .btn.quiet,html[data-theme=dark] .accent-card .btn.quiet{background:transparent;border-color:color-mix(in srgb,var(--on-nav) 35%,transparent);color:var(--on-nav)}
+.filterbar .search{flex:1 1 100%}
+@media(max-width:800px){.quick-log{right:16px;bottom:calc(72px + env(safe-area-inset-bottom))}.timer{bottom:calc(140px + env(safe-area-inset-bottom))}}
+@media print{.quick-log{display:none}}
+/* 1.7: muscle figures, suggested workouts */
+:root{--fig-none:#d9d4cb;--fig-base:#d9d4cb;--fig-skin:#ece8e1}
+html[data-theme=dark]{--fig-none:#3d3a36;--fig-base:#3d3a36;--fig-skin:#2a2825}
+.muscle-figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:8px}
+.muscle-figure .figs{display:flex;justify-content:center;gap:6%;width:100%}
+.muscle-figure svg{height:auto;width:46%;max-width:150px}
+.muscle-figure.tiny .figs{gap:2px}.muscle-figure.tiny svg{width:30px}
+.muscle-figure.small svg{max-width:96px}
+.muscle-figure.large svg{max-width:190px}
+.muscle-figure figcaption{font-size:.8125rem;color:var(--muted);text-align:center;max-width:42ch}
+.figure-link{all:unset;display:block;width:100%;cursor:pointer;border-radius:12px}
+.figure-link:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
+.figure-chips{justify-content:center;margin:10px 0 0}
+.figure-chips .pill{border:0;cursor:pointer;font:inherit;font-size:.8125rem}
+.week-map .muscle-figure{padding:6px 0 2px}
+.workout-map{margin-bottom:22px}
+.suggest-focus{margin:0 0 14px}
+.suggest-body{display:grid;grid-template-columns:minmax(150px,220px) 1fr;gap:18px;align-items:start}
+.suggest-card .button-group{margin-top:12px}
+.program-today{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:start}
+.program-day-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.program-day-head .muscle-figure{flex:none}
+@media(max-width:560px){.suggest-body{grid-template-columns:1fr}.program-today{grid-template-columns:1fr}.program-today .muscle-figure svg{max-width:80px}}
+.week-map{margin-bottom:22px}
+.week-map-body{display:grid;grid-template-columns:minmax(260px,1fr) 1fr;gap:24px;align-items:center}
+.week-map-bars:empty{display:none}
+.week-map-body:has(.week-map-bars:empty){grid-template-columns:1fr}
+.button-group.center{justify-content:center;margin-top:10px}
+@media(max-width:800px){.week-map-body{grid-template-columns:1fr}}
+.focus .muscle-figure.tiny{margin:2px 0 6px}.focus .muscle-figure.tiny svg{width:44px}

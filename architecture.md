@@ -37,6 +37,18 @@ The 1.5 modules are:
 - `goals.js`: the Goals page and the goal summary card on Today.
 - `photos.js`: the photo tab of the Body page, with the camera and ghost overlay, timer, comparison slider and time-lapse. The camera is requested only while the capture dialog is open, and its stream stops when the dialog closes. Captures are cropped to 3:4, scaled to at most 1200 pixels on the long side and saved as JPEG at quality 0.85. Each photo is held in the journal as a data URL, limited by validation to 6,000,000 characters.
 
+The 1.6 modules are:
+
+- `setup.js`: the first-run setup (units, equipment, training days, then the recommended program). `app.js` opens it instead of the welcome tour when the journal is empty and the tour has never been shown on this device. Settings → About can open it again.
+- `quicklog.js`: the floating **+** button and its chooser. It reuses the calorie, weigh-in, activity and recovery dialogs and the workout exercise picker. It is hidden during a live workout on Training.
+
+Calorie entries can carry an optional `protein` amount in grams, and the profile has an optional `proteinTarget`. Both are validated, included in backups, and older backups without them still restore. Exercise search (`matchesQuery` and `searchExercises` in `data.js`) is shared by the Exercises page and the workout picker.
+
+The 1.7 modules are:
+
+- `figure.js`: the reusable muscle map. `buildFigureDefs()` parses the two licensed SVGs once into hidden `<defs>`, tagging each mapped path with `fill:var(--g-<group>)`. Each figure is two `<use>` clones whose colours come from CSS custom properties, so a page can show many maps cheaply. `muscleLoad()` turns exercises and sets into fractional sets per group.
+- `suggest.js`: the pure suggested-workout engine. `workouts.js` draws its card on Training and Today and starts the session through `itemFromSlot()` from `program-view.js`, so load targets come from history exactly as in programs.
+
 Import relationships:
 
 - `programs.js` is imported by `validation.js`, `training.js`, `anatomy.js`, `focus.js`, `goals.js` and `program-view.js`.

@@ -5,6 +5,7 @@ import {loadStep,plates} from './programs.js';
 import {validateDraft} from './validation.js';
 import {newSet,trainingAction} from './training.js';
 import {esc,icon,num,toast} from './ui.js';
+import {figure,exerciseLoad} from './figure.js';
 
 let el=null,C=null,at=0,mode='set',justDone=null,ticker=null,busy=false;
 const draft=()=>C?.state?.draft;
@@ -64,7 +65,7 @@ function paint(){
   return;
  }
  const set=item.sets[open],target=timed?'Target '+(item.targetDuration||30)+' seconds':'Target '+range(item)+' reps'+(item.targetRir!==null&&item.targetRir!==undefined?' · leave about '+item.targetRir+' in reserve':'');
- el.innerHTML=head+`<div class="focus-body"><div class="eyebrow">Exercise ${at+1} of ${d.exercises.length} · set ${open+1} of ${item.sets.length}</div><h1>${esc(e.name)}</h1><p class="focus-target">${esc(target)}</p>${item.why?`<p class="focus-why">${esc(item.why)}</p>`:''}<div class="focus-dials">${timed?dial('duration','Seconds',set.duration||item.targetDuration||30,5,'s'):dial('load','Load',shown(set.load),unitStep(e),C.loadUnit())+dial('reps','Reps',set.reps||item.targetReps||'',1,'reps')}</div>${timed?'':plateLine(e,set.load)}<button type="button" class="btn primary focus-done" data-f="done">${icon('check')}Done</button></div>${foot(d)}`;
+ el.innerHTML=head+`<div class="focus-body"><div class="eyebrow">Exercise ${at+1} of ${d.exercises.length} · set ${open+1} of ${item.sets.length}</div><h1>${esc(e.name)}</h1>${figure(exerciseLoad(e),{size:'tiny',unit:'role'})}<p class="focus-target">${esc(target)}</p>${item.why?`<p class="focus-why">${esc(item.why)}</p>`:''}<div class="focus-dials">${timed?dial('duration','Seconds',set.duration||item.targetDuration||30,5,'s'):dial('load','Load',shown(set.load),unitStep(e),C.loadUnit())+dial('reps','Reps',set.reps||item.targetReps||'',1,'reps')}</div>${timed?'':plateLine(e,set.load)}<button type="button" class="btn primary focus-done" data-f="done">${icon('check')}Done</button></div>${foot(d)}`;
 }
 const foot=d=>`<footer class="focus-foot"><button type="button" class="btn small" data-f="prev" ${at===0?'disabled':''}>Previous</button><button type="button" class="btn small" data-action="swap-exercise:${d.exercises[at].id}">Swap</button><button type="button" class="btn small" data-action="exercise:${d.exercises[at].exerciseId}">How to</button><button type="button" class="btn small" data-f="skip" ${at>=d.exercises.length-1?'disabled':''}>Skip</button></footer>`;
 

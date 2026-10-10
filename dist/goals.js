@@ -106,7 +106,7 @@ export function buildGoal(fd,old,C,today){
   if(note.length>300)throw Error('Keep the note under 300 characters.');
   const v={id:old?.id||uid(),date:old?.date||today,type,target:0,start:null,deadline,achieved:null,note};
   if(type==='lift'){const reps=n('reps'),t=C.parseLoad(n('liftTarget'));if(!exerciseById(fd.get('exerciseId')))throw Error('Choose an exercise.');if(!Number.isInteger(reps)||reps<1||reps>10)throw Error('Reps must be a whole number from 1 to 10.');if(!(t>=.1&&t<=1000))throw Error('Enter a target load.');Object.assign(v,{target:r2(t),exerciseId:fd.get('exerciseId'),reps})}
-  else if(type==='weight'){const t=C.parseWeight(n('weightTarget'));if(!(t>=25&&t<=400))throw Error('Enter a weight between 25 and 400 kg (or the equivalent in pounds).');v.target=r2(t)}
+  else if(type==='weight'){const t=C.parseWeight(n('weightTarget'));if(!(t>=25&&t<=400))throw Error(C.weightUnit()==='lb'?'Enter a weight between 55 and 880 lb.':'Enter a weight between 25 and 400 kg.');v.target=r2(t)}
   else if(type==='run'){const raw=String(fd.get('runTarget')||'').trim(),m=old?.type==='run'&&raw===fmtTime(old.target)?old.target:parseTime(raw),d=C.parseDist(n('distance')),act=fd.get('activity');if(!CARDIO.includes(act))throw Error('Choose an activity.');if(!(d>=.1&&d<=1000))throw Error('Enter a distance of at least 0.1 km.');if(!(m>=.1&&m<=6000))throw Error('Enter a time as mm:ss or as minutes, for example 25:00.');Object.assign(v,{target:r2(m),activity:act,distance:r2(d)})}
   else{const p=n('perWeek');if(!Number.isInteger(p)||p<1||p>14)throw Error('Workouts per week must be a whole number from 1 to 14.');v.target=p}
   const same=!!old&&old.type===type&&({lift:['exerciseId'],run:['activity','distance']}[type]||[]).every(k=>old[k]===v[k]);

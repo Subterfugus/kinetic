@@ -12,13 +12,13 @@ For a fully local copy, install Node.js from its official website if it is not a
 
 ## Get started
 
-A short welcome tour opens the first time the app runs on a device. Reopen it any time from **Settings → About → Take the welcome tour**.
+On a new, empty journal, a short setup asks for your units, equipment and training days, then offers the recommended program. Run it again, or take the welcome tour, from **Settings → About**. The **+** button in the corner of every page logs calories, weight, a set, a walk or run, or sleep.
 
 1. Set your optional profile, units, equipment and goal in Settings. Energy estimates require the published equation inputs; the calorie target is separately editable. The equipment list decides which exercises programs and substitutions can use.
 2. Start a workout, choose exercises, and mark completed sets. Focus mode opens when a workout starts and shows one set at a time, with plates per side for barbell lifts; it can be switched off with the option on the Training page. Loads are prefilled from your last session of each movement, and completing a set starts the rest timer (both the automatic start and the beep can be switched off in the workout). A unilateral set row represents a completed left/right pair. Keep load conventions consistent.
 3. Plan a program. Plan recommends one of seven programs from your training days, goal and experience, and shows each session adjusted to your equipment: an exercise you cannot use is replaced by the closest available substitute, and sets are added where a muscle would otherwise lose work. Starting a program fills each session's load targets when you begin it. In a workout, Swap changes one exercise, and Equipment today changes the current workout only. Recovery weeks are suggested when lifts stall and start only when you choose them.
-4. Explore Muscle atlas. The same exercise relationships drive highlights, workout history and muscle-group set counts.
-5. Log calories manually. Mark a day complete when its intake is fully recorded; incomplete days are excluded from intake averages and maintenance calibration.
+4. Explore the Muscle atlas, now in the main menu and the bottom bar as **Muscles**. The same muscle map appears on Today (everything trained in the last 7 days), on every workout, suggested workout and program session, in focus mode and on each exercise. The same exercise relationships drive highlights, workout history and muscle-group set counts. Training also suggests a workout built from the last 7 days of your log, your equipment and your experience. Choose a focus (best for today, full body, upper, lower, push or pull) or ask for different exercises.
+5. Log calories manually, with optional grams of protein. Set an optional daily protein target to see a protein meter next to the calorie meter. Mark a day complete when its intake is fully recorded; incomplete days are excluded from intake averages and maintenance calibration.
 6. Add weigh-ins, measurements, method-identified body-fat readings, photos, cardio, or optional wellbeing records. The photo tab of the Body page takes photos with a ghost of the previous photo of the same view, a timer, a before-and-after slider and a time-lapse. Track → Goals holds lift, body-weight, run-time and weekly-habit goals, with progress and a projection range.
 7. Export a full backup regularly; Overview reminds you when this device has no backup from the last 14 days. Restore validates a backup before replacing the journal.
 
@@ -32,16 +32,16 @@ The optional passphrase vault encrypts the journal and photos at rest. There is 
 
 The app labels population equations, observational trends and product heuristics. Muscle counts represent recorded set exposure, not measured activation or biological recovery; program volume is a planned count that uses the same primary and secondary convention. Body-fat and energy values retain uncertainty. Goal projections are ranges based on recent trends, not confidence intervals or promised dates. Progression suggestions require qualifying records and are never applied automatically; program load targets are filled into a workout when it starts and can be changed before logging. Programs are general templates for generally healthy adults and do not account for injuries or medical conditions. Their rules, values and certainty are listed in `scientific-methodology.md`.
 
-Front/back anatomy preserves licensed source geometry. The lateral view uses a historical, partly dissected reference with label points; it is not a complete segmented side model. Wearable integrations, a bespoke 3D model and clinical injury rehabilitation are outside this release. The local planner exposes preferences/limitations but does not interpret injuries. There are no food databases, nutrition services or fabricated journal records.
+Front/back anatomy preserves licensed source geometry. There is no side view: the licensed map comes only in front and back, and the earlier historical side plate was removed in 1.7 because it did not match. Wearable integrations, a bespoke 3D model and clinical injury rehabilitation are outside this release. The local planner exposes preferences/limitations but does not interpret injuries. There are no food databases, nutrition services or fabricated journal records.
 
 See `scientific-methodology.md`, `asset-provenance.md`, `verification.md`, `architecture.md`, and `info.md` for methods, sources, testing, architecture and the change log.
 
 ## Development
 
-Current release: 1.5.0.
+Current release: 1.7.0.
 
 Native JavaScript modules; no runtime package dependencies or build step. `dist/` is the complete static application. Node.js is used only for the local server and checks.
 
 The Android app in `android/` is a Capacitor shell around `dist/`; `dist/native.js` holds the few Android-only bridges (file saving, screen wake, system bars, back button) and is inert in a browser. Capacitor is a development dependency only. `.github/workflows/android.yml` builds the APK. See `android/README.md`.
 
-Run `npm test` (71 tests) for scientific, program, goal, validation and encryption behavior; `npm run check` for exercise/anatomy/source/offline-asset integrity. The service worker serves cached files first and refreshes them in the background, so a changed file appears on the second load. After changing cached assets, bump the service-worker cache version and verify offline behavior.
+Run `npm test` (76 tests) for scientific, program, goal, validation and encryption behavior; `npm run check` for exercise/anatomy/source/offline-asset integrity. The service worker serves cached files first and refreshes them in the background, so a changed file appears on the second load. After changing cached assets, bump the service-worker cache version and verify offline behavior.

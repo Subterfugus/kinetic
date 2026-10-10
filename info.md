@@ -54,7 +54,7 @@ Implementation, scientific audit and release verification are complete. Private 
 
 
 ## 2026-10-08 — Polish pass in progress
-- User authorized a broad polish pass and continued agent reviews. Maintained info.md and a matching info.me copy as requested.
+- User authorized a broad polish pass and continued agent reviews. Maintained info.md and a matching info.me copy as requested (info.me removed in 1.6).
 - GPT-6.1 Sol / High agents audited scientific/data behavior and usability without changing Site files.
 - Corrected custom MET preservation, session-edit duration, repetition-target progression and missing-performance observations.
 - Timed/static movements no longer start with phantom repetitions. Dynamic core movements retain repetition tracking.
@@ -151,3 +151,22 @@ User asked for a working Android app downloadable from GitHub. Defaults chosen: 
 - Welcome tour: Settings step now says "only on this device" instead of "only in this browser", which is true for both.
 - Signing: without the KINETIC_KEYSTORE_* secrets the APK is signed with a throwaway CI key, so it cannot update an earlier install. Waiting on the user's decision. See android/README.md.
 - Verified: 71 tests + asset check; browser with a simulated native bridge (backup and CSV go to saveFile, back closes dialogs, wake lock calls keepAwake, no console errors). The APK itself is built only in CI (this environment cannot reach Google's Android SDK). NOT verified on a real phone.
+
+## 2026-10-10 — Release 1.6 setup, quick log, protein — DONE (draft PR)
+Brady picked these from an ideas list: first-run setup, show the program on Today and Train, a quick-log button, exercise search, protein meter, photo Delete labels, delete info.me, redeploy.
+- New dist/setup.js: on an empty journal the first launch shows a 4-step setup (units, equipment, days, then "Start this program") instead of the tour. Device pref `tourSeen` is set when it opens. Settings → About → "Run first-time setup".
+- New dist/quicklog.js: floating + (above the mobile tab bar) with Calories, Weight, A set, A walk or run, Sleep. Hidden during a live workout on Training.
+- Today and Training show a "Recommended program" card when no program is running (not for the mobility goal); with a program running, Today no longer says "Nothing scheduled today".
+- Exercise search: the Exercises page already had a search box. It now matches words in any order across name, aliases, muscles, equipment and pattern, expands gym shorthand (db, bb, ohp, rdl, lats, glutes, biceps…), ranks name and main-muscle matches first, and the workout picker uses the same search.
+- Protein: optional grams per calorie entry (also in "Log again" picks and CSV), optional `profile.proteinTarget`, meter on Calories (always) and Today (when a target is set or protein logged), "Use 1.6 g/kg" shortcut citing new source morton2018.
+- Photo Delete buttons are labelled "Delete front photo from <date>". info.me removed (info.md is the only log now). Tour updated per the standing rule. Cache v7, package 1.6.0, 74 tests.
+- Redeploy not done: deploy after the PR is merged; the hosting credentials are not in this repository.
+
+## 2026-10-10 — Release 1.7 suggested workouts and the muscle map everywhere — DONE (draft PR, stacked on 1.6)
+Brady asked for science-based suggested workouts, a graphic of every muscle a workout hits, the muscle map as a much bigger part of the app ("a lot of the gimmick"), and Settings figures such as goal weight in the chosen unit.
+- dist/figure.js: shared muscle map (front + back) built from the licensed SVGs via <defs>/<use> and CSS variables. Shown on Today ("Muscles this week", full width under the metrics), the workout in progress ("Muscles in this workout"), suggested workouts, Today/Training program card, each Plan program day, the exercise dialog, session history dialog and focus mode.
+- dist/suggest.js + dist/workouts.js: suggested workout on Training (full card with focus chips and "Different exercises") and Today (compact, when no program is running). Rules in scientific-methodology.md items 31–32.
+- Navigation: Muscle atlas moved to the top group; the mobile tab bar is now Today, Train, Muscles, Calories, More (Body moved to More; weight is still on the + button and Today).
+- Units: switching units in the Settings profile converts and relabels the weight, target weight and height already typed, and saves them in that unit (previously the labels and numbers stayed in the old unit until you saved). Weight error messages and the target notice now use the chosen unit.
+- Tour: new "Muscle atlas" step; Today, Training and Library steps updated. Cache v8, package 1.7.0, 76 tests.
+- Side view removed (Brady: the lateral plate looked completely different and worse). muscle_mapper only ships front/back views (checked the repo; Figma and Wikimedia are blocked from this environment). Deleted side-reference.png (11.6 MB) and side-landmarks.json; the atlas offers Front and Back. Cache v10. A matching side view can be added if Brady exports one from the Figma file.
