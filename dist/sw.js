@@ -1,4 +1,4 @@
-const CACHE='kinetic-shell-v11';
+const CACHE='kinetic-shell-v12';
 const FILES=['/','/index.html','/style.css','/app.js','/store.js','/ui.js','/science.js','/data.js','/validation.js','/vault.js','/training.js','/journal.js','/anatomy.js','/planning.js','/settings.js','/tour.js','/programs.js','/program-view.js','/focus.js','/goals.js','/photos.js','/native.js','/setup.js','/quicklog.js','/figure.js','/suggest.js','/workouts.js','/updates.js','/favicon.svg','/manifest.webmanifest','/assets/evidence.json','/assets/muscle-map.json','/assets/front.svg','/assets/back.svg'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('kinetic-shell-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));

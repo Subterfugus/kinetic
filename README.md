@@ -90,7 +90,7 @@ See `scientific-methodology.md`, `asset-provenance.md`, `verification.md`, `arch
 
 ## Development
 
-Current release: 1.7.0.
+Current release: 1.8.0.
 
 Native JavaScript modules; no runtime package dependencies or build step. `dist/` is the complete static application. Node.js is used only for the local server and checks.
 

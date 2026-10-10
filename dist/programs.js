@@ -20,7 +20,10 @@ export const emphasis={
  'incline-dumbbell-press':'upper-chest','incline-bench-press':'upper-chest','decline-push-up':'upper-chest',
  'leg-curl':'hamstrings-lengthened','romanian-deadlift':'hamstrings-lengthened','dumbbell-rdl':'hamstrings-lengthened','single-leg-rdl':'hamstrings-lengthened',
  'standing-calf-raise':'gastrocnemius','single-leg-calf-raise':'gastrocnemius','calf-press':'gastrocnemius',
- 'incline-dumbbell-curl':'biceps-lengthened','leg-extension':'rectus-femoris'
+ 'incline-dumbbell-curl':'biceps-lengthened','leg-extension':'rectus-femoris',
+ 'machine-incline-press':'upper-chest','low-cable-fly':'upper-chest','incline-dumbbell-fly':'upper-chest',
+ 'kettlebell-rdl':'hamstrings-lengthened','good-morning':'hamstrings-lengthened','bodyweight-single-leg-rdl':'hamstrings-lengthened',
+ 'dumbbell-calf-raise':'gastrocnemius','standing-calf-machine':'gastrocnemius'
 };
 const jaccard=(a,b)=>{const u=new Set([...a,...b]);return u.size?a.filter(x=>b.includes(x)).length/u.size:0};
 const rank={beginner:0,intermediate:1,advanced:2};
@@ -55,7 +58,7 @@ const groupName=id=>groups.find(g=>g.id===id)?.name||id;
 export const namesOf=ids=>ids.map(groupName);
 
 // Cover muscles that lost work. Prefer adding sets to an exercise already in the session; otherwise add the simplest available exercise for that muscle.
-export function compensate(lost,items,equipment){
+export function compensate(lost,items,equipment,profile=null){
  const added=[],uncovered=[];
  for(const [group,amount]of Object.entries(lost).sort((a,b)=>b[1]-a[1])){
   const sets=Math.min(3,Math.round(amount));if(sets<1||!MAJOR.includes(group))continue;
@@ -65,13 +68,13 @@ export function compensate(lost,items,equipment){
    .sort((a,b)=>(rank[a.difficulty]===2)-(rank[b.difficulty]===2)||(a.primary.length+a.secondary.length)-(b.primary.length+b.secondary.length)||rank[a.difficulty]-rank[b.difficulty]||a.unilateral-b.unilateral||loadable(b)-loadable(a))[0];
   if(!pick){uncovered.push(group);continue}
   const item={exerciseId:pick.id,sets:Math.max(2,sets),reps:isCompound(pick)?[8,12]:[10,loadable(pick)?15:20],rir:isCompound(pick)?2:1,rest:isCompound(pick)?150:90,main:false,covers:group};
-  items.push(item);added.push({exerciseId:pick.id,sets:item.sets,covers:group});
+  const final=applyRepPreference(item,profile);items.push(final);added.push({exerciseId:pick.id,sets:final.sets,covers:group});
  }
  return {added,uncovered};
 }
 
 // Swap out everything the equipment list rules out, then rebalance so the same muscles still get trained.
-export function adaptItems(source,equipment){
+export function adaptItems(source,equipment,profile=null){
  const items=[],changes=[],lost={};
  const lose=map=>{for(const [g,n]of Object.entries(map))lost[g]=(lost[g]||0)+n};
  for(const slot of source){
@@ -80,15 +83,47 @@ export function adaptItems(source,equipment){
   const best=substitutes(original,equipment,{exclude:[...source.map(s=>s.exerciseId),...items.map(i=>i.exerciseId)]})[0];
   if(!best){lose(contribution(original.id,slot.sets));changes.push({from:original.id,to:null,missing:original.equipment.filter(x=>x!=='bodyweight'&&!equipment.includes(x))});continue}
   const to=best.exercise,reps=slot.reps&&!loadable(to)?[slot.reps[0],Math.max(slot.reps[1],20)]:slot.reps;
-  items.push({...slot,exerciseId:to.id,reps,main:slot.main&&to.pattern===original.pattern&&loadable(to),from:original.id});
+  items.push(applyRepPreference({...slot,exerciseId:to.id,reps,main:slot.main&&to.pattern===original.pattern&&loadable(to),from:original.id},profile));
   lose(lostMuscles(original.id,to.id,slot.sets));
   changes.push({from:original.id,to:to.id,tier:best.tier,regional:best.regional,missing:original.equipment.filter(x=>x!=='bodyweight'&&!equipment.includes(x))});
  }
  // A swap can also add work elsewhere; only compensate what the whole session is still short of.
  const before=fractionalSets(source),after=fractionalSets(items),short={};
  for(const g of Object.keys(lost)){const d=(before[g]||0)-(after[g]||0);if(d>0)short[g]=d}
- const {added,uncovered}=compensate(short,items,equipment);
+ const {added,uncovered}=compensate(short,items,equipment,profile);
  return {items,changes,added,uncovered};
+}
+
+// ---------- Rep-range preference ----------
+// Muscle grows about as well from heavy sets of 5–8 as from light sets of 15–30 when sets end close to failure
+// (Schoenfeld 2017, Morton 2016, Lopez 2021, Currier 2023), so people may train in the range they like.
+// Below about 30% of a one-rep max growth falls off (Lasevicius 2018), so the high range stops at 25–30 reps.
+// Heavier loads still build maximal strength a little better, so heavy main lifts (marked !) keep their range.
+export const REP_PREFS=[['balanced','Balanced · the program’s own ranges'],['lower','Lower reps · heavier weights'],['higher','Higher reps · lighter weights']];
+export const REP_SOURCES=['schoenfeld2017load','morton2016','lopez2021','currier2023','lasevicius2018','schoenfeld2021','refalo2023'];
+const PREFS=['balanced','lower','higher'];
+// Small muscles and joints where very heavy isolation sets tend to turn into swinging: practice-based, not trial-based.
+const SMALL=['side-delts','rear-delts','rotator-cuff','forearms','tibialis'];
+// A setting for one exercise wins over the general one.
+export function repPreference(profile,exerciseId){const own=profile?.repPrefs?.[exerciseId];return PREFS.includes(own)?own:PREFS.includes(profile?.repPreference)?profile.repPreference:'balanced'}
+// Fixed ranges per kind of exercise, so applying a preference twice gives the same answer.
+export function preferredReps(exercise,reps,pref,main=false){
+ if(!exercise||exercise.tracking!=='reps-load'||main||(pref!=='lower'&&pref!=='higher'))return reps;
+ const lower=pref==='lower',compound=isCompound(exercise)&&exercise.id!=='face-pull';
+ // Bodyweight and band work can't simply be made heavier: "lower reps" means a harder variation or added load.
+ if(!loadable(exercise))return exercise.pattern==='vertical-pull'?(lower?[3,6]:[8,15]):compound?(lower?[5,10]:[15,30]):(lower?[8,12]:[15,30]);
+ if(compound)return lower?[5,8]:exercise.equipment.includes('barbell')&&['squat','hinge'].includes(exercise.pattern)?[10,15]:[12,20];
+ return lower?(exercise.primary.some(g=>SMALL.includes(g))?[8,12]:[6,10]):[15,25];
+}
+// The range an exercise uses when nobody has stated a preference.
+export function defaultReps(exercise){return !loadable(exercise)?[8,15]:isCompound(exercise)&&exercise.id!=='face-pull'?[8,12]:[10,15]}
+// Apply the person's preference to one program or workout item. Heavier sets get a little more rest (Singer 2024).
+export function applyRepPreference(item,profile){
+ const e=exerciseById(item.exerciseId),pref=repPreference(profile,item.exerciseId);
+ if(!e||!item.reps)return item;
+ const reps=preferredReps(e,item.reps,pref,item.main);if(reps===item.reps)return item;
+ const rest=pref==='lower'?Math.max(item.rest||0,isCompound(e)?180:120):item.rest;
+ return {...item,reps,rest,pref};
 }
 
 // ---------- Recommended programs ----------
@@ -142,7 +177,8 @@ export function buildProgram(templateId,profile){
  const trim=profile.experience==='beginner';
  const days=template.days.map(d=>{
   const source=d.slots.map(s=>({...s,sets:trim&&!s.main&&s.sets>=3?s.sets-1:s.sets}));
-  return {name:d.name,...adaptItems(source,profile.equipment)};
+  const adapted=adaptItems(source,profile.equipment,profile);
+  return {name:d.name,...adapted,items:adapted.items.map(i=>applyRepPreference(i,profile))};
  });
  // Days repeat when a rotation is shorter than the week (A/B across three days averages to 1.5 times each).
  const share=template.perWeek/template.days.length,volume={};

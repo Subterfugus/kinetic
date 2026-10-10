@@ -1,13 +1,13 @@
 // Program screens: recommendation, the active program, starting a program workout, swapping and equipment changes.
 import {exerciseById,groups,equipmentLabels,exercises} from './data.js';
-import {programs,programById,recommend,buildProgram,nextTarget,substitutes,lostMuscles,compensate,adaptItems,stalledLifts,programWeek,deloading,namesOf,regionalGaps,loadable,isCompound,available,MAJOR} from './programs.js';
+import {programs,programById,recommend,buildProgram,nextTarget,substitutes,lostMuscles,compensate,adaptItems,stalledLifts,programWeek,deloading,namesOf,regionalGaps,loadable,isCompound,available,MAJOR,repPreference,preferredReps,defaultReps} from './programs.js';
 import {itemFor,newSet,picker} from './training.js';
 import {esc,btn,modal,num,toast} from './ui.js';
 import {TODAY,uid} from './store.js';
 import {openFocus} from './focus.js';
 import {figure,muscleLoad} from './figure.js';
 
-const SOURCES=['pelland2026','schoenfeld2021','refalo2023','plotkin2022','singer2024','coleman2024','ramoscampo2024','haugen2023'];
+const SOURCES=['pelland2026','schoenfeld2021','lopez2021','currier2023','refalo2023','plotkin2022','singer2024','coleman2024','ramoscampo2024','haugen2023'];
 const MAIN_GROUPS=MAJOR;
 const range=r=>r[0]===r[1]?String(r[0]):r[0]+'–'+r[1];
 const list=a=>a.length<2?a.join(''):a.slice(0,-1).join(', ')+' and '+a.at(-1);
@@ -84,8 +84,8 @@ async function swap(C,item,toId){
  if(item.sets.some(x=>x.done)){const rest=item.sets.filter(x=>!x.done);if(!rest.length)throw Error('Every set of this exercise is already done.');const copy={...item,id:uid(),sets:rest,notes:'',superset:item.superset||''};item.sets=item.sets.filter(x=>x.done);C.state.draft.exercises.splice(C.state.draft.exercises.indexOf(item)+1,0,copy);item=copy}
  const d=C.state.draft,fromId=item.exerciseId,sets=item.sets.length,lost=lostMuscles(fromId,toId,sets),s=slotOf(item),to=exerciseById(toId);
  if(to.tracking!=='reps-load'){const fresh=itemFor(toId,sets);Object.assign(item,{exerciseId:toId,sets:fresh.sets,targetReps:0,targetDuration:fresh.targetDuration,range:null,targetLoad:null,why:''})}
- else{const reps=item.range?(loadable(to)?s.reps:[s.reps[0],Math.max(s.reps[1],20)]):s.reps,fresh=itemFromSlot(C,{...s,exerciseId:toId,reps});Object.assign(item,{exerciseId:toId,sets:fresh.sets,targetReps:fresh.targetReps,targetDuration:null,why:fresh.why,targetLoad:fresh.targetLoad,range:item.range?fresh.range:null})}
- const pseudo=d.exercises.map(e=>({exerciseId:e.exerciseId,sets:e.sets.length,ref:e,main:false})),{uncovered}=compensate(lost,pseudo,equipmentNow(C)),notes=applyCompensation(C,pseudo);
+ else{const pref=repPreference(C.state.profile,toId),carried=item.range?(loadable(to)?s.reps:[s.reps[0],Math.max(s.reps[1],20)]):s.reps,reps=pref!=='balanced'?preferredReps(to,carried,pref):item.range&&repPreference(C.state.profile,fromId)!=='balanced'?defaultReps(to):carried,fresh=itemFromSlot(C,{...s,exerciseId:toId,reps});Object.assign(item,{exerciseId:toId,sets:fresh.sets,targetReps:fresh.targetReps,targetDuration:null,why:fresh.why,targetLoad:fresh.targetLoad,range:item.range?fresh.range:null})}
+ const pseudo=d.exercises.map(e=>({exerciseId:e.exerciseId,sets:e.sets.length,ref:e,main:false})),{uncovered}=compensate(lost,pseudo,equipmentNow(C),C.state.profile),notes=applyCompensation(C,pseudo);
  await C.save(notes.length?'Swapped. Added '+list(notes)+' so the same muscles are trained.':uncovered.length?'Swapped. '+list(namesOf(uncovered))+' will get less work today.':'Exercise swapped');
 }
 function swapDialog(C,itemId){
@@ -99,7 +99,7 @@ function equipmentDialog(C){
  const owned=C.state.profile.equipment.filter(x=>x!=='bodyweight'),now=equipmentNow(C);
  if(!owned.length)throw Error('Your equipment list only has bodyweight. Add equipment in Settings first.');
  modal('Equipment today',`<p>Untick anything you can’t use today. Exercises you haven’t started are swapped, and sets are added so the same muscles are still trained.</p>${owned.map(x=>`<label class="check"><input type="checkbox" name="eq" value="${x}" ${now.includes(x)?'checked':''}>${esc(equipmentLabels[x])}</label>`).join('')}`,async fd=>{
-  const equipment=['bodyweight',...fd.getAll('eq')],d=C.state.draft,started=d.exercises.filter(e=>e.sets.some(s=>s.done)),pending=d.exercises.filter(e=>!e.sets.some(s=>s.done)),result=adaptItems(pending.filter(e=>exerciseById(e.exerciseId).tracking==='reps-load').map(e=>({...slotOf(e),ref:e})),equipment),kept=pending.filter(e=>exerciseById(e.exerciseId).tracking!=='reps-load'&&available(exerciseById(e.exerciseId),equipment));
+  const equipment=['bodyweight',...fd.getAll('eq')],d=C.state.draft,started=d.exercises.filter(e=>e.sets.some(s=>s.done)),pending=d.exercises.filter(e=>!e.sets.some(s=>s.done)),result=adaptItems(pending.filter(e=>exerciseById(e.exerciseId).tracking==='reps-load').map(e=>({...slotOf(e),ref:e})),equipment,C.state.profile),kept=pending.filter(e=>exerciseById(e.exerciseId).tracking!=='reps-load'&&available(exerciseById(e.exerciseId),equipment));
   C.ui.equipmentToday=equipment;
   const next=result.items.map(i=>{if(i.ref&&i.ref.exerciseId===i.exerciseId){const extra=i.sets-i.ref.sets.length,last=i.ref.sets.at(-1);for(let n=0;n<extra;n++)i.ref.sets.push({...newSet(last?.reps||0,last?.load??null)});return i.ref}const fresh=itemFromSlot(C,i);if(i.ref&&!i.ref.range)fresh.range=null;return fresh});
   d.exercises=[...started,...next,...kept];
