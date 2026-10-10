@@ -177,3 +177,11 @@ Brady asked for the app to check for updates automatically but never update itse
 - `APP_VERSION` in dist/updates.js must equal package.json (tested). Bump both when releasing; the tag check in the Android workflow already ties the tag to package.json.
 - Device prefs: updateCheck (on by default), updateCheckedAt, updateLatest, updateDismissed. Settings has the switch; the tour's Settings step mentions it. Cache v11, 81 tests.
 - Limitation: GitHub only answers anonymous requests for public repositories. While the repository is private, the check finds nothing.
+
+## 1.7.1 · calorie target follows Settings, bug sweep (2026-10-10)
+Brady reported that changing height, weight and similar Settings didn't change the calorie target. The target was a stored number (default 2000) that only changed when typed.
+- `profile.calorieMode` is `auto` (default) or `manual`. `syncCalorieTarget` (dist/science.js) runs before every save, on load, unlock and restore, and sets `calorieTarget` from `calorieGoal(state)` when automatic. Typing a number on the Calories page makes it manual ("Custom" pill); "Switch to automatic" returns. Older journals: a typed target stays manual, the 2000 default or an accepted maintenance estimate becomes automatic (validation.js `legacyCalorieMode`).
+- `currentWeight(state)`: Settings weight if edited on or after the newest weigh-in (`profile.weightDate`), else the 7-day mean of weigh-ins. Calories, Body energy estimates and protein suggestion all use it.
+- Goal rules and sources: scientific-methodology.md item 33. New sources murphy2022 and helms2023.
+- Sweep fixes: chart axes use round tick values and readable text on phones (charts kept a fixed 220 px box and shrank the drawing); weigh-in and cardio lists show 10 with "Show all"; plural fixes ("1 activity", "1 session", "1 set"); a 1RM hint when no set qualifies; plain wording for the formula's sex input; Settings no longer mentions a hosted app; About counts groups from data. Cache v12, 88 tests.
+- Known and left alone: Training's 1RM estimate only uses sets to failure (science.e1rm) while Goals counts reps in reserve (programs.estimate1rm). Flagged to the rep-preference work.

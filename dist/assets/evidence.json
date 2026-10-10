@@ -1045,6 +1045,50 @@
       ]
     },
     {
+      "id": "murphy2022",
+      "title": "Energy deficiency impairs resistance training gains in lean mass but not strength: A meta-analysis and meta-regression",
+      "authors": [
+        "Caoileann Murphy",
+        "Karsten Koehler"
+      ],
+      "year": 2022,
+      "url": "https://doi.org/10.1111/sms.14075",
+      "doi": "10.1111/sms.14075",
+      "type": "systematic review, meta-analysis and meta-regression",
+      "evidenceStrength": "Moderate; pooled controlled trials, estimated threshold",
+      "summary": "Across trials of resistance training, people in an energy deficit gained less lean mass than people who were not, while strength gains were similar. The meta-regression estimated that a deficit of roughly 500 kcal a day was enough to stop lean-mass gains on average.",
+      "supportedClaims": [
+        "Energy deficits larger than about 500 kcal/day tend to prevent lean-mass gains during resistance training."
+      ],
+      "limitations": [
+        "The 500 kcal figure is a modelled average with uncertainty, not an individual limit.",
+        "Trials varied in diet control, training and participants."
+      ]
+    },
+    {
+      "id": "helms2023",
+      "title": "Effect of Small and Large Energy Surpluses on Strength, Muscle, and Skinfold Thickness in Resistance-Trained Individuals: A Parallel Groups Design",
+      "authors": [
+        "Eric R. Helms",
+        "Andrew J. Spence",
+        "Colby Sousa",
+        "others"
+      ],
+      "year": 2023,
+      "url": "https://doi.org/10.1186/s40798-023-00651-y",
+      "doi": "10.1186/s40798-023-00651-y",
+      "type": "randomized controlled trial",
+      "evidenceStrength": "Low to moderate; one trial in trained lifters",
+      "summary": "Trained lifters eating about 5% or about 15% above maintenance for eight weeks gained similar strength and muscle thickness, but the larger surplus added more skinfold thickness (fat).",
+      "supportedClaims": [
+        "For trained lifters, a small surplus (about 5%) builds muscle about as well as a larger one, with less fat gain."
+      ],
+      "limitations": [
+        "Small sample over eight weeks.",
+        "Surpluses were estimated, not measured."
+      ]
+    },
+    {
       "id": "steele2022",
       "title": "Long-term time-course of strength adaptation to minimal dose resistance training through retrospective longitudinal growth modeling",
       "authors": [
