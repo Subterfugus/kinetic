@@ -6,6 +6,8 @@ A device-local fitness journal with 108 curated exercises, an interactive muscle
 
 Use the private hosted link supplied with this delivery. Open it once online and wait for **Settings → Offline** to confirm caching. Core features then work without a connection. Source links still require internet.
 
+On Android, download `Kinetic-<version>.apk` from the newest GitHub Release and open it on the phone. The app works offline from the first launch; see `android/README.md` for installing, updating and what differs from the browser.
+
 For a fully local copy, install Node.js from its official website if it is not already installed. Extract the complete folder and double-click **Start-Kinetic.cmd** on Windows, or run `npm start` in this folder. Open **http://127.0.0.1:4173** in your browser. Keep the server window open while first loading the app. Opening `index.html` directly is not supported because modules, storage and offline caching require an HTTP origin.
 
 ## Get started
@@ -22,7 +24,7 @@ A short welcome tour opens the first time the app runs on a device. Reopen it an
 
 ## Privacy and backups
 
-Records and photos stay in IndexedDB on the current browser and origin. No health records are sent to a server, and no analytics or external data API is used. The photo studio uses the camera only while its dialog is open. The private host serves the app files; it does not synchronize journals. Localhost and the hosted URL have separate journals. To move between browsers, devices or origins, export and restore a full backup.
+Records and photos stay in IndexedDB on the current browser and origin, or inside the Android app's own storage. No health records are sent to a server, and no analytics or external data API is used. The photo studio uses the camera only while its dialog is open. The private host serves the app files; it does not synchronize journals. Localhost and the hosted URL have separate journals. To move between browsers, devices or origins, export and restore a full backup.
 
 The optional passphrase vault encrypts the journal and photos at rest. There is no passphrase recovery service. An unlocked browser session can read its records. Full backups are encrypted when the vault is enabled; CSV exports remain readable. Browser clearing, device loss and storage eviction can remove records, so downloaded backups are essential. The app asks the browser to protect its storage from automatic eviction; Settings shows whether that was granted. Timer, sound, backup-reminder, focus-mode and bar-weight preferences are stored per device and are not part of the journal or its backups. Programs and goals are part of the journal and its backups.
 
@@ -39,5 +41,7 @@ See `scientific-methodology.md`, `asset-provenance.md`, `verification.md`, `arch
 Current release: 1.5.0.
 
 Native JavaScript modules; no runtime package dependencies or build step. `dist/` is the complete static application. Node.js is used only for the local server and checks.
+
+The Android app in `android/` is a Capacitor shell around `dist/`; `dist/native.js` holds the few Android-only bridges (file saving, screen wake, system bars, back button) and is inert in a browser. Capacitor is a development dependency only. `.github/workflows/android.yml` builds the APK. See `android/README.md`.
 
 Run `npm test` (71 tests) for scientific, program, goal, validation and encryption behavior; `npm run check` for exercise/anatomy/source/offline-asset integrity. The service worker serves cached files first and refreshes them in the background, so a changed file appears on the second load. After changing cached assets, bump the service-worker cache version and verify offline behavior.
