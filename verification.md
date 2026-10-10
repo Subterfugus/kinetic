@@ -84,3 +84,10 @@ This is release verification, not an independent security penetration test, clin
 - Browser (headless Chromium, 390 px and 1280 px, light and dark): muscle map on Today before and after a logged session; suggested workout card with every focus, "Different exercises", starting it into focus mode and logging all sets; "Muscles in this workout" during a workout; figures on program days, the Today program card, the exercise dialog and focus mode; Muscles in the bottom bar; switching the profile to imperial converts typed weights (90 kg → 198.4 lb) and relabels them, and switching back before saving restores the exact figures. No console errors.
 - Not verified: real phones, offline reload under cache v8, performance of many figures on low-end phones.
 - Merged main (Android shell, `native.js`) into this branch; cache `kinetic-shell-v10` lists `native.js` and no longer lists the removed side-view assets. Atlas checked with Front and Back only, no console errors.
+
+## Release 1.8.0 (2026-10-10)
+
+- Automated: `npm test` passed 91 tests (new: `tests/release18.test.js` for rep-range ranges, per-exercise override, programs and suggestions following the preference, backup validation, equipment alternatives and the new references). `npm run check` passed with 192 movements and 50 references. Service worker cache `kinetic-shell-v12`.
+- Browser (headless Chromium, 420 px and 1280 px): Settings saves the general rep preference; an exercise page saves and clears its own preference and updates the typical range; with "lower reps", a program workout started from the recommended program shows 5–8 targets, the barbell squat is swapped to the new dumbbell squat for a dumbbell-only setup, and swapping in focus mode keeps the preferred range. No console errors.
+- New references were checked by title, authors and DOI through web search; PubMed itself is blocked from this environment.
+- Not verified: real phones, offline reload under cache v12.

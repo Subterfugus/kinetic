@@ -1167,6 +1167,149 @@
         "Trials studied healthy adults; it does not apply to kidney disease or other medical conditions.",
         "Supplementation trials, not whole-diet feeding studies."
       ]
+    },
+    {
+      "id": "schoenfeld2017load",
+      "title": "Strength and Hypertrophy Adaptations Between Low- vs. High-Load Resistance Training: A Systematic Review and Meta-analysis",
+      "authors": [
+        "Brad J. Schoenfeld",
+        "Jozo Grgic",
+        "Doug Ogborn",
+        "James W. Krieger"
+      ],
+      "year": 2017,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/28834797/",
+      "doi": "10.1519/JSC.0000000000002200",
+      "type": "systematic review and meta-analysis",
+      "evidenceStrength": "Moderate; pooled randomized trials, mostly untrained participants",
+      "summary": "Twenty-one studies compared training with heavy loads (above 60% of a one-rep max) and light loads (60% or less), with sets taken to failure. Muscle growth was similar between the two. Gains in one-rep-max strength were greater with heavy loads. The app uses this to let people choose a lower or higher rep range for muscle growth, while keeping heavy main lifts heavy for strength.",
+      "supportedClaims": [
+        "Muscle growth is similar with heavy and light loads when sets are taken to failure.",
+        "Heavier loads improve maximal strength more."
+      ],
+      "limitations": [
+        "Most included studies had sets taken to failure; results may differ when sets stop further from failure.",
+        "Many studies used untrained participants and short interventions."
+      ]
+    },
+    {
+      "id": "morton2016",
+      "title": "Neither load nor systemic hormones determine resistance training-mediated hypertrophy or strength gains in resistance-trained young men",
+      "authors": [
+        "Robert W. Morton",
+        "Sara Y. Oikawa",
+        "Christopher G. Wavell",
+        "Nicole Mazara",
+        "Chris McGlory",
+        "Joe Quadrilatero",
+        "Brittany L. Baechler",
+        "Steven K. Baker",
+        "Stuart M. Phillips"
+      ],
+      "year": 2016,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/27174923/",
+      "doi": "10.1152/japplphysiol.00154.2016",
+      "type": "randomized controlled trial",
+      "evidenceStrength": "Moderate for trained young men; single trial",
+      "summary": "Forty-nine resistance-trained young men trained for 12 weeks with either 20–25 reps per set at a light load or 8–12 reps at a heavier load, all to failure. Muscle growth and most strength gains were similar; bench-press one-rep max improved somewhat more with the heavier load.",
+      "supportedClaims": [
+        "Trained lifters grew as much from sets of 20–25 as from sets of 8–12 when sets were taken to failure."
+      ],
+      "limitations": [
+        "Young trained men only.",
+        "Sets were taken to failure; the app's targets usually stop 1–3 reps short."
+      ]
+    },
+    {
+      "id": "lopez2021",
+      "title": "Resistance Training Load Effects on Muscle Hypertrophy and Strength Gain: Systematic Review and Network Meta-analysis",
+      "authors": [
+        "Pedro Lopez",
+        "Régis Radaelli",
+        "Dennis R. Taaffe",
+        "Robert U. Newton",
+        "Daniel A. Galvão",
+        "Gabriel S. Trajano",
+        "Juliana L. Teodoro",
+        "William J. Kraemer",
+        "Keijo Häkkinen",
+        "Ronei S. Pinto"
+      ],
+      "year": 2021,
+      "url": "https://doi.org/10.1249/MSS.0000000000002585",
+      "doi": "10.1249/MSS.0000000000002585",
+      "type": "systematic review and network meta-analysis",
+      "evidenceStrength": "Moderate; network meta-analysis of randomized trials",
+      "summary": "Randomized trials comparing low (15 or more reps), moderate (9–15) and high loads (8 or fewer) in healthy adults were pooled. Muscle growth was similar across load ranges when sets were performed to failure. Strength gains were greater with heavier loads.",
+      "supportedClaims": [
+        "Muscle growth is similar across low, moderate and high loads when sets are taken to failure.",
+        "Heavier loads build maximal strength more."
+      ],
+      "limitations": [
+        "Few trials directly compared every pair of load ranges.",
+        "Short interventions; results rely on sets to or near failure."
+      ]
+    },
+    {
+      "id": "currier2023",
+      "title": "Resistance training prescription for muscle strength and hypertrophy in healthy adults: a systematic review and Bayesian network meta-analysis",
+      "authors": [
+        "Brad S. Currier",
+        "Jonathan C. Mcleod",
+        "Laura Banfield",
+        "Joseph F. Beyene",
+        "Nicky J. Welton",
+        "Alysha C. D'Souza",
+        "Jamie A. J. Keogh",
+        "Lu Lin",
+        "Giulia Coletta",
+        "Allison Yang",
+        "Lauren Colenso-Semple",
+        "Kenneth Lau",
+        "Arjun Verboom",
+        "Stuart M. Phillips"
+      ],
+      "year": 2023,
+      "url": "https://doi.org/10.1136/bjsports-2023-106807",
+      "doi": "10.1136/bjsports-2023-106807",
+      "type": "systematic review and Bayesian network meta-analysis",
+      "evidenceStrength": "Moderate to high; 192 randomized trials, 5,000+ participants",
+      "summary": "A large network meta-analysis of randomized trials compared training prescriptions. Almost any resistance training built muscle and strength. Strength gains were greatest with higher loads, ideally across multiple sets. Muscle growth was similar across a wide range of loads and set schemes.",
+      "supportedClaims": [
+        "Muscle growth is similar across a wide range of loads.",
+        "Higher loads give the largest gains in maximal strength."
+      ],
+      "limitations": [
+        "Network comparisons are partly indirect.",
+        "Healthy adults only; individual responses vary."
+      ]
+    },
+    {
+      "id": "lasevicius2018",
+      "title": "Effects of different intensities of resistance training with equated volume load on muscle strength and hypertrophy",
+      "authors": [
+        "Thiago Lasevicius",
+        "Carlos Ugrinowitsch",
+        "Brad J. Schoenfeld",
+        "Hamilton Roschel",
+        "Lucas Duarte Tavares",
+        "Eduardo Oliveira De Souza",
+        "Gilberto Laurentino",
+        "Valmor Tricoli"
+      ],
+      "year": 2018,
+      "url": "https://doi.org/10.1080/17461391.2018.1450898",
+      "doi": "10.1080/17461391.2018.1450898",
+      "type": "randomized within-subject trial",
+      "evidenceStrength": "Low to moderate; small single trial",
+      "summary": "Untrained men trained one limb at 20% of their one-rep max and the other at 40%, 60% or 80%, to failure, for 12 weeks. Loads of 40–80% produced similar muscle growth, but 20% produced clearly less. The app therefore keeps its 'higher reps' ranges to about 30 reps or fewer, which corresponds to loads above roughly 30–40% of a one-rep max.",
+      "supportedClaims": [
+        "Very light loads around 20% of a one-rep max grow muscle less than 40–80%."
+      ],
+      "limitations": [
+        "Small sample of untrained young men.",
+        "The exact lowest effective load is not established."
+      ]
     }
   ],
   "implementationNotes": [
@@ -1231,6 +1374,18 @@
         "acsm2026"
       ],
       "note": "A readiness score derived from sleep, soreness, stress, and performance is an app heuristic. Show its components and permit user judgment; it is not a validated medical or overtraining diagnosis."
+    },
+    {
+      "topic": "Rep-range preference",
+      "sourceIds": [
+        "schoenfeld2017load",
+        "morton2016",
+        "lopez2021",
+        "currier2023",
+        "lasevicius2018",
+        "schoenfeld2021"
+      ],
+      "note": "Muscle growth is similar across roughly 5–30 reps per set when sets end close to failure, so a lower or higher rep preference is offered for growth. Exact ranges per exercise kind, the 25–30 rep ceiling, the extra rest for heavy sets and keeping heavy main lifts unchanged are app conventions informed by these papers, not values the papers prescribe."
     }
   ],
   "formulaRegistry": [

@@ -178,10 +178,18 @@ Brady asked for the app to check for updates automatically but never update itse
 - Device prefs: updateCheck (on by default), updateCheckedAt, updateLatest, updateDismissed. Settings has the switch; the tour's Settings step mentions it. Cache v11, 81 tests.
 - Limitation: GitHub only answers anonymous requests for public repositories. While the repository is private, the check finds nothing.
 
-## 1.7.1 · calorie target follows Settings, bug sweep (2026-10-10)
+## 2026-10-10 — Release 1.8 rep-range preference and more exercises — DONE (PR)
+Brady asked for a "prefer lower/higher reps" option in general and per exercise, more exercises so people without a given machine still have options (e.g. dumbbell shoulder press), all based on modern research.
+- programs.js: REP_PREFS, repPreference (per-exercise beats general), preferredReps (fixed ranges per kind of exercise, so applying twice is stable), applyRepPreference. Applied in buildProgram, adaptItems, compensate (new optional profile argument), suggestWorkout and program swaps. Heavy main lifts (!) and strength-goal compounds in suggestions keep their range.
+- Profile: repPreference ('balanced'|'lower'|'higher') and repPrefs {exerciseId: pref}. Validated; old backups load with the defaults. Settings → Training has the general select; each strength exercise's page has "Your rep range".
+- data.js: 84 new exercises (192 total) filling equipment gaps for every pattern; unilateral regex extended (machine and seated variants excluded). New regional tags in `emphasis`.
+- evidence.json: schoenfeld2017load, morton2016, lopez2021, currier2023, lasevicius2018 plus an implementation note. Methodology items 33–34.
+- Tour: Library and Settings steps mention the new exercises and the rep preference. Cache v12, package 1.8.0, tests/release18.test.js.
+
+## 1.9.0 · calorie target follows Settings, bug sweep (2026-10-10)
 Brady reported that changing height, weight and similar Settings didn't change the calorie target. The target was a stored number (default 2000) that only changed when typed.
 - `profile.calorieMode` is `auto` (default) or `manual`. `syncCalorieTarget` (dist/science.js) runs before every save, on load, unlock and restore, and sets `calorieTarget` from `calorieGoal(state)` when automatic. Typing a number on the Calories page makes it manual ("Custom" pill); "Switch to automatic" returns. Older journals: a typed target stays manual, the 2000 default or an accepted maintenance estimate becomes automatic (validation.js `legacyCalorieMode`).
 - `currentWeight(state)`: Settings weight if edited on or after the newest weigh-in (`profile.weightDate`), else the 7-day mean of weigh-ins. Calories, Body energy estimates and protein suggestion all use it.
 - Goal rules and sources: scientific-methodology.md item 33. New sources murphy2022 and helms2023.
-- Sweep fixes: chart axes use round tick values and readable text on phones (charts kept a fixed 220 px box and shrank the drawing); weigh-in and cardio lists show 10 with "Show all"; plural fixes ("1 activity", "1 session", "1 set"); a 1RM hint when no set qualifies; plain wording for the formula's sex input; Settings no longer mentions a hosted app; About counts groups from data. Cache v12, 88 tests.
+- Sweep fixes: chart axes use round tick values and readable text on phones (charts kept a fixed 220 px box and shrank the drawing); weigh-in and cardio lists show 10 with "Show all"; plural fixes ("1 activity", "1 session", "1 set"); a 1RM hint when no set qualifies; plain wording for the formula's sex input; Settings no longer mentions a hosted app; About counts groups from data. Cache v13.
 - Known and left alone: Training's 1RM estimate only uses sets to failure (science.e1rm) while Goals counts reps in reserve (programs.estimate1rm). Flagged to the rep-preference work.
