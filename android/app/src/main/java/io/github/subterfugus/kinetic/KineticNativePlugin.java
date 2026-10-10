@@ -69,6 +69,24 @@ public class KineticNativePlugin extends Plugin {
         }).start();
     }
 
+    /** Opens a web address in the phone's browser, e.g. the APK download for an update. */
+    @PluginMethod
+    public void openUrl(PluginCall call) {
+        String url = call.getString("url", "");
+        if (!url.startsWith("https://") && !url.startsWith("http://")) {
+            call.reject("Only web addresses can be opened.");
+            return;
+        }
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            getContext().startActivity(intent);
+            call.resolve();
+        } catch (android.content.ActivityNotFoundException e) {
+            call.reject("No browser is installed to open this link.", e);
+        }
+    }
+
     /** Keeps the screen on during a workout; Android WebView has no Screen Wake Lock API. */
     @PluginMethod
     public void keepAwake(PluginCall call) {

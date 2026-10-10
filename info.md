@@ -213,3 +213,6 @@ Brady asked for proper graphs over time of bodyweight, weight lifted, weight lif
 - 1RM uses `science.e1rm` (Epley with reps in reserve), the same estimate as Training and Goals.
 - `timeChart` in progress.js is separate from `ui.chart`: multi-series, real date axis, a cursor that follows tap/drag (touch-action pan-y keeps vertical scrolling), arrow keys/Home/End for keyboard, data table for screen readers. It picks a 360-wide viewBox on screens under 600 px so text stays readable.
 - Tour Track step lists Progress. Cache v15, package 1.11.0 (1.10.0 is the rep-preference release), tests/progress.test.js.
+
+## 1.11.1 · Update notice fix on Android (2026-10-10)
+Brady (on 1.7, Android) tapped Check now: Settings said 1.11 was available but showed no download. The notice is inserted at the top of #main, off screen while scrolled to Settings → Updates. Check now now opens the What's new dialog, Settings → Updates has What's new / Download buttons (updateButtons in dist/updates.js), and native.js sends every outside http(s) link to the new KineticNative.openUrl (ACTION_VIEW) so downloads open in the phone's browser. Cache v16, package 1.11.1.
