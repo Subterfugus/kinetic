@@ -15,10 +15,10 @@ export function startSetup(C){
   if(i===0)return `<h3>Which units do you use?</h3><p>You can change this later in Settings. Your records convert automatically.</p><div class="setup-choices" role="radiogroup" aria-label="Units">${[['metric','Metric','kg, cm, km'],['imperial','Imperial','lb, in, mi']].map(([v,l,h])=>`<label class="setup-choice"><input type="radio" name="setup-units" value="${v}" ${draft.units===v?'checked':''}><span><strong>${l}</strong><small>${h}</small></span></label>`).join('')}</div>`;
   if(i===1)return `<h3>What equipment can you use?</h3><p>Programs and exercise swaps only use what you tick. Bodyweight is always included.</p><div class="setup-grid">${Object.entries(equipmentLabels).map(([v,l])=>`<label class="check"><input type="checkbox" name="setup-equipment" value="${v}" ${draft.equipment.includes(v)?'checked':''} ${v==='bodyweight'?'disabled':''}>${esc(l)}</label>`).join('')}</div>`;
   if(i===2)return `<h3>How many days a week can you train?</h3><p>Pick what you can keep up most weeks, not your best week.</p><div class="setup-days" role="radiogroup" aria-label="Training days per week">${[1,2,3,4,5,6,7].map(n=>`<label class="setup-day"><input type="radio" name="setup-days" value="${n}" ${draft.days===n?'checked':''}><span>${n}</span></label>`).join('')}</div>`;
-  const s=C.state;if(s.profile.goal==='mobility')return `<h3>You’re set up</h3><p>Your goal is mobility, so there is no strength program to start. Open Plan to build routines.</p>`;
-  if(s.program)return `<h3>You’re set up</h3><p>You are already following ${esc(programById(s.program.templateId)?.name||'a program')}. It now uses your new equipment and days.</p>`;
+  const s=C.state,saved='<p class="meta">Your units, equipment and training days are saved.</p>';if(s.profile.goal==='mobility')return `<h3>You’re set up</h3>${saved}<p>Your goal is mobility, so there is no strength program to start. Open Plan to build routines.</p>`;
+  if(s.program)return `<h3>You’re set up</h3>${saved}<p>You are already following ${esc(programById(s.program.templateId)?.name||'a program')}. It now uses your new equipment and days.</p>`;
   const rec=recommend(s.profile),t=programById(rec.id);
-  return `<h3>We recommend ${esc(t.name)}</h3><p>${esc(t.summary)} ${esc(rec.reason)}</p><p class="meta">Each session is adjusted to your equipment, and the targets rise as you get stronger. You can preview it or pick another program in Plan.</p>`;
+  return `<h3>We recommend ${esc(t.name)}</h3><p>${esc(t.summary)} ${esc(rec.reason)}</p><p class="meta">Each session is adjusted to your equipment, and the targets rise as you get stronger. You can preview it or pick another program in Plan.</p>${saved}`;
  };
  const footer=i=>{
   const back=i===0?'<button type="button" class="btn" data-setup="close">Skip setup</button>':'<button type="button" class="btn" data-setup="back">Back</button>';
@@ -40,7 +40,7 @@ export function startSetup(C){
    if(a==='tour'){startTour(C);return}
    read(i);
    if(a==='back'){paint(i-1);return}
-   if(i===2){const old=C.state.profile;try{C.state.profile={...old,...draft};await C.save('Setup saved')}catch(err){C.state.profile=old;d.querySelector('.error').textContent=err.message;return}}
+   if(i===2){const old=C.state.profile;try{C.state.profile={...old,...draft};await C.persist();C.render()}catch(err){C.state.profile=old;d.querySelector('.error').textContent=err.message;return}}
    paint(i+1);
   });
   (d.querySelector('input:not([disabled]):checked')||d.querySelector('.btn.primary'))?.focus({preventScroll:true});

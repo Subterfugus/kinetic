@@ -246,3 +246,11 @@ From /mnt/project-files/qol-review/workouts.md:
 - Add exercise opens focus mode for the first exercise when "Open focus mode when I start a workout" is on.
 - Program cards show "62.5 → 65 kg (suggested)" when the target differs from last time; the program prompt explains program vs suggested workout and the suggested workout's Start is secondary while no program runs.
 - Plain swap explanations, plainer plate line, "Skip this session" asks first, focus Skip says unticked sets aren't saved. Removed the unreachable Swap branch in `trainingAction`. Cache v19.
+
+## 1.13.0 · Phone experience fixes (2026-10-10)
+From the phone QoL review (/mnt/project-files/qol-review/phone-experience.md):
+- Settings → Profile saves each field on change (`saveProfile` in app.js persists without re-rendering, so focus stays on the next field). The Save button is gone; a status line says "Changes save automatically". Labels reworded in plain language with the formula names in the small print. Jump links at the top; tour/setup buttons first in About.
+- The + button is 52px on phones and slides away while scrolling down (`body.fab-tucked`); phone pages have 150px of bottom padding so the last item clears it. Dark mode: near-black + on orange.
+- Atlas: zoom buttons and caption sit at the top of the figure; stage height fits the screen; `#muscle-summary` under the figure on phones shows name, group, weekly sets, previous/next muscle and Details. Every muscle has an invisible wide-outline copy in `.hit-layer` underneath the artwork so taps beside thin muscles still land; non-muscle artwork ignores taps. Pinch is damped (`PINCH=.6`).
+- Update notice: one line, Today only. A 403/429 from the releases API falls back to package.json on main; if that fails too, "GitHub is busy… your connection is fine".
+- Bottom bar says Training and Atlas; menu theme and lock buttons have text. Setup no longer toasts "Setup saved" on step 4 (step 4 says it). Toasts ignore taps. Cache v20.

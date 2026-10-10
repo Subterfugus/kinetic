@@ -63,3 +63,28 @@ test('Settings shows a download button while an update is waiting',async()=>{
  assert.match(html,/check-updates/);
  assert.match(html,/href="https:\/\/github\.com\/Subterfugus\/kinetic\/releases\/download\/v99\.0\.0\/Kinetic-99\.0\.0\.apk"/);
 });
+
+test('When GitHub rate-limits the check, the version file answers instead, and the message never blames the connection',async()=>{
+ const {failureMessage}=await import('../dist/updates.js');
+ let C=fakeApp();
+ const calls=await withFetch(url=>/api\.github\.com/.test(url)?{ok:false,status:403}:{ok:true,status:200,json:async()=>({version:'99.1.0'})},()=>checkForUpdates(C));
+ assert.equal(calls.length,2);
+ assert.match(calls[1][0],/^https:\/\/raw\.githubusercontent\.com\/Subterfugus\/kinetic\/main\/package\.json$/);
+ assert.equal(availableUpdate(C).version,'99.1.0');
+ assert.match(availableUpdate(C).url,/^https:\/\/github\.com\/Subterfugus\/kinetic\/releases\/latest/);
+ C=fakeApp();
+ await withFetch(()=>({ok:false,status:429}),()=>checkForUpdates(C));
+ assert.equal(C.prefs.updateCheckedAt,null,'a rate-limited check is retried later');
+ const busy=Error('limit');busy.busy=true;
+ assert.match(failureMessage(busy),/busy/);
+ assert.doesNotMatch(failureMessage(busy),/connection and try/);
+ assert.match(failureMessage(Error('offline')),/connection/);
+});
+
+test('The update notice is one line with a close button',async()=>{
+ const {updateBanner}=await import('../dist/updates.js');
+ const html=updateBanner(fakeApp({updateLatest:{version:'99.0.0',url:'https://github.com/Subterfugus/kinetic/releases'}}));
+ assert.match(html,/update-dismiss/);
+ assert.doesNotMatch(html,/live-banner/);
+ assert.equal(updateBanner(fakeApp({updateLatest:{version:'99.0.0',url:'https://github.com/'},updateDismissed:'99.0.0'})),'');
+});
