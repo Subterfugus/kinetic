@@ -223,3 +223,15 @@ Brady: on the phone the calorie target stayed at 2000 after changing weight. Cau
 - With no sex chosen for the formula (the default), no estimate was possible and the target silently stayed at 2000. `calorieGoal` now falls back to the midpoint constant (−78) and says so.
 - One-time migration: a custom target of exactly 2000 becomes automatic (`profile.calorieModeChecked` marks it done).
 - Settings → Profile now shows the current target and whether it is automatic, custom (with "Switch to automatic") or waiting on a missing field. Cache v17.
+
+## 1.11.3 · workout fixes from the QoL review (2026-10-10)
+From /mnt/project-files/qol-review/workouts.md:
+- Finishing with sets whose numbers were typed or changed but not ticked asks first ("Go back" / "Save anyway"). Sets carry `edited:true` once a load/reps/duration/distance field changes (Training page or focus mode); `untickedEdited(d)` counts them, and `completedSession` strips `edited` and any leftover `suggest`.
+- The step-up popup: closing it any way (Keep last time's, X, Escape) clears every suggestion; a `close` listener does it.
+- Ticking Done on a weighted reps exercise (`needsWeight`: reps-load and loadable equipment) with no weight warns once per set; ticking again saves without weight (`noWeightOk`).
+- Exercise search ignores spaces and forgives one typo in words of 4+ letters (`oneOff` in data.js); the picker shows main muscles and a "Browse all exercises" button when nothing matches.
+- Modal close returns keyboard focus to focus mode when it is open and the trigger is inert, so Escape works after the popup.
+- Phones: rest timer is a slim bar at the top (`body.has-timer` pads the top bar); toasts sit at the top everywhere with pointer-events off.
+- Add exercise opens focus mode for the first exercise when "Open focus mode when I start a workout" is on.
+- Program cards show "62.5 → 65 kg (suggested)" when the target differs from last time; the program prompt explains program vs suggested workout and the suggested workout's Start is secondary while no program runs.
+- Plain swap explanations, plainer plate line, "Skip this session" asks first, focus Skip says unticked sets aren't saved. Removed the unreachable Swap branch in `trainingAction`. Cache v18.
