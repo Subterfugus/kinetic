@@ -44,6 +44,11 @@ The 1.6 modules are:
 
 Calorie entries can carry an optional `protein` amount in grams, and the profile has an optional `proteinTarget`. Both are validated, included in backups, and older backups without them still restore. Exercise search (`matchesQuery` and `searchExercises` in `data.js`) is shared by the Exercises page and the workout picker.
 
+The 1.7 modules are:
+
+- `figure.js`: the reusable muscle map. `buildFigureDefs()` parses the two licensed SVGs once into hidden `<defs>`, tagging each mapped path with `fill:var(--g-<group>)`. Each figure is two `<use>` clones whose colours come from CSS custom properties, so a page can show many maps cheaply. `muscleLoad()` turns exercises and sets into fractional sets per group.
+- `suggest.js`: the pure suggested-workout engine. `workouts.js` draws its card on Training and Today and starts the session through `itemFromSlot()` from `program-view.js`, so load targets come from history exactly as in programs.
+
 Import relationships:
 
 - `programs.js` is imported by `validation.js`, `training.js`, `anatomy.js`, `focus.js`, `goals.js` and `program-view.js`.

@@ -39,3 +39,29 @@ test('First-run setup only opens on a fresh journal, and the tour mentions the n
  const text=JSON.stringify(tourSteps);
  for(const phrase of ['protein','first-time setup','+ button'])assert.ok(text.includes(phrase),phrase+' missing from the tour');
 });
+
+test('Muscle load counts primary sets fully and secondary sets as half',async()=>{
+ const {muscleLoad,topGroups}=await import('../dist/figure.js');
+ const e=exerciseById('goblet-squat'),load=muscleLoad([{exerciseId:'goblet-squat',sets:3}]);
+ for(const g of e.primary)assert.equal(load[g],3);
+ for(const g of e.secondary.filter(g=>!e.primary.includes(g)))assert.equal(load[g],1.5);
+ assert.equal(topGroups(load)[0].sets,3);
+});
+
+test('Suggested workouts use available equipment, fit the focus and skip muscles still recovering',async()=>{
+ const {suggestWorkout}=await import('../dist/suggest.js');
+ const {available,isCompound}=await import('../dist/programs.js');
+ const s=initialState(),today='2026-10-10';
+ const w=suggestWorkout(s,{focus:'auto',today});
+ assert.ok(w.items.length>=3&&w.items.length<=5,'beginner session length');
+ for(const i of w.items){const e=exerciseById(i.exerciseId);assert.ok(available(e,s.profile.equipment));assert.ok(i.sets>=2&&i.sets<=3);assert.ok(i.why.length<=300)}
+ const kinds=w.items.map(i=>isCompound(exerciseById(i.exerciseId)));assert.deepEqual(kinds,[...kinds].sort((a,b)=>b-a),'big lifts first');
+ const pull=suggestWorkout(s,{focus:'pull',today});
+ assert.ok(pull.items.every(i=>exerciseById(i.exerciseId).primary.some(g=>['lats','upper-back','rear-delts','biceps'].includes(g))));
+ const done=n=>({id:'s'+n,reps:8,load:20,duration:0,distance:0,rpe:null,rir:2,warmup:false,done:true});
+ s.sessions=[{id:'x',name:'Chest',date:'2026-10-09',notes:'',restSeconds:120,exercises:[{id:'i',exerciseId:'floor-press',targetReps:8,notes:'',superset:'',sets:[1,2,3].map(done)}]}];
+ const after=suggestWorkout(s,{focus:'auto',today});
+ assert.ok(after.skipped.includes('chest'));
+ assert.ok(after.items.every(i=>!exerciseById(i.exerciseId).primary.includes('chest')),'chest trained yesterday is skipped');
+ assert.equal(suggestWorkout(s,{focus:'push',today}).tired.includes('chest'),true);
+});

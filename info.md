@@ -152,3 +152,11 @@ Brady picked these from an ideas list: first-run setup, show the program on Toda
 - Protein: optional grams per calorie entry (also in "Log again" picks and CSV), optional `profile.proteinTarget`, meter on Calories (always) and Today (when a target is set or protein logged), "Use 1.6 g/kg" shortcut citing new source morton2018.
 - Photo Delete buttons are labelled "Delete front photo from <date>". info.me removed (info.md is the only log now). Tour updated per the standing rule. Cache v7, package 1.6.0, 74 tests.
 - Redeploy not done: deploy after the PR is merged; the hosting credentials are not in this repository.
+
+## 2026-10-10 — Release 1.7 suggested workouts and the muscle map everywhere — DONE (draft PR, stacked on 1.6)
+Brady asked for science-based suggested workouts, a graphic of every muscle a workout hits, the muscle map as a much bigger part of the app ("a lot of the gimmick"), and Settings figures such as goal weight in the chosen unit.
+- dist/figure.js: shared muscle map (front + back) built from the licensed SVGs via <defs>/<use> and CSS variables. Shown on Today ("Muscles this week", full width under the metrics), the workout in progress ("Muscles in this workout"), suggested workouts, Today/Training program card, each Plan program day, the exercise dialog, session history dialog and focus mode.
+- dist/suggest.js + dist/workouts.js: suggested workout on Training (full card with focus chips and "Different exercises") and Today (compact, when no program is running). Rules in scientific-methodology.md items 31–32.
+- Navigation: Muscle atlas moved to the top group; the mobile tab bar is now Today, Train, Muscles, Calories, More (Body moved to More; weight is still on the + button and Today).
+- Units: switching units in the Settings profile converts and relabels the weight, target weight and height already typed, and saves them in that unit (previously the labels and numbers stayed in the old unit until you saved). Weight error messages and the target notice now use the chosen unit.
+- Tour: new "Muscle atlas" step; Today, Training and Library steps updated. Cache v8, package 1.7.0, 76 tests.

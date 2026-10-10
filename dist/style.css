@@ -414,3 +414,33 @@ html[data-theme=dark] .quick-log{color:#1a1917}
 .filterbar .search{flex:1 1 100%}
 @media(max-width:800px){.quick-log{right:16px;bottom:calc(72px + env(safe-area-inset-bottom))}.timer{bottom:calc(140px + env(safe-area-inset-bottom))}}
 @media print{.quick-log{display:none}}
+/* 1.7: muscle figures, suggested workouts */
+:root{--fig-none:#d9d4cb;--fig-base:#d9d4cb;--fig-skin:#ece8e1}
+html[data-theme=dark]{--fig-none:#3d3a36;--fig-base:#3d3a36;--fig-skin:#2a2825}
+.muscle-figure{margin:0;display:flex;flex-direction:column;align-items:center;gap:8px}
+.muscle-figure .figs{display:flex;justify-content:center;gap:6%;width:100%}
+.muscle-figure svg{height:auto;width:46%;max-width:150px}
+.muscle-figure.tiny .figs{gap:2px}.muscle-figure.tiny svg{width:30px}
+.muscle-figure.small svg{max-width:96px}
+.muscle-figure.large svg{max-width:190px}
+.muscle-figure figcaption{font-size:.8125rem;color:var(--muted);text-align:center;max-width:42ch}
+.figure-link{all:unset;display:block;width:100%;cursor:pointer;border-radius:12px}
+.figure-link:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
+.figure-chips{justify-content:center;margin:10px 0 0}
+.figure-chips .pill{border:0;cursor:pointer;font:inherit;font-size:.8125rem}
+.week-map .muscle-figure{padding:6px 0 2px}
+.workout-map{margin-bottom:22px}
+.suggest-focus{margin:0 0 14px}
+.suggest-body{display:grid;grid-template-columns:minmax(150px,220px) 1fr;gap:18px;align-items:start}
+.suggest-card .button-group{margin-top:12px}
+.program-today{display:grid;grid-template-columns:120px 1fr;gap:16px;align-items:start}
+.program-day-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.program-day-head .muscle-figure{flex:none}
+@media(max-width:560px){.suggest-body{grid-template-columns:1fr}.program-today{grid-template-columns:1fr}.program-today .muscle-figure svg{max-width:80px}}
+.week-map{margin-bottom:22px}
+.week-map-body{display:grid;grid-template-columns:minmax(260px,1fr) 1fr;gap:24px;align-items:center}
+.week-map-bars:empty{display:none}
+.week-map-body:has(.week-map-bars:empty){grid-template-columns:1fr}
+.button-group.center{justify-content:center;margin-top:10px}
+@media(max-width:800px){.week-map-body{grid-template-columns:1fr}}
+.focus .muscle-figure.tiny{margin:2px 0 6px}.focus .muscle-figure.tiny svg{width:44px}

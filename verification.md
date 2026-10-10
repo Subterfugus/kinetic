@@ -77,3 +77,9 @@ This is release verification, not an independent security penetration test, clin
 - Service worker cache `kinetic-shell-v7`, with `setup.js` and `quicklog.js` added to its file list.
 - Browser (headless Chromium, 390 px phone and 1280 px desktop widths, light and dark themes), 2026-10-10: first-run setup through all four steps (imperial units, extra equipment, four days) and starting the recommended program from it; skipping setup and seeing the recommended program on Today; the program session card on Today and Training; the quick-log chooser, a calorie entry with protein, and quick-logging a set (picker search "db row", workout started, focus mode opened); the protein target and meter on Calories; exercise search with words in any order and gym shorthand; photo Delete buttons labelled with view and date. No console errors.
 - Not verified: real phones, offline reload under cache v7, the quick-log walk and sleep dialogs beyond opening.
+
+## Release 1.7.0 (2026-10-10)
+
+- Automated: `npm test` passed 76 tests (new: muscle-load counting, and suggested workouts respecting equipment, focus, order and the recovery window). `npm run check` passed. Service worker cache `kinetic-shell-v8` with `figure.js`, `suggest.js` and `workouts.js`.
+- Browser (headless Chromium, 390 px and 1280 px, light and dark): muscle map on Today before and after a logged session; suggested workout card with every focus, "Different exercises", starting it into focus mode and logging all sets; "Muscles in this workout" during a workout; figures on program days, the Today program card, the exercise dialog and focus mode; Muscles in the bottom bar; switching the profile to imperial converts typed weights (90 kg → 198.4 lb) and relabels them, and switching back before saving restores the exact figures. No console errors.
+- Not verified: real phones, offline reload under cache v8, performance of many figures on low-end phones.

@@ -5,6 +5,7 @@ import {itemFor,newSet,picker} from './training.js';
 import {esc,btn,modal,num,toast} from './ui.js';
 import {TODAY,uid} from './store.js';
 import {openFocus} from './focus.js';
+import {figure,muscleLoad} from './figure.js';
 
 const SOURCES=['pelland2026','schoenfeld2021','refalo2023','plotkin2022','singer2024','coleman2024','ramoscampo2024','haugen2023'];
 const MAIN_GROUPS=MAJOR;
@@ -28,7 +29,7 @@ function adjustments(C,b){
  return `<details class="notice adjust"${uncovered.length?" open":""}><summary><strong>Adjusted for your equipment</strong> · ${swaps.length} swap${swaps.length===1?"":"s"}${added.length?", "+added.length+" addition"+(added.length===1?"":"s"):""}${uncovered.length?" · some muscles not covered":""}</summary><ul class="detail-list">${swaps.map(c=>`<li>${esc(name(c.from))} → <strong>${esc(name(c.to))}</strong>${c.tier==='Closest match'?'':' <span class="meta">· '+esc(lower(c.tier))+'</span>'}</li>`).join('')}${dropped.map(id=>`<li>${esc(name(id))}: nothing similar is possible with your equipment</li>`).join('')}${added.map(a=>`<li>${a.extended?a.sets+' more set'+(a.sets>1?'s':'')+' of':'Added'} <strong>${esc(name(a.exerciseId))}</strong> on ${esc(a.day)} to cover ${esc(lower(namesOf([a.covers])[0]))}</li>`).join('')}</ul>${uncovered.length?`<p class="warn-text">Not covered: ${esc(lower(list(namesOf(uncovered))))}.${fix.length?' A '+esc(fix.join(' or a '))+' would fix most of this.':''}</p>`:''}<small>Equipment comes from Settings. Change it there and the program updates itself.</small></details>`;
 }
 const itemRow=(C,i,target=null)=>`<div class="row"><div><strong>${esc(name(i.exerciseId))}</strong>${target?.note?`<p>${esc(target.note)}</p>`:''}${i.from?`<p class="meta">In place of ${esc(lower(name(i.from)))}</p>`:i.covers?`<p class="meta">Added to cover ${esc(lower(namesOf([i.covers])[0]))}</p>`:''}</div><span class="mono target">${target?target.sets:i.sets} × ${range(i.reps)}${target?.load?' · '+loadText(C,target.load):''}</span></div>`;
-const dayBlock=(C,d)=>`<div class="program-day"><h3>${esc(d.name)}</h3>${d.items.map(i=>itemRow(C,i)).join('')}</div>`;
+const dayBlock=(C,d)=>`<div class="program-day"><div class="program-day-head"><h3>${esc(d.name)}</h3>${figure(muscleLoad(d.items),{size:'tiny'})}</div>${d.items.map(i=>itemRow(C,i)).join('')}</div>`;
 function volumeBars(b){
  const [lo,hi]=b.target,scale=24,rows=MAIN_GROUPS.map(id=>({id,n:b.volume[id]||0}));
  return rows.map(r=>`<div class="volume-row"><span>${esc(groups.find(g=>g.id===r.id).name)}</span><div class="progress band" style="--lo:${lo/scale*100}%;--hi:${hi/scale*100}%"><span style="width:${Math.min(100,r.n/scale*100)}%"></span></div><span class="mono">${num(r.n,1)}</span></div>`).join('')+`<p class="meta" style="margin:12px 0 0">Sets per week, counting half a set for muscles that assist. The shaded band is ${lo}–${hi}, a sensible range for your experience level.</p>`;
@@ -55,9 +56,9 @@ export function programPrompt(C){
 export function todayProgram(C){
  const p=C.state.program;if(!p||C.state.draft)return '';
  const b=built(C),d=b.days[p.next],deload=deloading(p);
- return `<section class="card"><div class="card-head"><div><div class="eyebrow">Week ${programWeek(p)}${deload?' · recovery week':''}</div><h2>${esc(d.name)}</h2></div>${btn('Start','program-workout','primary','plus')}</div>${d.items.slice(0,5).map(i=>{const t=nextTarget(i,C.state.sessions,{units:C.state.profile.units,deload});return `<div class="row"><span>${esc(name(i.exerciseId))}</span><span class="mono target">${t.sets} × ${range(i.reps)}${t.load?' · '+loadText(C,t.load):''}</span></div>`}).join('')}${d.items.length>5?`<p class="meta" style="margin:10px 0 0">and ${d.items.length-5} more</p>`:''}</section>`;
+ return `<section class="card"><div class="card-head"><div><div class="eyebrow">Week ${programWeek(p)}${deload?' · recovery week':''}</div><h2>${esc(d.name)}</h2></div>${btn('Start','program-workout','primary','plus')}</div><div class="program-today">${figure(muscleLoad(d.items),{size:'small'})}<div>${d.items.slice(0,5).map(i=>{const t=nextTarget(i,C.state.sessions,{units:C.state.profile.units,deload});return `<div class="row"><span>${esc(name(i.exerciseId))}</span><span class="mono target">${t.sets} × ${range(i.reps)}${t.load?' · '+loadText(C,t.load):''}</span></div>`}).join('')}${d.items.length>5?`<p class="meta" style="margin:10px 0 0">and ${d.items.length-5} more</p>`:''}</div></div></section>`;
 }
-function itemFromSlot(C,s,deload=!!C.state.draft?.program?.deload){
+export function itemFromSlot(C,s,deload=!!C.state.draft?.program?.deload){
  const t=nextTarget(s,C.state.sessions,{units:C.state.profile.units,deload}),item=itemFor(s.exerciseId,t.sets,t.reps);
  item.sets.forEach(x=>{x.load=t.load});
  return Object.assign(item,{range:t.range,targetLoad:t.load,targetRir:t.rir,rest:s.rest,why:s.covers?'Added to cover '+lower(namesOf([s.covers])[0])+'.':t.note});
