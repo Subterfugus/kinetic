@@ -6,14 +6,17 @@ const fullDate=s=>dateLabel(s,{year:'numeric',month:'short',day:'numeric'});
 const byDate=(a,b)=>a.date.localeCompare(b.date);
 const days=(a,b)=>Math.abs(Math.round((Date.parse(b+'T12:00:00Z')-Date.parse(a+'T12:00:00Z'))/864e5));
 const poseFilter=C=>C.ui.photoPose||'';
-const scope=C=>{const all=[...C.state.photos].sort(byDate),p=poseFilter(C),part=p?all.filter(x=>(x.pose||'')===p):all;return part.length>=2?part:all};
+// Compare and Time-lapse use only the photos the filter shows.
+const scope=C=>{const p=poseFilter(C);return [...C.state.photos].filter(x=>!p||(x.pose||'')===p).sort(byDate)};
+// Says how many more photos of the chosen view unlock Compare and Time-lapse.
+function unlockHint(n,p){const view=p?POSE_NAME[p].toLowerCase()+' ':'',more=k=>k===1?'one more '+view+'photo':['two','three'][k-2]+' more '+view+'photos';if(n>=3)return '';if(n<2)return `<p class="meta">Add ${more(2-n)} to compare, or ${more(3-n)} for a time-lapse.</p>`;return `<p class="meta">Add ${more(3-n)} for a time-lapse.</p>`}
 const label=p=>fullDate(p.date)+' · '+poseName(p);
 
 export function studioView(C){
   const all=C.state.photos,p=poseFilter(C),list=[...all].filter(x=>!p||(x.pose||'')===p).sort((a,b)=>byDate(b,a));
-  return `<section class="card"><div class="card-head"><h2>Progress photos</h2><div class="studio-tools">${btn('Take photo','photo-camera','primary')}${btn('Upload','add-photo','','plus')}${all.length>=2?btn('Compare','photo-compare'):''}${all.length>=3?btn('Time-lapse','photo-lapse'):''}</div></div>`+
-  `<div class="studio-filter" role="group" aria-label="Filter by view">${filters.map(([v,l])=>`<button type="button" class="btn small studio-chip" data-action="photo-pose:${v}" aria-pressed="${(v==='all'?'':v)===p}">${l}</button>`).join('')}</div>`+
-  (list.length?`<div class="photo-grid">${list.map(x=>`<figure><img src="${esc(x.data)}" alt="${esc(x.caption||poseName(x)+' progress photo from '+x.date)}" loading="lazy"><figcaption><strong>${esc(poseName(x))} · ${esc(dateLabel(x.date))}</strong><p>${esc(x.caption||'')}</p><button class="btn small danger" data-action="delete-photo:${esc(x.id)}" aria-label="${esc('Delete '+(x.pose?poseName(x).toLowerCase()+' photo':'photo')+' from '+fullDate(x.date))}">Delete</button></figcaption></figure>`).join('')}</div>`:empty('No photos yet','Take or upload a front, side or back photo. They stay on this device.'))+
+  return `<section class="card"><div class="card-head"><h2>Progress photos</h2><div class="studio-tools">${btn('Take photo','photo-camera','primary')}${btn('Upload','add-photo','','plus')}${list.length>=2?btn('Compare','photo-compare'):''}${list.length>=3?btn('Time-lapse','photo-lapse'):''}</div></div>`+
+  `<div class="studio-filter" role="group" aria-label="Filter by view">${filters.map(([v,l])=>`<button type="button" class="btn small studio-chip" data-action="photo-pose:${v}" aria-pressed="${(v==='all'?'':v)===p}">${l}</button>`).join('')}</div>`+(all.length?unlockHint(list.length,p):'')+
+  (list.length?`<div class="photo-grid">${list.map(x=>`<figure><img src="${esc(x.data)}" alt="${esc(x.caption||poseName(x)+' progress photo from '+x.date)}" loading="lazy"><figcaption><strong>${esc(poseName(x))} · ${esc(dateLabel(x.date))}</strong><p>${esc(x.caption||'')}</p><button class="btn small danger" data-action="delete-photo:${esc(x.id)}" aria-label="${esc('Delete '+(x.pose?poseName(x).toLowerCase()+' photo':'photo')+' from '+fullDate(x.date))}">Delete</button></figcaption></figure>`).join('')}</div>`:empty(p&&all.length?'No '+POSE_NAME[p].toLowerCase()+' photos yet':'No photos yet','Take or upload a front, side or back photo. They stay on this device.'))+
   `<details class="fine"><summary>Getting comparable photos</summary><p>Use the same place, lighting, distance (about 2 m) and time of day, with the same pose and clothing. Every 2 to 4 weeks is enough: change is slow, and daily photos mostly show lighting and water. This is practical advice, since no study has standardised physique photos. Photos do not measure body fat.</p></details></section>`;
 }
 
