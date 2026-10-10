@@ -30,6 +30,7 @@ const describe=(C,i)=>{const s=i.suggest,f=s.from||lastTime(C.state.sessions,i.e
  if(s.reps!==f.reps)parts.push((f.reps??'?')+' → '+s.reps+' reps');
  return parts.join(' · ')};
 // Offer every pending suggestion in one popup. Ticked ones are applied; the rest stay at last time's numbers.
+// Closing it any other way (Keep last time's, the X, Escape) keeps last time's numbers too, so no hidden suggestion is left behind.
 export function offerSteps(C){
  const d=C.state.draft,items=d?.exercises.filter(i=>i.suggest)||[];if(!items.length)return;
  const clear=()=>{for(const i of d.exercises)delete i.suggest};
@@ -39,6 +40,6 @@ export function offerSteps(C){
   clear();await C.save(n?n+' suggested change'+(n===1?'':'s')+' applied':'Kept last time’s numbers');
  });
  dialog.querySelector('.modal-footer .primary').textContent='Use ticked';
- const keep=dialog.querySelector('.modal-footer [data-close]');keep.textContent='Keep last time’s';
- keep.addEventListener('click',()=>{clear();C.save('Kept last time’s numbers')});
+ dialog.querySelector('.modal-footer [data-close]').textContent='Keep last time’s';
+ dialog.addEventListener('close',()=>{const now=C.state.draft;if(now?.id===d.id&&now.exercises.some(i=>i.suggest)){for(const i of now.exercises)delete i.suggest;C.save('Kept last time’s numbers')}},{once:true});
 }
