@@ -8,7 +8,7 @@ export const tourSteps=[
  {icon:'plan',title:'Plan',body:'Decide what you’ll do before you get to the gym.',points:['Start a recommended program matched to your days, goal and equipment','It tells you what to lift each session and raises the target as you improve','Or build your own routines and schedule them']},
  {icon:'insights',title:'Track',body:'Body, Calories, Cardio, Insights and Goals.',points:['Body: weigh-ins, measurements, body-fat readings and a photo studio','Calories: quick totals with an optional description','Cardio: activities, plus optional sleep and recovery notes','Insights: charts and personal records from everything you log','Goals: set a target and see how far along you are']},
  {icon:'exercises',title:'Library',body:'Exercises, Muscle atlas and Sources.',points:['Over 100 exercises with technique notes and ranked substitutes','A muscle map showing what each exercise works and what you’ve trained','The research behind every number the app shows']},
- {icon:'settings',title:'Settings and backups',body:'Set your units, goal and equipment in Settings. Your journal exists only in this browser, so export a backup regularly. You can also lock it with a passphrase.',points:[]}
+ {icon:'settings',title:'Settings and backups',body:'Set your units, goal and equipment in Settings. Your journal exists only on this device, so export a backup regularly. You can also lock it with a passphrase.',points:[]}
 ];
 export function startTour(C,index=0){
  const d=document.querySelector('#modal'),last=tourSteps.length-1;
