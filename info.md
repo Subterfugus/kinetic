@@ -192,3 +192,15 @@ Brady asked whether workouts progress automatically and scientifically. Programs
 - training.js progressed(): routines run nextTarget with a one-rep range [reps,reps] and prefill load, reps and a note.
 - evidence: helms2018, graham2021, implementation note. Methodology item 35. tests/progression.test.js.
 
+## 1.9.0 · calorie target follows Settings, bug sweep (2026-10-10)
+Brady reported that changing height, weight and similar Settings didn't change the calorie target. The target was a stored number (default 2000) that only changed when typed.
+- `profile.calorieMode` is `auto` (default) or `manual`. `syncCalorieTarget` (dist/science.js) runs before every save, on load, unlock and restore, and sets `calorieTarget` from `calorieGoal(state)` when automatic. Typing a number on the Calories page makes it manual ("Custom" pill); "Switch to automatic" returns. Older journals: a typed target stays manual, the 2000 default or an accepted maintenance estimate becomes automatic (validation.js `legacyCalorieMode`).
+- `currentWeight(state)`: Settings weight if edited on or after the newest weigh-in (`profile.weightDate`), else the 7-day mean of weigh-ins. Calories, Body energy estimates and protein suggestion all use it.
+- Goal rules and sources: scientific-methodology.md item 33. New sources murphy2022 and helms2023.
+- Sweep fixes: chart axes use round tick values and readable text on phones (charts kept a fixed 220 px box and shrank the drawing); weigh-in and cardio lists show 10 with "Show all"; plural fixes ("1 activity", "1 session", "1 set"); a 1RM hint when no set qualifies; plain wording for the formula's sex input; Settings no longer mentions a hosted app; About counts groups from data. Cache v13.
+- Known and left alone: Training's 1RM estimate only uses sets to failure (science.e1rm) while Goals counts reps in reserve (programs.estimate1rm). Flagged to the rep-preference work.
+- Muscle atlas zoom on phones (Brady: couldn't zoom the muscle map). The stage had `touch-action:none` and only +/− buttons. Now: two-finger pinch zooms around the fingers (up to 4×), double-tap zooms in or out, ctrl+wheel (trackpad pinch) on desktop, and at normal size a vertical swipe scrolls the page (`touch-action:pan-y`, switched to `none` once zoomed). anatomy.js `zoomAt`.
+- Brady (2026-10-10): progression changes must be a suggestion popup, never automatic. dist/steps.js: holdBack() starts program and suggested items at last time's load/reps and stores the target in item.suggest; routines attach item.suggest directly; offerSteps() shows one "Ready to step up?" popup at workout start (Use ticked / Keep last time's). Recovery weeks were already user-started.
+- One 1RM estimate: science.e1rm now adds logged RIR (unrated = 0), ≤12 total; programs.estimate1rm delegates to it, so Training and Goals agree.
+- Merged main 1.9.0; package 1.10.0, cache v14 (steps.js added), tour Training step mentions the popup.
+

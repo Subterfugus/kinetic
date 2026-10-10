@@ -91,3 +91,10 @@ This is release verification, not an independent security penetration test, clin
 - Browser (headless Chromium, 420 px and 1280 px): Settings saves the general rep preference; an exercise page saves and clears its own preference and updates the typical range; with "lower reps", a program workout started from the recommended program shows 5–8 targets, the barbell squat is swapped to the new dumbbell squat for a dumbbell-only setup, and swapping in focus mode keeps the preferred range. No console errors.
 - New references were checked by title, authors and DOI through web search; PubMed itself is blocked from this environment.
 - Not verified: real phones, offline reload under cache v12.
+
+## Release 1.10.0 (2026-10-10)
+
+- Automated: `npm test` passed 103 tests (new: `tests/progression.test.js` for effort-aware double progression, routine targets and the held-back suggestion). `npm run check` passed with 54 references. Cache `kinetic-shell-v14` with `steps.js`.
+- Browser (headless Chromium, 420 px and 1280 px): with a seeded history, starting a saved routine opens "Ready to step up?" listing 30 → 32 kg for the dumbbell bench press and 7 → 10 reps for the goblet squat; "Use ticked" applies both. Starting the recommended program with no history shows no popup. No console errors.
+- Not verified: real phones; the "Keep last time's" path in a browser (covered by code review only).
+
