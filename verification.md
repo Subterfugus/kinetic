@@ -102,3 +102,9 @@ This is release verification, not an independent security penetration test, clin
 
 - Automated: `npm test` and `npm run check` pass (new: `tests/progress.test.js` for weight lifted, hard sets, per-exercise history, week and month bins, weekly muscle sets, metric and imperial rendering, an empty journal, chart readouts and the tour). Service worker cache `kinetic-shell-v15`.
 - Manual: Progress page checked in Chromium at 390 px and 1280 px wide with a year of seeded workouts and weigh-ins, in kg and lb, for 3 months and all time; the chart cursor and readout follow the pointer.
+
+## Release 1.11.1 (2026-10-10)
+
+- Fix: on Android, "Check now" said a new version was available but showed no way to get it (the notice was added at the top of the page, out of view of Settings). Check now now opens "What's new" with a Download button, and Settings → Updates shows What's new and Download while an update is waiting. Links that leave the app open in the phone's browser through a new `openUrl` shell method.
+- Automated: `npm test` and `npm run check` pass (new test for the Settings buttons). Service worker cache `kinetic-shell-v16`.
+- Manual: Chromium at 390 px with a stubbed Android shell and a mocked 1.12.0 release: Check now opens the dialog, Download hands the APK address to the shell, Settings shows the buttons.

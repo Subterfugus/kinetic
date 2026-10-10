@@ -55,3 +55,11 @@ test('The automatic check asks at most once a day, respects the switch, and neve
 test('The welcome tour mentions the update check',()=>{
  assert.ok(JSON.stringify(tourSteps).includes('checks for a newer version'));
 });
+
+test('Settings shows a download button while an update is waiting',async()=>{
+ const {updateButtons}=await import('../dist/updates.js');
+ assert.doesNotMatch(updateButtons(fakeApp()),/href=/);
+ const html=updateButtons(fakeApp({updateLatest:{version:'99.0.0',url:'https://github.com/Subterfugus/kinetic/releases/download/v99.0.0/Kinetic-99.0.0.apk'}}));
+ assert.match(html,/check-updates/);
+ assert.match(html,/href="https:\/\/github\.com\/Subterfugus\/kinetic\/releases\/download\/v99\.0\.0\/Kinetic-99\.0\.0\.apk"/);
+});
