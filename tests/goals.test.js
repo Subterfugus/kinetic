@@ -74,5 +74,5 @@ test('too little history says so instead of projecting',()=>{const C=mk(),td=TOD
  C.state.goals=[{id:'l',date:td,type:'lift',exerciseId:'bench-press',reps:1,target:120,start:60,deadline:null,achieved:null,note:''}];const h=goalsView(C);assert.match(h,/Not enough history yet/);assert.ok(!/At your recent pace/.test(h))});
 test('deadline text is direction-aware and does not over-promise',()=>{const C=mk(),td=TODAY();C.state.weights=Array.from({length:30},(_,i)=>({id:'w'+i,date:addDays(td,-29+i),kg:90-i*.2}));
  const g={id:'w',date:addDays(td,-29),type:'weight',target:80,start:90,deadline:addDays(td,300),achieved:null,note:''};C.state.goals=[g];assert.match(goalsView(C),/On track for[^<]*(at your recent pace, but not if progress slows|even if progress slows)/);
- C.state.goals=[{...g,deadline:addDays(td,14)}];assert.match(goalsView(C),/Behind: needs about/);
+ C.state.goals=[{...g,deadline:addDays(td,14)}];{const h=goalsView(C);assert.match(h,/Behind\. You need about [^<]* a week; your recent pace is about [^<]* a week\./);assert.ok(!/realistic to keep up/.test(h),'an ok pace check is not shown next to the deadline line')}
  C.state.goals=[{...g,deadline:addDays(td,-2)}];assert.match(goalsView(C),/Deadline passed/)});

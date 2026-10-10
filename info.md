@@ -224,7 +224,18 @@ Brady: on the phone the calorie target stayed at 2000 after changing weight. Cau
 - One-time migration: a custom target of exactly 2000 becomes automatic (`profile.calorieModeChecked` marks it done).
 - Settings → Profile now shows the current target and whether it is automatic, custom (with "Switch to automatic") or waiting on a missing field. Cache v17.
 
-## 1.11.3 · workout fixes from the QoL review (2026-10-10)
+## 1.12.0 · Tracking review fixes (2026-10-10)
+From the tracking quality-of-life review (qol-review/tracking.md in the project files):
+- Calories added from Today or the + menu always go to today. Only the Calories page's own "Add calories" uses the day picked there. The save message names the day.
+- One weigh-in and one recovery log per day still, but no dead end: a new log on a day that already has one loads that entry and saving updates it (`oneEntryPerDay` in journal.js). Editing an existing entry onto another entry's date still errors.
+- Photo filter: Compare and Time-lapse use only the filtered view, buttons hide when the view has too few photos, and a line says how many more are needed.
+- Goal weight lives only on Goals. `profile.targetWeight` mirrors the newest open body-weight goal (else the newest reached one) via `syncTargetWeight` in goals.js, run before every save and after load, so the calorie target still uses it. A Settings target from before 1.12 becomes a body-weight goal once (`profile.goalWeightMoved`). Settings shows the value with a link to Goals; Body's "Edit goal" opens that goal.
+- Recovery switch off also hides the Steps and Sleep tiles on Cardio, Sleep in the + menu and the Sleep & soreness card on Insights.
+- Goal cards: "Behind" now gives both paces in one line; the "realistic pace" note is no longer shown under it (warnings still are).
+- Body page header buttons match the tab. Cardio's custom MET field and Notes are separate labels.
+- Not done: moving photos out of the main record (review item 8, a bigger change) and the real-phone checks (items 12, 13). Cache v18, tests/tracking.test.js.
+
+## 1.12.1 · workout fixes from the QoL review (2026-10-10)
 From /mnt/project-files/qol-review/workouts.md:
 - Finishing with sets whose numbers were typed or changed but not ticked asks first ("Go back" / "Save anyway"). Sets carry `edited:true` once a load/reps/duration/distance field changes (Training page or focus mode); `untickedEdited(d)` counts them, and `completedSession` strips `edited` and any leftover `suggest`.
 - The step-up popup: closing it any way (Keep last time's, X, Escape) clears every suggestion; a `close` listener does it.
@@ -234,4 +245,4 @@ From /mnt/project-files/qol-review/workouts.md:
 - Phones: rest timer is a slim bar at the top (`body.has-timer` pads the top bar); toasts sit at the top everywhere with pointer-events off.
 - Add exercise opens focus mode for the first exercise when "Open focus mode when I start a workout" is on.
 - Program cards show "62.5 → 65 kg (suggested)" when the target differs from last time; the program prompt explains program vs suggested workout and the suggested workout's Start is secondary while no program runs.
-- Plain swap explanations, plainer plate line, "Skip this session" asks first, focus Skip says unticked sets aren't saved. Removed the unreachable Swap branch in `trainingAction`. Cache v18.
+- Plain swap explanations, plainer plate line, "Skip this session" asks first, focus Skip says unticked sets aren't saved. Removed the unreachable Swap branch in `trainingAction`. Cache v19.

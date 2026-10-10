@@ -109,8 +109,8 @@ This is release verification, not an independent security penetration test, clin
 - Automated: `npm test` and `npm run check` pass (new test for the Settings buttons). Service worker cache `kinetic-shell-v16`.
 - Manual: Chromium at 390 px with a stubbed Android shell and a mocked 1.12.0 release: Check now opens the dialog, Download hands the APK address to the shell, Settings shows the buttons.
 
-## Release 1.11.3 (2026-10-10)
+## Release 1.12.1 (2026-10-10)
 
-- Automated: `npm test` and `npm run check` pass (new: `tests/workouts-qol.test.js` for unticked-set counting, no hidden suggestion in saved sessions, the blank-weight check and typo-tolerant search). Service worker cache `kinetic-shell-v18`.
+- Automated: `npm test` and `npm run check` pass (new: `tests/workouts-qol.test.js` for unticked-set counting, no hidden suggestion in saved sessions, the blank-weight check and typo-tolerant search). Service worker cache `kinetic-shell-v19`.
 - Manual: headless Chromium at 390 × 844 with three seeded bench sessions and a program: the program card shows "→ … (suggested)"; Escape on the step-up popup leaves no suggestion in the draft and keyboard focus inside focus mode, so a second Escape leaves it; a blank-weight tick warns and a tick after entering weight saves; the rest timer sits at the top (8–52 px); finishing with one typed but unticked set asks first and "Save anyway" saves only ticked sets with no `suggest` field; "bensh" finds bench presses with muscles listed; an unmatched search offers "Browse all exercises"; adding the first exercise opens focus mode; a blank-weight Done in focus mode warns.
 - Not verified: real phones and the Android app.
