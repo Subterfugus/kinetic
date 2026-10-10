@@ -54,7 +54,7 @@ Implementation, scientific audit and release verification are complete. Private 
 
 
 ## 2026-10-08 — Polish pass in progress
-- User authorized a broad polish pass and continued agent reviews. Maintained info.md and a matching info.me copy as requested.
+- User authorized a broad polish pass and continued agent reviews. Maintained info.md and a matching info.me copy as requested (info.me removed in 1.6).
 - GPT-6.1 Sol / High agents audited scientific/data behavior and usability without changing Site files.
 - Corrected custom MET preservation, session-edit duration, repetition-target progression and missing-performance observations.
 - Timed/static movements no longer start with phantom repetitions. Dynamic core movements retain repetition tracking.
@@ -142,3 +142,13 @@ NOT verified: the camera itself (blocked in the pane), ghost overlay, compare sl
 Ideas not done: custom exercises, photos out of the main journal record, 11.6 MB side-reference.png, quick-log bar, macros, GPS, device sync.
 - Second audit (Sonnet agent) of the 45 new exercises and the 7 templates, applied: chin-up biceps → secondary; back extension → glutes/hamstrings primary; sliding leg curl glutes → stabilizer; machine/band overhead press aligned with the other presses; two-arm dumbbell row no longer flagged unilateral; safety cues on skull crusher and band exercises. Templates: calves and rear delts added where under 4 sets/week, chest raised in the 5- and 6-day programs, 5-day program no longer repeats the bench session, compounds moved ahead of isolations, face pull treated as a small exercise (90 s rest). Regional tags dropped where the trials do not support them (band good morning, skull crusher, seated calf raise as "soleus"), and gap messages now say "in one small trial".
 - Goals review (Sonnet agent): 8 defects fixed in dist/goals.js (direction of lift/run goals, weight goals created before any data, time parsing, imperial edit drift, hidden fields now disabled, form validation in one `buildGoal`, hardening against bad imports, clearer wording). 71 tests pass. Browser-checked after the fixes: creating weight, run and habit goals and editing a lift goal all save.
+
+## 2026-10-10 — Release 1.6 setup, quick log, protein — DONE (draft PR)
+Brady picked these from an ideas list: first-run setup, show the program on Today and Train, a quick-log button, exercise search, protein meter, photo Delete labels, delete info.me, redeploy.
+- New dist/setup.js: on an empty journal the first launch shows a 4-step setup (units, equipment, days, then "Start this program") instead of the tour. Device pref `tourSeen` is set when it opens. Settings → About → "Run first-time setup".
+- New dist/quicklog.js: floating + (above the mobile tab bar) with Calories, Weight, A set, A walk or run, Sleep. Hidden during a live workout on Training.
+- Today and Training show a "Recommended program" card when no program is running (not for the mobility goal); with a program running, Today no longer says "Nothing scheduled today".
+- Exercise search: the Exercises page already had a search box. It now matches words in any order across name, aliases, muscles, equipment and pattern, expands gym shorthand (db, bb, ohp, rdl, lats, glutes, biceps…), ranks name and main-muscle matches first, and the workout picker uses the same search.
+- Protein: optional grams per calorie entry (also in "Log again" picks and CSV), optional `profile.proteinTarget`, meter on Calories (always) and Today (when a target is set or protein logged), "Use 1.6 g/kg" shortcut citing new source morton2018.
+- Photo Delete buttons are labelled "Delete front photo from <date>". info.me removed (info.md is the only log now). Tour updated per the standing rule. Cache v7, package 1.6.0, 74 tests.
+- Redeploy not done: deploy after the PR is merged; the hosting credentials are not in this repository.

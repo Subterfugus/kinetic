@@ -46,6 +46,12 @@ export function programSection(C){
  return `<section class="card program"><div class="card-head"><div><div class="eyebrow">Your program</div><h2>${esc(t.name)}</h2><p class="meta" style="margin:5px 0 0">Week ${week} · session ${inWeek+1} of ${t.perWeek}${deload?' · <span class="badge">Recovery week</span>':''}</p></div>${C.state.draft?btn('Continue workout','go-training','primary'):btn('Start '+d.name,'program-workout','primary','plus')}</div>${stuck.length>=2?`<div class="notice warning"><strong>Progress has stalled</strong><p>${esc(list(stuck.slice(0,3).map(name)))} ${stuck.length>1?'have':'has'} not improved in three sessions. A recovery week (half the sets, same loads) often helps.</p>${btn('Start a recovery week','program-deload','small')}</div>`:''}<h3 class="subsection">Next: ${esc(d.name)}</h3>${d.items.map(i=>itemRow(C,i,nextTarget(i,C.state.sessions,{units:profile.units,deload}))).join('')}<div class="button-group" style="margin-top:16px">${btn('Skip this session','program-skip','small')}${btn(deload?'End recovery week':'Recovery week','program-deload','small')}${btn('Change program','program-change','small')}${btn('End program','program-end','small danger')}</div>${adjustments(C,b)}${gaps.length?`<div class="notice"><strong>Worth knowing</strong><ul class="detail-list">${gaps.map(g=>`<li>${esc(g)}</li>`).join('')}</ul></div>`:''}<details class="fine"><summary>Weekly sets per muscle</summary><div>${volumeBars(b)}</div></details><details class="fine"><summary>All sessions</summary><div class="program-days">${b.days.map(x=>dayBlock(C,x)).join('')}</div></details>${about(C)}</section>`;
 }
 // Compact card for Today.
+// Shown on Today and Training before any program is running, so a new user sees the recommendation without opening Plan.
+export function programPrompt(C){
+ const s=C.state;if(s.program||s.draft||s.profile.goal==='mobility')return '';
+ const rec=recommend(s.profile),t=programById(rec.id),b=built(C,rec.id);
+ return `<section class="card accent-card program-prompt"><div class="eyebrow">Recommended program</div><h2>${esc(t.name)}</h2><p>${esc(rec.reason)} ${b.days.length} different sessions, adjusted to your equipment.</p><div class="button-group">${btn('Start the recommended program','program-start:'+t.id)}${btn('Preview','program-preview:'+t.id,'quiet')}${btn('Empty workout','start-workout','quiet')}</div></section>`;
+}
 export function todayProgram(C){
  const p=C.state.program;if(!p||C.state.draft)return '';
  const b=built(C),d=b.days[p.next],deload=deloading(p);

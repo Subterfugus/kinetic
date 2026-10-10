@@ -70,3 +70,10 @@ This is release verification, not an independent security penetration test, clin
   - No console errors.
 - Also checked after the first pass: the "Equipment today" dialog (swaps, removals and the summary), creating weight, run and habit goals, and editing a lift goal.
 - Not verified: the camera itself (blocked in the test browser); the ghost overlay, compare slider and time-lapse with real photos; the recovery-week flow; weight, run and habit goals with real history; imperial units in focus mode; phones; the lock screen with the new features.
+
+## Release 1.6.0 (2026-10-10)
+
+- Automated: `npm test` passed 74 tests (new: `tests/release16.test.js` for exercise search, protein validation and first-run setup). `npm run check` passed with 45 references (`morton2018` added). Its DOI could not be checked against Crossref from this environment; the citation was entered from the published paper.
+- Service worker cache `kinetic-shell-v7`, with `setup.js` and `quicklog.js` added to its file list.
+- Browser (headless Chromium, 390 px phone and 1280 px desktop widths, light and dark themes), 2026-10-10: first-run setup through all four steps (imperial units, extra equipment, four days) and starting the recommended program from it; skipping setup and seeing the recommended program on Today; the program session card on Today and Training; the quick-log chooser, a calorie entry with protein, and quick-logging a set (picker search "db row", workout started, focus mode opened); the protein target and meter on Calories; exercise search with words in any order and gym shorthand; photo Delete buttons labelled with view and date. No console errors.
+- Not verified: real phones, offline reload under cache v7, the quick-log walk and sleep dialogs beyond opening.

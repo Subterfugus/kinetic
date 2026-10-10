@@ -106,6 +106,10 @@ The rules below are implemented in `dist/programs.js` and `dist/goals.js`. Each 
 28. Habit goals: workouts are counted in each of the last eight 7-day windows. The streak is the number of consecutive recent weeks that reach the target. Sources: harkin2016 (monitoring goal progress modestly improved attainment, more when progress was physically recorded) and swann2023 (critique of rigid goal frameworks; low to moderate). Certainty: moderate for recording progress. The streak rule is a practical convention.
 29. Photo protocol: the studio advises the same place, lighting, distance (about 2 m), time of day, pose and clothing, with photos every 2 to 4 weeks. The ghost overlay shows the most recent photo of the same view. Source: none in evidence.json. Certainty: practical advice only. Photos do not measure body fat.
 
+### Protein (1.6)
+
+30. Protein target shortcut: the Calories page offers 1.6 g of protein per kg of the latest body weight as a starting target. Source: morton2018 (meta-analysis of 49 randomized trials of protein supplementation during resistance training; gains in fat-free mass stopped increasing at about 1.62 g/kg/day, 95% CI roughly 1.03 to 2.20). Certainty: moderate for healthy adults who lift; the interval is wide. The target is user-chosen, and the app shows protein logged against it without judging intake.
+
 Percent-based wave programs such as 5/3/1 were deliberately not included, because no trial shows them beating simpler progression, and no source in evidence.json addresses them.
 
 ## Substitution rationale (1.5)

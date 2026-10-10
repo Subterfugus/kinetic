@@ -37,6 +37,13 @@ The 1.5 modules are:
 - `goals.js`: the Goals page and the goal summary card on Today.
 - `photos.js`: the photo tab of the Body page, with the camera and ghost overlay, timer, comparison slider and time-lapse. The camera is requested only while the capture dialog is open, and its stream stops when the dialog closes. Captures are cropped to 3:4, scaled to at most 1200 pixels on the long side and saved as JPEG at quality 0.85. Each photo is held in the journal as a data URL, limited by validation to 6,000,000 characters.
 
+The 1.6 modules are:
+
+- `setup.js`: the first-run setup (units, equipment, training days, then the recommended program). `app.js` opens it instead of the welcome tour when the journal is empty and the tour has never been shown on this device. Settings → About can open it again.
+- `quicklog.js`: the floating **+** button and its chooser. It reuses the calorie, weigh-in, activity and recovery dialogs and the workout exercise picker. It is hidden during a live workout on Training.
+
+Calorie entries can carry an optional `protein` amount in grams, and the profile has an optional `proteinTarget`. Both are validated, included in backups, and older backups without them still restore. Exercise search (`matchesQuery` and `searchExercises` in `data.js`) is shared by the Exercises page and the workout picker.
+
 Import relationships:
 
 - `programs.js` is imported by `validation.js`, `training.js`, `anatomy.js`, `focus.js`, `goals.js` and `program-view.js`.

@@ -131,7 +131,7 @@ export const programById=id=>programs.find(p=>p.id===id);
 export function recommend(profile){
  const d=profile.days,strength=profile.goal==='strength';
  let id=strength?(d<=3?'str3':'str4'):d<=2?'fb2':d===3?'fb3':d===4?'ul4':d===5?'ulppl5':'ppl6';
- let reason=strength?'Your goal is strength, so the main lifts are trained heavy.':'It fits the '+d+' day'+(d===1?'':'s')+' a week you set in Settings.';
+ let reason=strength?'Your goal is strength, so the main lifts are trained heavy.':'It fits the '+d+' day'+(d===1?'':'s')+' a week you said you can train.';
  if(profile.experience==='beginner'&&['ulppl5','ppl6'].includes(id)){id='ul4';reason='As a beginner you will grow well on four days. Extra days add little until progress slows.'}
  return {id,reason};
 }
