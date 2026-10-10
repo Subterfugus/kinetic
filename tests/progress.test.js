@@ -13,10 +13,11 @@ const sessions=[
 ];
 const fakeC=(o={})=>{const state={...initialState(),sessions,weights:[{id:'a',date:'2026-09-01',kg:80},{id:'b',date:'2026-09-05',kg:79.5},{id:'c',date:'2026-09-09',kg:79}],...o};return {state,ui:{progressDays:0},loadUnit:()=>state.profile.units==='imperial'?'lb':'kg',weightUnit:()=>state.profile.units==='imperial'?'lb':'kg',displayLoad:v=>state.profile.units==='imperial'?v/0.45359237:v,displayWeight:v=>v===null?null:state.profile.units==='imperial'?v/0.45359237:v}};
 
-test('Estimated max uses Epley on sets of 1 to 10 reps only',()=>{
+test('Estimated max uses the shared Epley estimate, counting reps in reserve',()=>{
  assert.equal(estimateMax(100,1),100);
  assert.equal(estimateMax(100,10),100*(1+10/30));
- assert.equal(estimateMax(100,12),null);
+ assert.equal(estimateMax(100,8,2),100*(1+10/30));
+ assert.equal(estimateMax(100,12,1),null);
  assert.equal(estimateMax(0,5),null);
 });
 
@@ -30,7 +31,7 @@ test('Each exercise gets its heaviest set, best estimated max and weight lifted 
  const h=exerciseHistory(sessions,'bench-press');
  assert.deepEqual(h.map(x=>x.date),['2026-09-01','2026-09-08']);
  assert.equal(h[0].top,60);assert.equal(h[1].top,65);
- assert.equal(h[1].max,65*(1+6/30));
+ assert.equal(h[1].max,65*(1+8/30));
  assert.deepEqual(loggedExercises(sessions),['bench-press','barbell-squat']);
 });
 

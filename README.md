@@ -40,7 +40,7 @@
 - 📋 **Programs and suggested workouts** built from your training days, goal, experience and the last 7 days of your log.
 - 🎯 **Focus mode** with loads prefilled from last time, a rest timer and plate maths for barbell lifts.
 - 🍽️ **Calories and protein** logged in seconds from the **+** button on any page.
-- 📈 **Progress**: weight trend, measurements, body fat, goals with projections, and a before-and-after photo slider.
+- 📈 **Progress**: graphs over time of bodyweight, total weight lifted, every exercise (heaviest set and estimated max) and weekly sets per muscle, from 4 weeks to all time. Plus measurements, body fat, goals with projections, and a before-and-after photo slider.
 - 🔒 **Private by design**: no account, no tracking, optional passphrase lock, and full backups you control.
 
 ## Install on your phone (Android)
@@ -90,7 +90,7 @@ See `scientific-methodology.md`, `asset-provenance.md`, `verification.md`, `arch
 
 ## Development
 
-Current release: 1.8.0.
+Current release: 1.11.0.
 
 Native JavaScript modules; no runtime package dependencies or build step. `dist/` is the complete static application. Node.js is used only for the local server and checks.
 

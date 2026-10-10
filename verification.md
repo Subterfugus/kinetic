@@ -91,3 +91,8 @@ This is release verification, not an independent security penetration test, clin
 - Browser (headless Chromium, 420 px and 1280 px): Settings saves the general rep preference; an exercise page saves and clears its own preference and updates the typical range; with "lower reps", a program workout started from the recommended program shows 5–8 targets, the barbell squat is swapped to the new dumbbell squat for a dumbbell-only setup, and swapping in focus mode keeps the preferred range. No console errors.
 - New references were checked by title, authors and DOI through web search; PubMed itself is blocked from this environment.
 - Not verified: real phones, offline reload under cache v12.
+
+## Release 1.11.0 (2026-10-10)
+
+- Automated: `npm test` and `npm run check` pass (new: `tests/progress.test.js` for weight lifted, hard sets, per-exercise history, week and month bins, weekly muscle sets, metric and imperial rendering, an empty journal, chart readouts and the tour). Service worker cache `kinetic-shell-v14`.
+- Manual: Progress page checked in Chromium at 390 px and 1280 px wide with a year of seeded workouts and weigh-ins, in kg and lb, for 3 months and all time; the chart cursor and readout follow the pointer.
