@@ -1,14 +1,66 @@
-# Kinetic
+<p align="center">
+  <img src="docs/readme/banner.jpg" alt="Kinetic: see every muscle you train" width="100%">
+</p>
 
-A device-local fitness journal with 108 curated exercises, an interactive muscle atlas, strength and cardio logging, a focus mode for one set at a time, recommended training programs that adapt to your equipment, goals, body tracking, progress photos, a literal calorie counter, planning, analytics, and offline scientific references.
+<p align="center">
+  <a href="https://github.com/Subterfugus/kinetic/releases/latest/download/Kinetic.apk"><img src="docs/readme/download-android.png" alt="Download for Android" height="64"></a>
+  &nbsp;
+  <a href="#run-it-on-your-computer"><img src="docs/readme/run-on-computer.png" alt="Run it on your computer" height="64"></a>
+</p>
 
-## Open the app
+<p align="center">
+  <a href="https://github.com/Subterfugus/kinetic/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/Subterfugus/kinetic?label=latest&color=d9480f"></a>
+  <img alt="Works offline" src="https://img.shields.io/badge/works-offline-1c1a17">
+  <img alt="No account needed" src="https://img.shields.io/badge/account-not%20needed-1c1a17">
+</p>
 
-Use the private hosted link supplied with this delivery. Open it once online and wait for **Settings → Offline** to confirm caching. Core features then work without a connection. Source links still require internet.
+**Kinetic** is a fitness journal that shows you, on a real anatomical map, exactly which muscles you have trained. It plans your workouts around the equipment you have, coaches you one set at a time, and tracks calories, protein, weight and progress photos. Everything stays on your device: no sign-up, no ads, no internet needed.
 
-On Android, download `Kinetic-<version>.apk` from the newest GitHub Release and open it on the phone. The app works offline from the first launch; see `android/README.md` for installing, updating and what differs from the browser.
+## A look inside
 
-For a fully local copy, install Node.js from its official website if it is not already installed. Extract the complete folder and double-click **Start-Kinetic.cmd** on Windows, or run `npm start` in this folder. Open **http://127.0.0.1:4173** in your browser. Keep the server window open while first loading the app. Opening `index.html` directly is not supported because modules, storage and offline caching require an HTTP origin.
+<table>
+  <tr>
+    <td align="center" width="33%"><img src="docs/readme/today.jpg" alt="Today page with the weekly muscle map"><br><b>Today</b><br><sub>Your week at a glance, with every muscle you trained lit up.</sub></td>
+    <td align="center" width="33%"><img src="docs/readme/muscles.jpg" alt="Muscle atlas"><br><b>Muscle atlas</b><br><sub>Tap any muscle. See working sets, recent activity and what trains it.</sub></td>
+    <td align="center" width="33%"><img src="docs/readme/focus.jpg" alt="Focus mode during a workout"><br><b>Focus mode</b><br><sub>One set at a time, with targets and the plates to load on each side.</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/readme/program.jpg" alt="Training page with a recommended program"><br><b>Programs</b><br><sub>Seven science-based programs, adjusted to your equipment.</sub></td>
+    <td align="center"><img src="docs/readme/calories.jpg" alt="Calories and protein"><br><b>Calories and protein</b><br><sub>Quick totals, a protein target and an honest intake history.</sub></td>
+    <td align="center"><img src="docs/readme/body.jpg" alt="Body weight trend"><br><b>Body</b><br><sub>Weight trend, measurements, body fat and progress photos.</sub></td>
+  </tr>
+</table>
+
+<p align="center"><img src="docs/readme/desktop.jpg" alt="Kinetic on a computer screen" width="90%"><br><sub>The same app on a computer.</sub></p>
+
+## What it does
+
+- 💪 **Muscle map everywhere.** Today, every workout, every program session and every exercise shows the muscles it works, using open-source anatomical artwork.
+- 🏋️ **108 exercises** with how-to notes, and swaps when you are missing a piece of equipment.
+- 📋 **Programs and suggested workouts** built from your training days, goal, experience and the last 7 days of your log.
+- 🎯 **Focus mode** with loads prefilled from last time, a rest timer and plate maths for barbell lifts.
+- 🍽️ **Calories and protein** logged in seconds from the **+** button on any page.
+- 📈 **Progress**: weight trend, measurements, body fat, goals with projections, and a before-and-after photo slider.
+- 🔒 **Private by design**: no account, no tracking, optional passphrase lock, and full backups you control.
+
+## Install on your phone (Android)
+
+1. On your phone, tap **Download for Android** above. The file `Kinetic.apk` downloads.
+2. Open the downloaded file. The first time, Android asks whether your browser (or Files app) may install apps. Tap **Settings**, turn on **Allow from this source**, then go back.
+3. Tap **Install**, then **Open**.
+
+To update later, download and install the newer file the same way. Your journal is kept. More detail, including what differs from the computer version, is in [`android/README.md`](android/README.md).
+
+## Run it on your computer
+
+1. Install **Node.js** (the "LTS" version) from [nodejs.org](https://nodejs.org) if you don't have it.
+2. [**Download Kinetic as a ZIP**](https://github.com/Subterfugus/kinetic/archive/refs/heads/main.zip) and unzip it.
+3. Start it:
+   - **Windows:** double-click **Start-Kinetic.cmd** in the unzipped folder.
+   - **Mac or Linux:** open a terminal in the folder and type `npm start`.
+4. Open **http://127.0.0.1:4173** in your browser. Keep the small server window open while you use it.
+
+Opening `index.html` directly does not work, because the app needs to be served to store your journal and work offline.
 
 ## Get started
 
@@ -24,7 +76,7 @@ On a new, empty journal, a short setup asks for your units, equipment and traini
 
 ## Privacy and backups
 
-Records and photos stay in IndexedDB on the current browser and origin, or inside the Android app's own storage. No health records are sent to a server, and no analytics or external data API is used. The photo studio uses the camera only while its dialog is open. The private host serves the app files; it does not synchronize journals. Localhost and the hosted URL have separate journals. To move between browsers, devices or origins, export and restore a full backup.
+Records and photos stay in IndexedDB on the current browser and origin, or inside the Android app's own storage. No health records are sent to a server, and no analytics or external data API is used. The photo studio uses the camera only while its dialog is open. To move between browsers, devices or origins, export and restore a full backup.
 
 The optional passphrase vault encrypts the journal and photos at rest. There is no passphrase recovery service. An unlocked browser session can read its records. Full backups are encrypted when the vault is enabled; CSV exports remain readable. Browser clearing, device loss and storage eviction can remove records, so downloaded backups are essential. The app asks the browser to protect its storage from automatic eviction; Settings shows whether that was granted. Timer, sound, backup-reminder, focus-mode and bar-weight preferences are stored per device and are not part of the journal or its backups. Programs and goals are part of the journal and its backups.
 
