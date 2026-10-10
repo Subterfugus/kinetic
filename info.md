@@ -204,3 +204,12 @@ Brady reported that changing height, weight and similar Settings didn't change t
 - One 1RM estimate: science.e1rm now adds logged RIR (unrated = 0), ≤12 total; programs.estimate1rm delegates to it, so Training and Goals agree.
 - Merged main 1.9.0; package 1.10.0, cache v14 (steps.js added), tour Training step mentions the popup.
 
+
+## 1.11.0 · Progress page with graphs over time (2026-10-10)
+Brady asked for proper graphs over time of bodyweight, weight lifted, weight lifted per exercise and similar.
+- New page `#progress` (Track → Progress, dist/progress.js). Range buttons: 4 weeks, 3 months (default), 6 months, 1 year, all time (`ui.progressDays`, 0 = all).
+- Tiles: workouts, total weight lifted (load × reps of completed working sets on reps-load exercises), hard sets (completed non-warm-up sets of strength exercises), bodyweight change (7-day average, start to end). Finite ranges compare with the previous period of the same length.
+- Charts: bodyweight (weigh-ins as dots, 7-day average line, regression rate badge when ≥5 weigh-ins over ≥14 days); weight lifted per week; workouts and hard sets per week; per exercise heaviest set, estimated 1RM and weight lifted per day (two workouts on one day merge into one point); weekly sets per muscle (primary 1, secondary ½) with a shaded 6–10 (beginner) or 10–16 band from pelland2026/schoenfeld2017. Bins switch from weeks to calendar months past ~14 months; the muscle chart then shows the last 52 weeks.
+- 1RM uses `science.e1rm` (Epley with reps in reserve), the same estimate as Training and Goals.
+- `timeChart` in progress.js is separate from `ui.chart`: multi-series, real date axis, a cursor that follows tap/drag (touch-action pan-y keeps vertical scrolling), arrow keys/Home/End for keyboard, data table for screen readers. It picks a 360-wide viewBox on screens under 600 px so text stays readable.
+- Tour Track step lists Progress. Cache v15, package 1.11.0 (1.10.0 is the rep-preference release), tests/progress.test.js.

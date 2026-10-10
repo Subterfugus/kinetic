@@ -449,3 +449,18 @@ html[data-theme=dark]{--fig-none:#3d3a36;--fig-base:#3d3a36;--fig-skin:#2a2825}
 .row>strong{white-space:nowrap}
 .chart{height:auto;max-height:260px}
 @media (max-width:600px){.chart text{font-size:19px}}
+/* Progress charts (progress.js) */
+.progress-chart{height:auto;max-height:340px;touch-action:pan-y;cursor:crosshair}
+.progress-chart:focus-visible{outline:2px solid var(--blue);outline-offset:4px}
+.progress-chart text{font-size:12px}
+.progress-chart .dot{fill:var(--blue);stroke:var(--surface);stroke-width:1.5}
+.progress-chart .dot.raw{fill:var(--raw);stroke:none}
+.progress-chart .line.alt{stroke:var(--green)}.progress-chart .dot.alt{fill:var(--green)}
+.progress-chart .bar.alt{fill:var(--green)}
+.progress-chart .band{fill:var(--green);opacity:.12}
+.progress-chart .cursor{stroke:var(--ink);stroke-width:1;stroke-dasharray:3 3;opacity:.55;pointer-events:none}
+.chart-legend{flex-wrap:wrap}
+.chart-legend .swatch.alt{background:var(--green)}.chart-legend .swatch.raw{background:var(--raw)}.chart-legend .swatch.dots{border-radius:50%}.chart-legend .swatch.band{background:var(--green);opacity:.3}
+.row-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:4px 0 14px}
+.row-stats small{display:block;color:var(--muted);font-size:.75rem}.row-stats strong{font-variant-numeric:tabular-nums}
+@media (max-width:600px){.row-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.progress-chart text{font-size:13px}}
