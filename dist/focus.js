@@ -3,7 +3,7 @@
 import {exerciseById} from './data.js';
 import {loadStep,plates} from './programs.js';
 import {validateDraft} from './validation.js';
-import {newSet,trainingAction} from './training.js';
+import {newSet,trainingAction,needsWeight,noWeightOk} from './training.js';
 import {esc,icon,num,toast} from './ui.js';
 import {figure,exerciseLoad} from './figure.js';
 
@@ -34,7 +34,7 @@ export function refreshFocus(){if(!el)return;if(!draft()){closeFocus(false);retu
 function plateLine(e,kg){
  if(!e.equipment.includes('barbell')||!(kg>0))return '';
  const units=C.state.profile.units,bar=C.prefs.bar?.[units]??(units==='imperial'?45:20),p=plates(kg,units,bar),u=C.loadUnit();
- return `<button type="button" class="focus-plates" data-f="bar" title="Change bar weight">${p?(p.perSide.length?'Each side: '+p.perSide.join(' + '):'Empty bar')+(p.remainder?' · '+num(Math.abs(p.remainder),2)+' '+u+' short of an exact match':''):'Lighter than the bar'} · ${bar} ${u} bar</button>`;
+ return `<button type="button" class="focus-plates" data-f="bar" title="Change bar weight">${p?(p.perSide.length?'Plates on each end of the bar: '+p.perSide.join(' + ')+' '+u:'Just the empty bar')+(p.remainder?' · '+num(Math.abs(p.remainder),2)+' '+u+' short of an exact match':''):'Lighter than the bar'} · ${bar} ${u} bar (tap to change)</button>`;
 }
 function dial(key,label,value,step,unit){
  return `<div class="focus-dial"><span class="focus-label">${label}</span><div class="focus-stepper"><button type="button" data-f="step" data-key="${key}" data-by="${-step}" aria-label="Lower ${label.toLowerCase()}">−</button><input class="focus-num" data-key="${key}" type="number" inputmode="decimal" min="0" step="any" value="${value}" aria-label="${label}"><button type="button" data-f="step" data-key="${key}" data-by="${step}" aria-label="Raise ${label.toLowerCase()}">+</button></div><span class="focus-unit">${unit}</span></div>`;
@@ -80,12 +80,12 @@ async function onClick(event){
   if(f==='close'){closeFocus();return}
   if(f==='step'){const input=el.querySelector('.focus-num[data-key="'+b.dataset.key+'"]'),next=Math.max(0,(Number(input.value)||0)+Number(b.dataset.by));input.value=Number(next.toFixed(2));input.dispatchEvent(new Event('change',{bubbles:true}));return}
   if(f==='bar'){const units=C.state.profile.units,options=units==='imperial'?[45,35,25,15]:[20,15,10,7.5],current=C.prefs.bar?.[units]??options[0];C.setPref('bar',{...C.prefs.bar,[units]:options[(options.indexOf(current)+1)%options.length]});paint();return}
-  if(f==='done'){const e=exerciseById(item.exerciseId),i=nextOpen(item),set=item.sets[i];const before={...set};try{readDials(set,e);set.done=true;validateDraft({...d,exercises:[{...item,sets:[set]}]},{requireTracking:true});validateDraft(d,{editing:true})}catch(err){Object.assign(set,before);throw err}for(const later of item.sets.slice(i+1))if(!later.done&&later.load===null)later.load=set.load;await commit();justDone={item:at,set:i};mode='rest';C.startRest(item.rest||d.restSeconds);paint();return}
+  if(f==='done'){const e=exerciseById(item.exerciseId),i=nextOpen(item),set=item.sets[i];const before={...set};try{readDials(set,e);set.done=true;validateDraft({...d,exercises:[{...item,sets:[set]}]},{requireTracking:true});validateDraft(d,{editing:true})}catch(err){Object.assign(set,before);throw err}if(needsWeight(e,set)&&!noWeightOk.has(set.id)){noWeightOk.add(set.id);set.done=false;el.querySelector('.focus-warn')?.remove();b.insertAdjacentHTML('beforebegin','<p class="focus-warn" role="alert">No weight entered. Add the weight you used, or press Done again to save without it.</p>');el.querySelector('.focus-num[data-key="load"]')?.focus();return}for(const later of item.sets.slice(i+1))if(!later.done&&later.load===null)later.load=set.load;await commit();justDone={item:at,set:i};mode='rest';C.startRest(item.rest||d.restSeconds);paint();return}
   if(f==='rir'&&justDone){const set=d.exercises[justDone.item].sets[justDone.set],n=Number(b.dataset.rir);set.rir=set.rir===n?null:n;set.rpe=null;await commit();paint();return}
   if(f==='undo'&&justDone){d.exercises[justDone.item].sets[justDone.set].done=false;at=justDone.item;justDone=null;mode='set';await commit();paint();return}
   if(f==='next'||f==='jump'){mode='set';justDone=null;if(nextOpen(d.exercises[at])<0)at=firstOpenItem()??at;paint();return}
   if(f==='prev'){at=Math.max(0,at-1);mode='set';paint();return}
-  if(f==='skip'){at=Math.min(d.exercises.length-1,at+1);mode='set';paint();return}
+  if(f==='skip'){const left=item.sets.filter(s=>!s.done).length;at=Math.min(d.exercises.length-1,at+1);mode='set';paint();if(left)toast('Skipped for now. Its '+left+' unticked set'+(left===1?' isn’t':'s aren’t')+' saved unless you come back and tick '+(left===1?'it':'them')+'.');return}
   if(f==='add-set'){const last=item.sets.at(-1);item.sets.push({...newSet(last?.reps||0,last?.load??null),duration:last?.duration??0});await commit();paint();return}
   if(f==='finish'){closeFocus(false);await trainingAction('finish-workout','',C);return}
  }catch(err){toast(err.message)}finally{busy=false}
@@ -94,7 +94,7 @@ async function onClick(event){
 async function onChange(event){
  const input=event.target.closest('.focus-num');if(!input||!draft())return;
  const item=draft().exercises[at],i=nextOpen(item);if(i<0)return;
- const before={...item.sets[i]};try{readDials(item.sets[i],exerciseById(item.exerciseId));try{await commit()}catch(err){Object.assign(item.sets[i],before);throw err}const line=el.querySelector('.focus-plates');if(line)line.outerHTML=plateLine(exerciseById(item.exerciseId),item.sets[i].load)}catch{/* The message is already shown. */}
+ const before={...item.sets[i]};try{readDials(item.sets[i],exerciseById(item.exerciseId));item.sets[i].edited=true;try{await commit()}catch(err){Object.assign(item.sets[i],before);throw err}const line=el.querySelector('.focus-plates');if(line)line.outerHTML=plateLine(exerciseById(item.exerciseId),item.sets[i].load)}catch{/* The message is already shown. */}
 }
 function onKey(event){if(event.key==='Escape'&&!document.querySelector('#modal').open){closeFocus()}else if(event.key==='Enter'&&event.target.matches('.focus-num')){event.preventDefault();el.querySelector('[data-f="done"]')?.click()}}
 function tick(){

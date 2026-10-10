@@ -499,3 +499,12 @@ html[data-theme=dark]{--fig-none:#3d3a36;--fig-base:#3d3a36;--fig-skin:#2a2825}
 /* The + keeps a solid, high-contrast sign in both themes (dark: near-black on orange, about 7:1). */
 .quick-log .icon{color:inherit;stroke:currentColor}
 html[data-theme=dark] .quick-log{background:#ff8a50;color:#1a1917;box-shadow:0 6px 20px #000000aa}
+/* 1.12.1: workout fixes. Messages sit at the top and let taps through; on phones the rest timer is a slim bar at the top, so neither covers buttons. */
+#toast{top:calc(16px + env(safe-area-inset-top));bottom:auto;pointer-events:none}
+.focus-warn{color:var(--danger);font-size:.9375rem;font-weight:600;margin:0}
+@media(max-width:800px){
+.timer{top:calc(8px + env(safe-area-inset-top));bottom:auto;left:12px;right:12px;padding:6px 6px 6px 14px;gap:10px;border-radius:12px}
+.timer>div{display:flex;align-items:baseline;gap:8px;margin-right:auto}.timer>div br{display:none}.timer strong{font-size:1.25rem}
+body.has-timer .topbar{padding-top:calc(68px + env(safe-area-inset-top))}
+body.has-timer #toast{top:calc(68px + env(safe-area-inset-top))}
+}

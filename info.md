@@ -235,10 +235,22 @@ From the tracking quality-of-life review (qol-review/tracking.md in the project 
 - Body page header buttons match the tab. Cardio's custom MET field and Notes are separate labels.
 - Not done: moving photos out of the main record (review item 8, a bigger change) and the real-phone checks (items 12, 13). Cache v18, tests/tracking.test.js.
 
+## 1.12.1 · workout fixes from the QoL review (2026-10-10)
+From /mnt/project-files/qol-review/workouts.md:
+- Finishing with sets whose numbers were typed or changed but not ticked asks first ("Go back" / "Save anyway"). Sets carry `edited:true` once a load/reps/duration/distance field changes (Training page or focus mode); `untickedEdited(d)` counts them, and `completedSession` strips `edited` and any leftover `suggest`.
+- The step-up popup: closing it any way (Keep last time's, X, Escape) clears every suggestion; a `close` listener does it.
+- Ticking Done on a weighted reps exercise (`needsWeight`: reps-load and loadable equipment) with no weight warns once per set; ticking again saves without weight (`noWeightOk`).
+- Exercise search ignores spaces and forgives one typo in words of 4+ letters (`oneOff` in data.js); the picker shows main muscles and a "Browse all exercises" button when nothing matches.
+- Modal close returns keyboard focus to focus mode when it is open and the trigger is inert, so Escape works after the popup.
+- Phones: rest timer is a slim bar at the top (`body.has-timer` pads the top bar); toasts sit at the top everywhere with pointer-events off.
+- Add exercise opens focus mode for the first exercise when "Open focus mode when I start a workout" is on.
+- Program cards show "62.5 → 65 kg (suggested)" when the target differs from last time; the program prompt explains program vs suggested workout and the suggested workout's Start is secondary while no program runs.
+- Plain swap explanations, plainer plate line, "Skip this session" asks first, focus Skip says unticked sets aren't saved. Removed the unreachable Swap branch in `trainingAction`. Cache v19.
+
 ## 1.13.0 · Phone experience fixes (2026-10-10)
 From the phone QoL review (/mnt/project-files/qol-review/phone-experience.md):
 - Settings → Profile saves each field on change (`saveProfile` in app.js persists without re-rendering, so focus stays on the next field). The Save button is gone; a status line says "Changes save automatically". Labels reworded in plain language with the formula names in the small print. Jump links at the top; tour/setup buttons first in About.
 - The + button is 52px on phones and slides away while scrolling down (`body.fab-tucked`); phone pages have 150px of bottom padding so the last item clears it. Dark mode: near-black + on orange.
 - Atlas: zoom buttons and caption sit at the top of the figure; stage height fits the screen; `#muscle-summary` under the figure on phones shows name, group, weekly sets, previous/next muscle and Details. Every muscle has an invisible wide-outline copy in `.hit-layer` underneath the artwork so taps beside thin muscles still land; non-muscle artwork ignores taps. Pinch is damped (`PINCH=.6`).
 - Update notice: one line, Today only. A 403/429 from the releases API falls back to package.json on main; if that fails too, "GitHub is busy… your connection is fine".
-- Bottom bar says Training and Atlas; menu theme and lock buttons have text. Setup no longer toasts "Setup saved" on step 4 (step 4 says it). Toasts ignore taps. Cache v19.
+- Bottom bar says Training and Atlas; menu theme and lock buttons have text. Setup no longer toasts "Setup saved" on step 4 (step 4 says it). Toasts ignore taps. Cache v20.
