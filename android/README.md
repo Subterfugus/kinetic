@@ -37,7 +37,9 @@ The Android version number comes from `package.json` (1.5.0 becomes versionCode 
 
 ## Releases from GitHub
 
-`.github/workflows/android.yml` builds the APK on every pull request (download it from the run's **Artifacts**). Pushing a tag that matches `package.json`, such as `v1.5.0`, also creates the GitHub Release for that tag and attaches `Kinetic-1.5.0.apk`.
+`.github/workflows/android.yml` builds the APK on every pull request (download it from the run's **Artifacts**).
+
+Releases publish themselves: when a push to `main` carries a `package.json` version that has no GitHub Release yet, the workflow creates the release `v<version>` on that commit and attaches the APK twice, as `Kinetic-<version>.apk` and as `Kinetic.apk` (the fixed name the README's download button uses). To ship a new version, bump `version` in `package.json` and merge. Pushes that keep the same version build the APK but publish nothing. Pushing a matching tag by hand, such as `v1.5.0`, still works too.
 
 ## Signing
 
