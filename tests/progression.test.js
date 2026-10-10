@@ -33,3 +33,15 @@ test('Saved routines step up load once every set reaches the target',()=>{
  assert.equal(nextTarget(one,[session('2026-10-01','dumbbell-bench',30,[10,10,10])]).load,32);
  assert.equal(nextTarget(one,[session('2026-10-01','dumbbell-bench',30,[10,9,9])]).load,30);
 });
+
+test('Step-ups are offered, not applied: a held-back item starts at last time and keeps the target as a suggestion',async()=>{
+ const {holdBack,change,lastTime}=await import('../dist/steps.js');
+ const sessions=[session('2026-10-01','dumbbell-bench',30,[12,12,11])];
+ assert.deepEqual(lastTime(sessions,'dumbbell-bench'),{load:30,reps:11});
+ assert.equal(change({load:30,reps:10},{load:30,reps:10}),null);
+ const item={id:'a',exerciseId:'dumbbell-bench',targetLoad:32,targetReps:8,why:'Add load',sets:[{reps:8,load:32,done:false},{reps:8,load:32,done:false}]};
+ holdBack({state:{sessions}},item);
+ assert.deepEqual(item.suggest,{load:32,reps:8,note:'Add load'});
+ assert.equal(item.targetLoad,30);assert.ok(item.sets.every(s=>s.load===30&&s.reps===11));
+ assert.match(nextTarget({...slot,reps:[10,10]},[session('2026-10-01','dumbbell-bench',30,[10,10,10])]).note,/aim for 10\./);
+});

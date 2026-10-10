@@ -1,7 +1,7 @@
 // Program engine: substitution, session rebalancing, recommended programs and load targets.
 // Pure functions only (no DOM), so every rule here is covered by tests. Numbers are sourced in assets/evidence.json.
 import {exercises,exerciseById,groups} from './data.js';
-import {workSets,performance} from './science.js';
+import {workSets,performance,e1rm} from './science.js';
 
 // A set counts 1 for a primary muscle and 0.5 for a secondary one (fractional counting, Pelland 2026).
 export const INDIRECT=.5;
@@ -198,7 +198,7 @@ export function loadStep(exercise,units='metric'){
 }
 const roundTo=(kg,step)=>Math.round(kg/step)*step;
 // Epley estimate with reps in reserve added back. Rougher than a 0 RIR set, so it is only used for targets and goals.
-export function estimate1rm(load,reps,rir=0){const r=reps+(rir??0);if(!(load>0)||!(reps>=1)||r>12)return null;return r<=1?load:load*(1+r/30)}
+export const estimate1rm=(load,reps,rir=0)=>e1rm(load,reps,rir);
 export function bestEstimate(sets){const v=sets.map(s=>estimate1rm(s.load,s.reps,s.rir)).filter(x=>x!==null);return v.length?Math.max(...v):null}
 
 // What to do today for one exercise, from what happened last time (double progression).
@@ -207,9 +207,9 @@ export function bestEstimate(sets){const v=sets.map(s=>estimate1rm(s.load,s.reps
 // and a short set that still had reps to spare is not treated as a failure (autoregulation: helms2018, graham2021).
 export const EASY=3;
 export function nextTarget(slot,sessions,{units='metric',deload=false}={}){
- const e=exerciseById(slot.exerciseId),[lo,hi]=slot.reps,history=performance(sessions,e.id).slice(-2),last=history.at(-1),base={sets:slot.sets,range:[lo,hi],rir:slot.rir,load:null,reps:lo};
+ const e=exerciseById(slot.exerciseId),[lo,hi]=slot.reps,history=performance(sessions,e.id).slice(-2),last=history.at(-1),base={sets:slot.sets,range:[lo,hi],rir:slot.rir,load:null,reps:lo},span=lo===hi?String(lo):lo+'–'+hi;
  if(deload)return {...base,sets:Math.max(1,Math.ceil(slot.sets/2)),rir:Math.max(3,slot.rir),load:last?.load||null,reps:lo,reason:'deload',note:'Recovery week: half the sets at your usual load, stopping well short of failure.'};
- if(!last)return {...base,reason:'first',note:loadable(e)?'First time. Pick a load you could lift about '+(hi+slot.rir)+' times and stop at '+lo+'–'+hi+'.':'First time. Stop each set with about '+slot.rir+' reps left.'};
+ if(!last)return {...base,reason:'first',note:loadable(e)?'First time. Pick a load you could lift about '+(hi+slot.rir)+' times and stop at '+span+'.':'First time. Stop each set with about '+slot.rir+' reps left.'};
  const load=last.load>0?last.load:null,atLoad=last.sets.filter(s=>load===null||s.load===load),low=Math.min(...atLoad.map(s=>s.reps));
  // How many more reps than planned were left in the tank on the hardest set. Only used when every set was rated.
  const spareOf=sets=>sets.length&&sets.every(s=>Number.isFinite(s.rir))?Math.min(...sets.map(s=>s.rir))-slot.rir:0,spare=spareOf(atLoad),easy=spare>=EASY;
@@ -219,7 +219,7 @@ export function nextTarget(slot,sessions,{units='metric',deload=false}={}){
  if(low>=need){
   // Clearly too light: two steps instead of one, as long as that is still a modest jump.
   const jump=easy&&2*step/load<=.1?2*step:step,next=roundTo(load+jump,step);
-  return {...base,load:next,reps:lo,reason:'progress',note:'You hit '+low+'+ reps on every set last time'+(jump>step?' with plenty to spare, so this is a bigger jump':'')+'. Add load and aim for '+lo+'–'+hi+'.'};
+  return {...base,load:next,reps:lo,reason:'progress',note:'You hit '+low+'+ reps on every set last time'+(jump>step?' with plenty to spare, so this is a bigger jump':'')+'. Add load and aim for '+span+'.'};
  }
  const previous=history.length>1?history[0]:null,previousSets=previous?previous.sets.filter(s=>s.load===previous.load):[];
  // Two short sessions in a row at this load, both near failure: the load is too heavy for now.
