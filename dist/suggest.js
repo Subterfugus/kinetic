@@ -1,7 +1,7 @@
 // Suggested workouts: one session built from what you have trained this week, your equipment and your experience.
 // Pure functions, no DOM. The rules match the program engine (see scientific-methodology.md, "Suggested workouts").
 import {exercises,groups} from './data.js';
-import {available,isCompound,loadable,MAJOR,volumeTargets} from './programs.js';
+import {available,isCompound,loadable,MAJOR,volumeTargets,applyRepPreference} from './programs.js';
 import {muscleStats,dayNumber} from './science.js';
 
 export const FOCI=[
@@ -52,7 +52,8 @@ export function suggestWorkout(state,{focus='auto',today,shuffle=0}={}){
  const strength=p.goal==='strength',items=picked.sort((a,b)=>isCompound(b)-isCompound(a)).map(e=>{
   const compound=isCompound(e)&&e.id!=='face-pull',main=e.primary.filter(g=>ids.includes(g)),gap=Math.max(...main.map(g=>need[g]||0),0);
   const sets=Math.max(2,Math.min(maxSets,Math.round(gap/3))),reps=!loadable(e)?(compound?[8,15]:[10,20]):compound?(strength?[4,6]:[6,10]):e.id==='face-pull'?[12,20]:[10,15];
-  return {exerciseId:e.id,sets,reps,rir:compound?2:1,rest:compound?150:90,main:false,why:main.map(g=>nameOf(g)+': '+fmt(done[g])+' of '+lo+'–'+hi+' weekly sets so far').join(' · ')||'Rounds out the session.'};
+  // Strength-goal compound lifts stay heavy whatever the rep preference: heavier loads build maximal strength better.
+  return applyRepPreference({exerciseId:e.id,sets,reps,rir:compound?2:1,rest:compound?150:90,main:strength&&compound&&loadable(e),why:main.map(g=>nameOf(g)+': '+fmt(done[g])+' of '+lo+'–'+hi+' weekly sets so far').join(' · ')||'Rounds out the session.'},p);
  });
  const skipped=focus==='auto'?recovering:[],tired=focus!=='auto'?recovering.filter(g=>ids.includes(g)):[];
  return {focus:id,name:label+(focus==='auto'?' · suggested':''),items,groups:ids,skipped,tired,target:[lo,hi]};

@@ -177,3 +177,12 @@ Brady asked for the app to check for updates automatically but never update itse
 - `APP_VERSION` in dist/updates.js must equal package.json (tested). Bump both when releasing; the tag check in the Android workflow already ties the tag to package.json.
 - Device prefs: updateCheck (on by default), updateCheckedAt, updateLatest, updateDismissed. Settings has the switch; the tour's Settings step mentions it. Cache v11, 81 tests.
 - Limitation: GitHub only answers anonymous requests for public repositories. While the repository is private, the check finds nothing.
+
+## 2026-10-10 — Release 1.8 rep-range preference and more exercises — DONE (PR)
+Brady asked for a "prefer lower/higher reps" option in general and per exercise, more exercises so people without a given machine still have options (e.g. dumbbell shoulder press), all based on modern research.
+- programs.js: REP_PREFS, repPreference (per-exercise beats general), preferredReps (fixed ranges per kind of exercise, so applying twice is stable), applyRepPreference. Applied in buildProgram, adaptItems, compensate (new optional profile argument), suggestWorkout and program swaps. Heavy main lifts (!) and strength-goal compounds in suggestions keep their range.
+- Profile: repPreference ('balanced'|'lower'|'higher') and repPrefs {exerciseId: pref}. Validated; old backups load with the defaults. Settings → Training has the general select; each strength exercise's page has "Your rep range".
+- data.js: 84 new exercises (192 total) filling equipment gaps for every pattern; unilateral regex extended (machine and seated variants excluded). New regional tags in `emphasis`.
+- evidence.json: schoenfeld2017load, morton2016, lopez2021, currier2023, lasevicius2018 plus an implementation note. Methodology items 33–34.
+- Tour: Library and Settings steps mention the new exercises and the rep preference. Cache v12, package 1.8.0, tests/release18.test.js.
+
