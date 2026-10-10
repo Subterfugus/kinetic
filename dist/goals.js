@@ -30,11 +30,11 @@ export function paceCheck(goal,current,profile,today){
   if(!goal.deadline||!Number.isFinite(current)||goal.type==='run'||goal.type==='habit')return null;
   const weeks=(dayNumber(goal.deadline)-dayNumber(today))/WEEK;if(weeks<=0)return null;
   if(goal.type==='weight'){const gap=goal.target-current;if(!gap)return null;const pct=Math.abs(gap)/weeks/current*100,limit=gap<0?1:.5,label=pctText(pct);
-    if(pct>limit)return {level:pct>limit*1.5?'fast':'ambitious',message:(gap<0?'Faster than about 1% of body weight a week makes it harder to keep muscle.':'Above about 0.5% a week, most of the extra is fat.')+' This deadline needs about '+label+' a week.'};
+    if(pct>limit)return {level:pct>limit*1.5?'fast':'ambitious',message:'That is about '+label+' of body weight a week. '+(gap<0?'Faster than about 1% of body weight a week makes it harder to keep muscle.':'Above about 0.5% a week, most of the extra is fat.')};
     return {level:'ok',message:'This deadline needs about '+label+' of body weight a week, a pace that is realistic to keep up.'}}
   const t=target1rm(goal);if(!(t>current))return null;
   const months=weeks/(365.25/12/WEEK),pct=((t/current)-1)*100/months,exp=profile?.experience in CEILING?profile.experience:'intermediate',cap=CEILING[exp],label=pctText(pct);
-  if(pct>cap)return {level:pct>cap*2?'fast':'ambitious',message:'This deadline needs about '+label+' a month. As a rule of thumb, '+exp+' lifters gain up to about '+cap+'% a month, so this is ambitious.'};
+  if(pct>cap)return {level:pct>cap*2?'fast':'ambitious',message:'That is about '+label+' a month. As a rule of thumb, '+exp+' lifters gain up to about '+cap+'% a month, so this is ambitious.'};
   return {level:'ok',message:'This deadline needs about '+label+' a month, within the rule of thumb of about '+cap+'% for '+exp+' lifters.'}}
 
 export function goalStatus(goal,state,today){
@@ -67,9 +67,10 @@ function projectionText(g,st,today){
 function deadlineText(g,st,C,today){
   if(!g.deadline||st.reached||st.current===null)return '';
   const weeks=(dayNumber(g.deadline)-dayNumber(today))/WEEK;if(weeks<=0)return 'Deadline passed ('+dateLabel(g.deadline)+').';
-  const gap=Math.abs(st.target-st.current)/weeks,need='needs about '+(g.type==='run'?fmtTime(gap)+' faster each week':fmt(g,C,gap)+' a week'),p=st.projection,fits=w=>addDays(today,Math.round(w*WEEK))<=g.deadline,on='On track for '+dateLabel(g.deadline);
-  if(!p)return 'Deadline '+dateLabel(g.deadline)+': '+need;
-  if(!fits(p.weeksSteady))return 'Behind: '+need;
+  const per=v=>g.type==='run'?fmtTime(v)+' faster each week':fmt(g,C,v)+' a week',gap=Math.abs(st.target-st.current)/weeks,p=st.projection,fits=w=>addDays(today,Math.round(w*WEEK))<=g.deadline,on='On track for '+dateLabel(g.deadline);
+  if(!p)return 'Deadline '+dateLabel(g.deadline)+': you need about '+per(gap)+'.';
+  // One line with both paces, so it never reads as a second, conflicting verdict.
+  if(!fits(p.weeksSteady))return 'Behind. You need about '+per(gap)+'; your recent pace is about '+per(Math.abs(p.weeklyRate))+'.';
   return fits(p.weeksSlowing)?on+', even if progress slows.':on+' at your recent pace, but not if progress slows.'}
 
 const bar=f=>`<div class="goal-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(f*100)}"><i style="width:${Math.round(f*100)}%"></i></div>`;
@@ -81,7 +82,7 @@ function card(g,C,today){
     const now=st.current===null?'no data yet':(g.type==='lift'&&repsOf(g)>1?'estimated one-rep max ':'')+fmt(g,C,st.current)+' now';
     const disp=g.type==='lift'?v=>C.displayLoad(v):g.type==='weight'?v=>C.displayWeight(v):v=>v,unit=g.type==='lift'?C.loadUnit():g.type==='weight'?C.weightUnit():'min',s=st.series.map(p=>({date:p.date,value:disp(p.value)}));
     const dl=deadlineText(g,st,C,today),svg=s.length>=2?chart(s,{unit,secondary:[{date:s[0].date,value:disp(st.target)},{date:s.at(-1).date,value:disp(st.target)}],seriesLabel:'You',secondaryLabel:'Target',height:150}):'';
-    body=`${bar(st.fraction)}<p class="goal-line"><strong>${pct}% of the way</strong> · ${esc(now)}</p><p class="goal-proj">${esc(projectionText(g,st,today))}</p>${dl?`<p class="goal-deadline">${esc(dl)}</p>`:''}${st.pace?`<p class="goal-pace ${st.pace.level}">${esc(st.pace.message)}</p>`:''}${svg?`<div class="goal-chart">${svg}</div>`:''}`}
+    body=`${bar(st.fraction)}<p class="goal-line"><strong>${pct}% of the way</strong> · ${esc(now)}</p><p class="goal-proj">${esc(projectionText(g,st,today))}</p>${dl?`<p class="goal-deadline">${esc(dl)}</p>`:''}${st.pace&&st.pace.level!=='ok'?`<p class="goal-pace ${st.pace.level}">${esc(st.pace.message)}</p>`:''}${svg?`<div class="goal-chart">${svg}</div>`:''}`}
   return `<article class="card goal-card ${g.achieved?'done':''}"><div class="goal-head"><h2>${esc(title)}</h2>${g.achieved?'<span class="goal-badge">Reached</span>':''}</div>${g.deadline&&!g.achieved?`<p class="meta">Deadline ${esc(dateLabel(g.deadline,{month:'short',day:'numeric',year:'numeric'}))}</p>`:''}${body}${g.note?`<p class="meta">${esc(g.note)}</p>`:''}<div class="goal-actions">${btn('Edit',`goal-edit:${g.id}`,'small')}${btn('Delete',`goal-delete:${g.id}`,'small ghost')}</div></article>`}
 
 export function goalsView(C){
@@ -93,6 +94,15 @@ export function goalsSummary(C){
   const all=C.state.goals||[];if(!all.length)return '';
   const today=TODAY(),active=ordered(all).filter(g=>!g.achieved);
   return `<section class="card goal-summary"><div class="goal-summary-head"><h2>Goals</h2>${btn('Goals','go-goals','small')}</div>${active.slice(0,3).map(g=>`<div class="goal-mini"><span>${esc(goalTitle(g,C))}</span>${bar(goalStatus(g,C.state,today).fraction)}</div>`).join('')||'<p class="meta">All goals reached.</p>'}</section>`}
+
+// Goals is the one place to set a goal weight. profile.targetWeight mirrors it for the calorie target:
+// the newest open body-weight goal, else the newest reached one (so a reached goal means maintenance), else none.
+// A target weight set in Settings before 1.12 becomes a body-weight goal once (profile.goalWeightMoved marks it done).
+export function weightGoal(state){const w=(state.goals||[]).filter(g=>g.type==='weight'),newest=l=>[...l].sort(byDate).at(-1)||null;return newest(w.filter(g=>!g.achieved))||newest(w)}
+export function syncTargetWeight(state,today){
+  state.goals||=[];const p=state.profile;
+  if(!p.goalWeightMoved&&!state.goals.some(g=>g.type==='weight')&&p.targetWeight>0){const g={id:uid(),date:today,type:'weight',target:r2(p.targetWeight),start:null,deadline:null,achieved:null,note:''};g.start=goalStatus(g,state,today).current;state.goals.push(g)}
+  p.goalWeightMoved=true;const target=weightGoal(state)?.target??null,changed=target!==p.targetWeight;p.targetWeight=target;return changed}
 
 // Marks goals achieved once the target is met (habit goals are never marked). Call after saves, never during render.
 export async function syncGoals(C){const today=TODAY();let n=0;for(const g of C.state.goals||[]){if(g.achieved||g.type==='habit')continue;let r=false;try{r=goalStatus(g,C.state,today).reached}catch{}if(r){g.achieved=today;n++}}if(n)await C.save(n===1?'Goal reached':n+' goals reached');return n}
@@ -114,9 +124,9 @@ export function buildGoal(fd,old,C,today){
   if(same&&old.achieved&&old.target===v.target&&old.reps===v.reps)v.achieved=old.achieved;
   return v}
 
-function dialog(C,id=''){
+function dialog(C,id='',type='lift'){
   const old=id?(C.state.goals||[]).find(x=>x.id===id):null;if(id&&!old)return;
-  const g=old||{type:'lift',exerciseId:'',reps:1,target:'',deadline:'',note:'',activity:'Running',distance:5},today=TODAY();
+  const g=old||{type,exerciseId:'',reps:1,target:'',deadline:'',note:'',activity:'Running',distance:5},today=TODAY();
   const lifts=exercises.filter(e=>resistanceMetricsEligible(e.id)).sort((a,b)=>a.name.localeCompare(b.name)).map(e=>[e.id,e.name]);
   const sec=(t,html)=>`<div class="wide form-grid goal-fields" data-for="${t}" ${g.type===t?'':'hidden'}>${html}</div>`,dist=g.type==='run'?C.displayDist(g.distance):C.displayDist(5);
   modal(id?'Edit goal':'Add a goal',`<div class="form-grid">${select('type','Goal type',g.type,[['lift','Lift'],['weight','Body weight'],['run','Run or other cardio time'],['habit','Weekly habit']])}
@@ -135,7 +145,7 @@ ${sec('habit',field('perWeek','Workouts per week',g.type==='habit'?g.target:3,'n
   if(sel){show();sel.addEventListener('change',show)}}
 
 export async function goalAction(a,id,C){
-  if(a==='goal-new'){dialog(C);return true}
+  if(a==='goal-new'){dialog(C,'',['lift','weight','run','habit'].includes(id)?id:'lift');return true}
   if(a==='goal-edit'){dialog(C,id);return true}
   if(a==='goal-delete'){C.confirm('Delete this goal?','Your logged workouts and weigh-ins are not affected.',async()=>{C.state.goals=C.state.goals.filter(x=>x.id!==id);await C.save('Goal deleted')});return true}
   return false}

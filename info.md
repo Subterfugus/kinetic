@@ -224,10 +224,21 @@ Brady: on the phone the calorie target stayed at 2000 after changing weight. Cau
 - One-time migration: a custom target of exactly 2000 becomes automatic (`profile.calorieModeChecked` marks it done).
 - Settings → Profile now shows the current target and whether it is automatic, custom (with "Switch to automatic") or waiting on a missing field. Cache v17.
 
-## 1.12.0 · Phone experience fixes (2026-10-10)
+## 1.12.0 · Tracking review fixes (2026-10-10)
+From the tracking quality-of-life review (qol-review/tracking.md in the project files):
+- Calories added from Today or the + menu always go to today. Only the Calories page's own "Add calories" uses the day picked there. The save message names the day.
+- One weigh-in and one recovery log per day still, but no dead end: a new log on a day that already has one loads that entry and saving updates it (`oneEntryPerDay` in journal.js). Editing an existing entry onto another entry's date still errors.
+- Photo filter: Compare and Time-lapse use only the filtered view, buttons hide when the view has too few photos, and a line says how many more are needed.
+- Goal weight lives only on Goals. `profile.targetWeight` mirrors the newest open body-weight goal (else the newest reached one) via `syncTargetWeight` in goals.js, run before every save and after load, so the calorie target still uses it. A Settings target from before 1.12 becomes a body-weight goal once (`profile.goalWeightMoved`). Settings shows the value with a link to Goals; Body's "Edit goal" opens that goal.
+- Recovery switch off also hides the Steps and Sleep tiles on Cardio, Sleep in the + menu and the Sleep & soreness card on Insights.
+- Goal cards: "Behind" now gives both paces in one line; the "realistic pace" note is no longer shown under it (warnings still are).
+- Body page header buttons match the tab. Cardio's custom MET field and Notes are separate labels.
+- Not done: moving photos out of the main record (review item 8, a bigger change) and the real-phone checks (items 12, 13). Cache v18, tests/tracking.test.js.
+
+## 1.13.0 · Phone experience fixes (2026-10-10)
 From the phone QoL review (/mnt/project-files/qol-review/phone-experience.md):
 - Settings → Profile saves each field on change (`saveProfile` in app.js persists without re-rendering, so focus stays on the next field). The Save button is gone; a status line says "Changes save automatically". Labels reworded in plain language with the formula names in the small print. Jump links at the top; tour/setup buttons first in About.
 - The + button is 52px on phones and slides away while scrolling down (`body.fab-tucked`); phone pages have 150px of bottom padding so the last item clears it. Dark mode: near-black + on orange.
 - Atlas: zoom buttons and caption sit at the top of the figure; stage height fits the screen; `#muscle-summary` under the figure on phones shows name, group, weekly sets, previous/next muscle and Details. Every muscle has an invisible wide-outline copy in `.hit-layer` underneath the artwork so taps beside thin muscles still land; non-muscle artwork ignores taps. Pinch is damped (`PINCH=.6`).
 - Update notice: one line, Today only. A 403/429 from the releases API falls back to package.json on main; if that fails too, "GitHub is busy… your connection is fine".
-- Bottom bar says Training and Atlas; menu theme and lock buttons have text. Setup no longer toasts "Setup saved" on step 4 (step 4 says it). Toasts ignore taps. Cache v18.
+- Bottom bar says Training and Atlas; menu theme and lock buttons have text. Setup no longer toasts "Setup saved" on step 4 (step 4 says it). Toasts ignore taps. Cache v19.

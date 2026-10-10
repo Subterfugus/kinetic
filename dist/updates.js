@@ -2,7 +2,7 @@
 // Keep APP_VERSION equal to "version" in package.json (tests/updates.test.js checks this).
 import {esc,btn,toast,icon} from './ui.js';
 import {isNative} from './native.js';
-export const APP_VERSION='1.12.0';
+export const APP_VERSION='1.13.0';
 export const RELEASES_PAGE='https://github.com/Subterfugus/kinetic/releases';
 const LATEST='https://api.github.com/repos/Subterfugus/kinetic/releases/latest',VERSION_FILE='https://raw.githubusercontent.com/Subterfugus/kinetic/main/package.json',DAY=86400000;
 
