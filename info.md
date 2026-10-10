@@ -186,3 +186,9 @@ Brady asked for a "prefer lower/higher reps" option in general and per exercise,
 - evidence.json: schoenfeld2017load, morton2016, lopez2021, currier2023, lasevicius2018 plus an implementation note. Methodology items 33–34.
 - Tour: Library and Settings steps mention the new exercises and the rep preference. Cache v12, package 1.8.0, tests/release18.test.js.
 
+## 2026-10-10 — Effort-aware progression and progressing routines — DONE (PR)
+Brady asked whether workouts progress automatically and scientifically. Programs and suggestions already used double progression; saved routines only copied last time's loads and logged RIR was ignored.
+- programs.js nextTarget: logged RIR (all sets rated, hardest set ≥ EASY=3 reps beyond target) gives +2 reps or two load steps (when ≤10% of load); such sessions don't count toward a reset.
+- training.js progressed(): routines run nextTarget with a one-rep range [reps,reps] and prefill load, reps and a note.
+- evidence: helms2018, graham2021, implementation note. Methodology item 35. tests/progression.test.js.
+

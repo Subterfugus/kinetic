@@ -203,18 +203,30 @@ export function bestEstimate(sets){const v=sets.map(s=>estimate1rm(s.load,s.reps
 
 // What to do today for one exercise, from what happened last time (double progression).
 // Add reps inside the range; when every set reaches the top, add load and start again at the bottom.
+// Logged reps in reserve (RIR) adjust the pace: sets that ended much further from failure than planned progress faster,
+// and a short set that still had reps to spare is not treated as a failure (autoregulation: helms2018, graham2021).
+export const EASY=3;
 export function nextTarget(slot,sessions,{units='metric',deload=false}={}){
  const e=exerciseById(slot.exerciseId),[lo,hi]=slot.reps,history=performance(sessions,e.id).slice(-2),last=history.at(-1),base={sets:slot.sets,range:[lo,hi],rir:slot.rir,load:null,reps:lo};
  if(deload)return {...base,sets:Math.max(1,Math.ceil(slot.sets/2)),rir:Math.max(3,slot.rir),load:last?.load||null,reps:lo,reason:'deload',note:'Recovery week: half the sets at your usual load, stopping well short of failure.'};
  if(!last)return {...base,reason:'first',note:loadable(e)?'First time. Pick a load you could lift about '+(hi+slot.rir)+' times and stop at '+lo+'–'+hi+'.':'First time. Stop each set with about '+slot.rir+' reps left.'};
- const load=last.load>0?last.load:null,atLoad=last.sets.filter(s=>load===null||s.load===load).map(s=>s.reps),low=Math.min(...atLoad);
- if(load===null||!loadable(e)){const top=low>=hi;return {...base,load,reps:top?hi:Math.min(hi,low+1),reason:top?'harder':'build',note:top?'You reached '+hi+' reps on every set. Add a set, slow the lowering, or move to a harder variation.':'Last time your lowest set was '+low+'. Aim for '+Math.min(hi,low+1)+' or more.'}}
+ const load=last.load>0?last.load:null,atLoad=last.sets.filter(s=>load===null||s.load===load),low=Math.min(...atLoad.map(s=>s.reps));
+ // How many more reps than planned were left in the tank on the hardest set. Only used when every set was rated.
+ const spareOf=sets=>sets.length&&sets.every(s=>Number.isFinite(s.rir))?Math.min(...sets.map(s=>s.rir))-slot.rir:0,spare=spareOf(atLoad),easy=spare>=EASY;
+ const tip=easy?' Your sets ended with about '+(spare+slot.rir)+' reps in reserve; go closer to '+slot.rir+'.':'';
+ if(load===null||!loadable(e)){const top=low>=hi,aim=Math.min(hi,low+(easy?2:1));return {...base,load,reps:top?hi:aim,reason:top?'harder':'build',note:top?'You reached '+hi+' reps on every set. Add a set, slow the lowering, or move to a harder variation.':'Last time your lowest set was '+low+'. Aim for '+aim+' or more.'+tip}}
  const step=loadStep(e,units),big=step/load>.1,need=hi+(big?2:0);
- if(low>=need){const next=roundTo(load+step,step);return {...base,load:next,reps:lo,reason:'progress',note:'You hit '+low+'+ reps on every set last time. Add load and aim for '+lo+'–'+hi+'.'}}
- const previous=history.length>1?history[0]:null;
- if(low<lo&&previous&&previous.load>=load&&Math.min(...previous.sets.filter(s=>s.load===previous.load).map(s=>s.reps))<lo){const next=Math.max(step,roundTo(load*.925,step));return {...base,load:next===load?load-step:next,reps:lo,reason:'reset',note:'Below '+lo+' reps two sessions running. Drop the load about 5–10% and build back up.'}}
- if(low<lo)return {...base,load,reps:lo,reason:'repeat',note:'Last time fell short of '+lo+' reps. Repeat this load once before changing it.'};
- return {...base,load,reps:Math.min(hi,low+1),reason:'build',note:'Same load. Last time your lowest set was '+low+'; aim for '+Math.min(need,low+1)+(big?'. The next jump is large, so reach '+need+' first':'')+'.'};
+ if(low>=need){
+  // Clearly too light: two steps instead of one, as long as that is still a modest jump.
+  const jump=easy&&2*step/load<=.1?2*step:step,next=roundTo(load+jump,step);
+  return {...base,load:next,reps:lo,reason:'progress',note:'You hit '+low+'+ reps on every set last time'+(jump>step?' with plenty to spare, so this is a bigger jump':'')+'. Add load and aim for '+lo+'–'+hi+'.'};
+ }
+ const previous=history.length>1?history[0]:null,previousSets=previous?previous.sets.filter(s=>s.load===previous.load):[];
+ // Two short sessions in a row at this load, both near failure: the load is too heavy for now.
+ if(low<lo&&!easy&&previous&&previous.load>=load&&Math.min(...previousSets.map(s=>s.reps))<lo&&spareOf(previousSets)<EASY){const next=Math.max(step,roundTo(load*.925,step));return {...base,load:next===load?load-step:next,reps:lo,reason:'reset',note:'Below '+lo+' reps two sessions running. Drop the load about 5–10% and build back up.'}}
+ if(low<lo)return {...base,load,reps:lo,reason:'repeat',note:easy?'Last time fell short of '+lo+' reps but you had reps to spare. Keep this load and push each set closer to '+slot.rir+' in reserve.':'Last time fell short of '+lo+' reps. Repeat this load once before changing it.'};
+ const aim=Math.min(need,low+(easy?2:1));
+ return {...base,load,reps:Math.min(hi,aim),reason:'build',note:'Same load. Last time your lowest set was '+low+'; aim for '+aim+(big?'. The next jump is large, so reach '+need+' first':'')+'.'+tip};
 }
 // A lift has stalled when its best estimated max has not improved across three sessions.
 export function stalled(sessions,exerciseId){const h=performance(sessions,exerciseId).slice(-3).map(p=>bestEstimate(p.sets.map(s=>({...s,rir:0}))));return h.length===3&&h.every(x=>x!==null)&&h[2]<=h[0]&&h[1]<=h[0]}
