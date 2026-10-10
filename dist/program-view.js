@@ -5,6 +5,7 @@ import {itemFor,newSet,picker} from './training.js';
 import {esc,btn,modal,num,toast} from './ui.js';
 import {TODAY,uid} from './store.js';
 import {openFocus} from './focus.js';
+import {holdBack,offerSteps} from './steps.js';
 import {figure,muscleLoad} from './figure.js';
 
 const SOURCES=['pelland2026','schoenfeld2021','lopez2021','currier2023','refalo2023','plotkin2022','singer2024','coleman2024','ramoscampo2024','haugen2023'];
@@ -66,8 +67,8 @@ export function itemFromSlot(C,s,deload=!!C.state.draft?.program?.deload){
 export async function startProgramWorkout(C){
  if(C.state.draft){location.hash='training';toast('Your unfinished workout is ready');return}
  const p=C.state.program,d=built(C).days[p.next],deload=deloading(p);
- C.state.draft={id:uid(),name:d.name+(deload?' · recovery':''),date:TODAY(),startedAt:Date.now(),exercises:d.items.map(s=>itemFromSlot(C,s,deload)),notes:'',restSeconds:150,program:{templateId:p.templateId,day:p.next,week:programWeek(p),deload}};
- C.ui.equipmentToday=null;await C.save('Workout started');location.hash='training';if(C.prefs.focusAuto)openFocus(C);
+ C.state.draft={id:uid(),name:d.name+(deload?' · recovery':''),date:TODAY(),startedAt:Date.now(),exercises:d.items.map(s=>deload?itemFromSlot(C,s,true):holdBack(C,itemFromSlot(C,s,false))),notes:'',restSeconds:150,program:{templateId:p.templateId,day:p.next,week:programWeek(p),deload}};
+ C.ui.equipmentToday=null;await C.save('Workout started');location.hash='training';if(C.prefs.focusAuto)openFocus(C);offerSteps(C);
 }
 const slotOf=item=>{const e=exerciseById(item.exerciseId),compound=isCompound(e);return {exerciseId:item.exerciseId,sets:item.sets.length,reps:item.range||[item.targetReps||10,item.targetReps||10],rir:item.targetRir??(compound?2:1),rest:item.rest||(compound?150:90),main:false}};
 // Apply the result of compensate() to the unfinished workout.

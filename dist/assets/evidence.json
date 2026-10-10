@@ -1310,6 +1310,56 @@
         "Small sample of untrained young men.",
         "The exact lowest effective load is not established."
       ]
+    },
+    {
+      "id": "helms2018",
+      "title": "RPE vs. Percentage 1RM Loading in Periodized Programs Matched for Sets and Repetitions",
+      "authors": [
+        "Eric R. Helms",
+        "Ryan K. Byrnes",
+        "Daniel M. Cooke",
+        "Michael H. Haischer",
+        "Joseph P. Carzoli",
+        "Trevor K. Johnson",
+        "Matt R. Cross",
+        "John B. Cronin",
+        "Adam G. Storey",
+        "Michael C. Zourdos"
+      ],
+      "year": 2018,
+      "url": "https://pubmed.ncbi.nlm.nih.gov/29628895/",
+      "doi": "10.3389/fphys.2018.00247",
+      "type": "randomized controlled trial",
+      "evidenceStrength": "Low to moderate; 21 trained young men, 8 weeks",
+      "summary": "Trained men followed the same 8-week squat and bench program, with loads set either from a percentage of their one-rep max or from how hard the sets felt (RPE, based on reps in reserve). Strength and muscle gains were similar, with small, non-significant advantages for the effort-based group. The app uses it to support adjusting load from the reps in reserve you log.",
+      "supportedClaims": [
+        "Setting loads from logged effort (reps in reserve) works at least as well as fixed percentages."
+      ],
+      "limitations": [
+        "Small sample of trained young men.",
+        "Differences between groups were small and mostly not statistically significant."
+      ]
+    },
+    {
+      "id": "graham2021",
+      "title": "Autoregulation by \"Repetitions in Reserve\" Leads to Greater Improvements in Strength Over a 12-Week Training Program Than Fixed Loading",
+      "authors": [
+        "Timothy Graham",
+        "Daniel J. Cleather"
+      ],
+      "year": 2021,
+      "url": "https://research.stmarys.ac.uk/id/eprint/3067",
+      "doi": "10.1519/JSC.0000000000003164",
+      "type": "randomized controlled trial",
+      "evidenceStrength": "Low; single small trial",
+      "summary": "Over 12 weeks, lifters who adjusted their squat and front-squat loads to hit a target number of reps in reserve gained somewhat more strength than lifters using fixed loads. The app uses it, with helms2018, to justify progressing faster when logged sets ended much further from failure than planned.",
+      "supportedClaims": [
+        "Adjusting load from reps in reserve can improve strength gains compared with fixed loading."
+      ],
+      "limitations": [
+        "Small single trial; lower-body lifts only.",
+        "The exact size of the app's faster progression step is a product rule, not tested here."
+      ]
     }
   ],
   "implementationNotes": [
@@ -1386,6 +1436,17 @@
         "schoenfeld2021"
       ],
       "note": "Muscle growth is similar across roughly 5–30 reps per set when sets end close to failure, so a lower or higher rep preference is offered for growth. Exact ranges per exercise kind, the 25–30 rep ceiling, the extra rest for heavy sets and keeping heavy main lifts unchanged are app conventions informed by these papers, not values the papers prescribe."
+    },
+    {
+      "topic": "Effort-aware progression",
+      "sourceIds": [
+        "plotkin2022",
+        "helms2018",
+        "graham2021",
+        "zourdos2016",
+        "refalo2023"
+      ],
+      "note": "Double progression is the base rule. When every set of the last session was rated and the hardest one still ended 3 or more reps further from failure than planned, the next target adds two reps instead of one, or two load steps instead of one when that stays within 10% of the load; a short session with that much in reserve is not counted toward a load reset. The 3-rep threshold and the step sizes are app conventions; people underestimate reps in reserve somewhat, especially far from failure."
     }
   ],
   "formulaRegistry": [

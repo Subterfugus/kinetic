@@ -92,7 +92,13 @@ This is release verification, not an independent security penetration test, clin
 - New references were checked by title, authors and DOI through web search; PubMed itself is blocked from this environment.
 - Not verified: real phones, offline reload under cache v12.
 
+## Release 1.10.0 (2026-10-10)
+
+- Automated: `npm test` passed 103 tests (new: `tests/progression.test.js` for effort-aware double progression, routine targets and the held-back suggestion). `npm run check` passed with 54 references. Cache `kinetic-shell-v14` with `steps.js`.
+- Browser (headless Chromium, 420 px and 1280 px): with a seeded history, starting a saved routine opens "Ready to step up?" listing 30 → 32 kg for the dumbbell bench press and 7 → 10 reps for the goblet squat; "Use ticked" applies both. Starting the recommended program with no history shows no popup. No console errors.
+- Not verified: real phones; the "Keep last time's" path in a browser (covered by code review only).
+
 ## Release 1.11.0 (2026-10-10)
 
-- Automated: `npm test` and `npm run check` pass (new: `tests/progress.test.js` for weight lifted, hard sets, per-exercise history, week and month bins, weekly muscle sets, metric and imperial rendering, an empty journal, chart readouts and the tour). Service worker cache `kinetic-shell-v14`.
+- Automated: `npm test` and `npm run check` pass (new: `tests/progress.test.js` for weight lifted, hard sets, per-exercise history, week and month bins, weekly muscle sets, metric and imperial rendering, an empty journal, chart readouts and the tour). Service worker cache `kinetic-shell-v15`.
 - Manual: Progress page checked in Chromium at 390 px and 1280 px wide with a year of seeded workouts and weigh-ins, in kg and lb, for 3 months and all time; the chart cursor and readout follow the pointer.

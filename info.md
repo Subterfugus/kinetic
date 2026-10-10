@@ -186,6 +186,12 @@ Brady asked for a "prefer lower/higher reps" option in general and per exercise,
 - evidence.json: schoenfeld2017load, morton2016, lopez2021, currier2023, lasevicius2018 plus an implementation note. Methodology items 33–34.
 - Tour: Library and Settings steps mention the new exercises and the rep preference. Cache v12, package 1.8.0, tests/release18.test.js.
 
+## 2026-10-10 — Effort-aware progression and progressing routines — DONE (PR)
+Brady asked whether workouts progress automatically and scientifically. Programs and suggestions already used double progression; saved routines only copied last time's loads and logged RIR was ignored.
+- programs.js nextTarget: logged RIR (all sets rated, hardest set ≥ EASY=3 reps beyond target) gives +2 reps or two load steps (when ≤10% of load); such sessions don't count toward a reset.
+- training.js progressed(): routines run nextTarget with a one-rep range [reps,reps] and prefill load, reps and a note.
+- evidence: helms2018, graham2021, implementation note. Methodology item 35. tests/progression.test.js.
+
 ## 1.9.0 · calorie target follows Settings, bug sweep (2026-10-10)
 Brady reported that changing height, weight and similar Settings didn't change the calorie target. The target was a stored number (default 2000) that only changed when typed.
 - `profile.calorieMode` is `auto` (default) or `manual`. `syncCalorieTarget` (dist/science.js) runs before every save, on load, unlock and restore, and sets `calorieTarget` from `calorieGoal(state)` when automatic. Typing a number on the Calories page makes it manual ("Custom" pill); "Switch to automatic" returns. Older journals: a typed target stays manual, the 2000 default or an accepted maintenance estimate becomes automatic (validation.js `legacyCalorieMode`).
@@ -194,12 +200,16 @@ Brady reported that changing height, weight and similar Settings didn't change t
 - Sweep fixes: chart axes use round tick values and readable text on phones (charts kept a fixed 220 px box and shrank the drawing); weigh-in and cardio lists show 10 with "Show all"; plural fixes ("1 activity", "1 session", "1 set"); a 1RM hint when no set qualifies; plain wording for the formula's sex input; Settings no longer mentions a hosted app; About counts groups from data. Cache v13.
 - Known and left alone: Training's 1RM estimate only uses sets to failure (science.e1rm) while Goals counts reps in reserve (programs.estimate1rm). Flagged to the rep-preference work.
 - Muscle atlas zoom on phones (Brady: couldn't zoom the muscle map). The stage had `touch-action:none` and only +/− buttons. Now: two-finger pinch zooms around the fingers (up to 4×), double-tap zooms in or out, ctrl+wheel (trackpad pinch) on desktop, and at normal size a vertical swipe scrolls the page (`touch-action:pan-y`, switched to `none` once zoomed). anatomy.js `zoomAt`.
+- Brady (2026-10-10): progression changes must be a suggestion popup, never automatic. dist/steps.js: holdBack() starts program and suggested items at last time's load/reps and stores the target in item.suggest; routines attach item.suggest directly; offerSteps() shows one "Ready to step up?" popup at workout start (Use ticked / Keep last time's). Recovery weeks were already user-started.
+- One 1RM estimate: science.e1rm now adds logged RIR (unrated = 0), ≤12 total; programs.estimate1rm delegates to it, so Training and Goals agree.
+- Merged main 1.9.0; package 1.10.0, cache v14 (steps.js added), tour Training step mentions the popup.
+
 
 ## 1.11.0 · Progress page with graphs over time (2026-10-10)
 Brady asked for proper graphs over time of bodyweight, weight lifted, weight lifted per exercise and similar.
 - New page `#progress` (Track → Progress, dist/progress.js). Range buttons: 4 weeks, 3 months (default), 6 months, 1 year, all time (`ui.progressDays`, 0 = all).
 - Tiles: workouts, total weight lifted (load × reps of completed working sets on reps-load exercises), hard sets (completed non-warm-up sets of strength exercises), bodyweight change (7-day average, start to end). Finite ranges compare with the previous period of the same length.
 - Charts: bodyweight (weigh-ins as dots, 7-day average line, regression rate badge when ≥5 weigh-ins over ≥14 days); weight lifted per week; workouts and hard sets per week; per exercise heaviest set, estimated 1RM and weight lifted per day (two workouts on one day merge into one point); weekly sets per muscle (primary 1, secondary ½) with a shaded 6–10 (beginner) or 10–16 band from pelland2026/schoenfeld2017. Bins switch from weeks to calendar months past ~14 months; the muscle chart then shows the last 52 weeks.
-- 1RM uses `programs.estimate1rm` (Epley with reps in reserve), the estimate Goals uses, so it should match once Training is unified on it too.
+- 1RM uses `science.e1rm` (Epley with reps in reserve), the same estimate as Training and Goals.
 - `timeChart` in progress.js is separate from `ui.chart`: multi-series, real date axis, a cursor that follows tap/drag (touch-action pan-y keeps vertical scrolling), arrow keys/Home/End for keyboard, data table for screen readers. It picks a 360-wide viewBox on screens under 600 px so text stays readable.
-- Tour Track step lists Progress. Cache v14, package 1.11.0 (1.10.0 is the rep-preference release), tests/progress.test.js.
+- Tour Track step lists Progress. Cache v15, package 1.11.0 (1.10.0 is the rep-preference release), tests/progress.test.js.

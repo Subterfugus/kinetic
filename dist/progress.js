@@ -1,15 +1,14 @@
 // Progress: long-range charts of bodyweight, weight lifted, each exercise and weekly sets per muscle.
 // Charts are plain SVG drawn here; tap or drag across one to read the values for that date.
 import {exercises,exerciseById,groups} from './data.js';
-import {addDays,dayNumber,muscleStats,smoothWeight,regression,workSets} from './science.js';
+import {addDays,dayNumber,muscleStats,smoothWeight,regression,workSets,e1rm} from './science.js';
 import {TODAY} from './store.js';
-import {estimate1rm} from './programs.js';
 import {esc,btn,empty,select,num,metric} from './ui.js';
 
 export const RANGES=[[28,'4 weeks'],[91,'3 months'],[182,'6 months'],[365,'1 year'],[0,'All time']];
 
-// Estimated one-rep max: the app's shared estimate (Epley, counting reps in reserve) so it matches Goals.
-export const estimateMax=(load,reps,rir)=>estimate1rm(load,reps,rir);
+// Estimated one-rep max: the app's shared estimate (Epley, counting reps in reserve) so it matches Training and Goals.
+export const estimateMax=(load,reps,rir)=>e1rm(load,reps,rir);
 
 const loadSets=item=>exerciseById(item.exerciseId)?.tracking==='reps-load'?workSets(item).filter(s=>Number.isFinite(s.load)&&s.load>0&&s.reps>0):[];
 export const sessionVolume=session=>session.exercises.reduce((a,item)=>a+loadSets(item).reduce((b,s)=>b+s.load*s.reps,0),0);
