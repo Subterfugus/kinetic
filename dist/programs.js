@@ -216,6 +216,9 @@ export function nextTarget(slot,sessions,{units='metric',deload=false}={}){
  const tip=easy?' Your sets ended with about '+(spare+slot.rir)+' reps in reserve; go closer to '+slot.rir+'.':'';
  if(load===null||!loadable(e)){const top=low>=hi,aim=Math.min(hi,low+(easy?2:1));return {...base,load,reps:top?hi:aim,reason:top?'harder':'build',note:top?'You reached '+hi+' reps on every set. Add a set, slow the lowering, or move to a harder variation.':'Last time your lowest set was '+low+'. Aim for '+aim+' or more.'+tip}}
  const step=loadStep(e,units),big=step/load>.1,need=hi+(big?2:0);
+ // Every planned set has to reach the top before load goes up; a workout cut short repeats the load.
+ const complete=atLoad.length>=slot.sets;
+ if(low>=need&&!complete)return {...base,load,reps:hi,reason:'build',note:'Same load. Last time you did '+atLoad.length+' of '+slot.sets+' sets at it; finish all '+slot.sets+' at '+hi+' reps before adding weight.'};
  if(low>=need){
   // Clearly too light: two steps instead of one, as long as that is still a modest jump.
   const jump=easy&&2*step/load<=.1?2*step:step,next=roundTo(load+jump,step);

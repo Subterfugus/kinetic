@@ -45,3 +45,8 @@ test('Step-ups are offered, not applied: a held-back item starts at last time an
  assert.equal(item.targetLoad,30);assert.ok(item.sets.every(s=>s.load===30&&s.reps===11));
  assert.match(nextTarget({...slot,reps:[10,10]},[session('2026-10-01','dumbbell-bench',30,[10,10,10])]).note,/aim for 10\./);
 });
+
+test('A workout cut short does not trigger a load increase',()=>{
+ const t=nextTarget(slot,[session('2026-10-01','dumbbell-bench',30,[12])]);assert.equal(t.load,30);assert.equal(t.reason,'build');assert.match(t.note,/1 of 3 sets/);
+ assert.equal(nextTarget({...slot,sets:1},[session('2026-10-01','dumbbell-bench',30,[12])]).load,32);
+});
